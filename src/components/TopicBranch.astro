@@ -1,0 +1,14 @@
+---
+import { href } from '../lib/posts';
+import type { TopicNode } from '../lib/topics.mjs';
+interface Props { nodes: TopicNode[]; active?: string; inline?: boolean; nested?: boolean; rootsOnly?: boolean }
+const { nodes, active = '', inline = false, nested = false, rootsOnly = false } = Astro.props;
+---
+<ul class:list={['u-topic-tree', { 'u-topic-children': nested }]}>
+  {nodes.map(node => <li>
+    <a href={href(`/categories/${node.slug}/`)} data-topic-filter={inline ? node.path : undefined} data-topic-root={rootsOnly || undefined} aria-current={active === node.path ? 'true' : undefined}>
+      <span>{node.label}</span><span class="u-topic-count" aria-label={`${node.count} 篇`}>{node.count}</span>
+    </a>
+    {node.children.length > 0 && <Astro.self nodes={node.children} active={active} inline={inline} nested />}
+  </li>)}
+</ul>

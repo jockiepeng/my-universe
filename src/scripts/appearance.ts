@@ -74,12 +74,5 @@ window.addEventListener('storage', event => {
   try { appearance = normalizeAppearance(JSON.parse(event.newValue || 'null')); } catch { appearance = normalizeAppearance(null); } render();
 });
 
-document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach(button => button.addEventListener('click', () => {
-  const filter = button.dataset.filter;
-  document.querySelectorAll('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-  const posts = [...document.querySelectorAll<HTMLElement>('[data-post-list] [data-kind]')];
-  posts.forEach(post => { post.hidden = filter !== 'all' && post.dataset.kind !== filter; });
-  const empty = document.querySelector<HTMLElement>('[data-filter-empty]'); if (empty) empty.hidden = posts.some(post => !post.hidden);
-}));
 const toc = document.querySelector<HTMLDetailsElement>('.u-toc'); if (toc && matchMedia('(max-width:580px)').matches) toc.open = false;
 render();

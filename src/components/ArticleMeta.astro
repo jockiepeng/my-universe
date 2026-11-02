@@ -1,5 +1,5 @@
 ---
-import { formatDate, readingMinutes, categorySlug } from '../lib/content.mjs';
+import { formatDate, readingMinutes, categoryBreadcrumbs } from '../lib/content.mjs';
 import { href, type Post } from '../lib/posts';
 import PageViews from './PageViews.astro';
 interface Props { post: Post; showViews?: boolean }
@@ -7,7 +7,7 @@ const { post, showViews = false } = Astro.props;
 ---
 <div class="u-meta" data-pagefind-ignore>
   <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-  <a class="u-category" href={href(`/categories/${categorySlug(post.data.category)}/`)}>{post.data.category}</a>
+  <span class="u-category" aria-label="文章分类">{categoryBreadcrumbs(post.data.category).map((topic, index) => <>{index > 0 && <span class="u-category-separator" aria-hidden="true">/</span>}<a href={href(`/categories/${topic.slug}/`)}>{topic.label}</a></>)}</span>
   <span>{post.data.kind === 'photo' ? `贴图 · ${post.data.images.length} 张` : `约 ${readingMinutes(post.body)} 分钟`}</span>
   {showViews && <PageViews />}
   {post.data.example && <span class="u-example">示例内容</span>}

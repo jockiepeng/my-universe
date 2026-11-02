@@ -1,6 +1,4 @@
-export const categories = ['日常', '随想', '实践'];
-const categoryPaths = { 日常: 'daily', 随想: 'thoughts', 实践: 'practice' };
-export const categorySlug = category => categoryPaths[category];
+export { categories, categorySlug, categoryBreadcrumbs, matchesCategory, filterPosts, topicTree } from './topics.mjs';
 
 /** @template {{ id: string, data: { date: Date, draft?: boolean } }} T
  * @param {T[]} entries @param {boolean} includeDrafts @returns {T[]} */

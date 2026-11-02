@@ -2,7 +2,7 @@
 title: "Codex 反复重连 Reconnecting 的排查与配置参考"
 slug: codex-reconnecting-troubleshooting
 date: 2026-11-02
-category: 实践
+category: 技术/AI
 tags: [Codex, 网络排查, WebSocket, 配置]
 kind: post
 summary: "归档 Codex 反复 Reconnecting 的一种排查思路，整理 WebSocket、HTTPS Streaming 与 config.toml 配置示例，并保留原作者来源和未独立核验说明。"

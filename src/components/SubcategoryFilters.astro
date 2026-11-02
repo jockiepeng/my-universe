@@ -1,0 +1,10 @@
+---
+import { topicTree } from '../lib/topics.mjs';
+import { href, type Post } from '../lib/posts';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+---
+{topicTree(posts).map(root => <nav class="u-subcategory-filter" aria-label={`${root.label}的子分类`} data-subcategory-group={root.path} data-enhanced hidden>
+  <a href={href(`/categories/${root.slug}/`)} data-topic-filter={root.path}>全部</a>
+  {root.children.map(child => <a href={href(`/categories/${child.slug}/`)} data-topic-filter={child.path}>{child.label}</a>)}
+</nav>)}

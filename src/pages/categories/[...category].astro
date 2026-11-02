@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import TopicTree from '../../components/TopicTree.astro';
+import PostFilters from '../../components/PostFilters.astro';
+import { getPosts, href } from '../../lib/posts';
+import { topics, categoryBreadcrumbs, filterPosts } from '../../lib/topics.mjs';
+interface Props { category: string; legacyTarget: string }
+
+export const getStaticPaths: GetStaticPaths = () => [
+  ...topics.map(topic => ({ params: { category: topic.slug }, props: { category: topic.path, legacyTarget: '' } })),
+  ...Object.entries({ daily: 'life', thoughts: 'life', practice: 'technology' }).map(([old, target]) => ({
+    params: { category: old }, props: { category: '', legacyTarget: target },
+  })),
+];
+const { category, legacyTarget } = Astro.props;
+const allPosts = await getPosts();
+const topic = topics.find(topic => topic.path === category);
+const posts = filterPosts(allPosts, { category });
+const target = legacyTarget ? href(`/categories/${legacyTarget}/`) : '';
+---
+{legacyTarget ? <html lang="zh-CN">
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta http-equiv="refresh" content={`0;url=${target}`} /><meta name="robots" content="noindex" /><link rel="canonical" href={new URL(target, Astro.site)} /><title>分类已调整</title></head>
+  <body><p>分类已调整，<a href={target}>前往新的分类页面</a>。</p></body>
+</html> : <BaseLayout title={category.replaceAll('/', ' / ')}>
+  <header class="u-page-head">
+    <nav class="u-topic-breadcrumb" aria-label="分类路径"><a href={href('/')}>首页</a>{categoryBreadcrumbs(category).map(item => <><span aria-hidden="true">/</span><a href={href(`/categories/${item.slug}/`)} aria-current={item.path === category ? 'page' : undefined}>{item.label}</a></>)}</nav>
+    <h1>{category.replaceAll('/', ' / ')}</h1><p>{topic?.description}</p>
+  </header>
+  <div class="u-list-page u-topic-page" data-post-filter-scope data-default-category={category}>
+    <TopicTree posts={allPosts} active={category} />
+    <div class="u-section-head"><div class="u-list-heading"><h2>分类下的记录</h2><span class="u-result-count" data-filter-count role="status" data-enhanced>显示 {posts.length} 篇</span></div><PostFilters /></div>
+    <PostList posts={posts} filters />
+    <a class="u-more" href={href('/archive/')}>返回归档</a>
+  </div>
+</BaseLayout>}
+<script>
+  import '../../scripts/post-filters';
+</script>

@@ -3,11 +3,15 @@ import DailyQuote from './DailyQuote.astro';
 import PostList from './PostList.astro';
 import Pagination from './Pagination.astro';
 import Icon from './Icon.astro';
-import { categories, categorySlug } from '../lib/content.mjs';
+import TopicTree from './TopicTree.astro';
+import PostFilters from './PostFilters.astro';
+import SubcategoryFilters from './SubcategoryFilters.astro';
+import { topicTree } from '../lib/topics.mjs';
 import { href, type Post } from '../lib/posts';
 interface Props { posts: Post[]; allPosts: Post[]; current?: number; total: number }
 const { posts, allPosts, current = 1, total } = Astro.props;
 const tags = [...new Set(allPosts.flatMap(post => post.data.tags))].slice(0, 8);
+const rootTopics = topicTree(allPosts);
 ---
 {current === 1 ? <div class="u-hero u-home-hero">
   <div class="u-hero-copy">
@@ -17,17 +21,26 @@ const tags = [...new Set(allPosts.flatMap(post => post.data.tags))].slice(0, 8);
     <a class="u-game-link" href={href('/games/')}><span aria-hidden="true">⚄</span> 去玩个小游戏 <Icon name="external" size={14} /></a>
   </div>
 </div> : <header class="u-page-head"><h1>继续翻一翻</h1><p>第 {current} 页记录，沿着时间慢慢往前走。</p></header>}
-<div class="u-main-grid">
-  <section aria-labelledby="recent-title">
-    <DailyQuote />
-    <div class="u-section-head"><h2 id="recent-title">{current === 1 ? '最近记录' : '往日记录'}</h2><div class="u-filter" aria-label="筛选当前页内容" data-enhanced><button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="post" aria-pressed="false">文章</button><button type="button" data-filter="photo" aria-pressed="false">贴图</button></div></div>
-    <PostList posts={posts} filters />
-    <Pagination current={current} total={total} />
-    <a class="u-more" href={href('/archive/')}>去归档里逛逛 <Icon name="right" size={14} /></a>
-  </section>
-  <aside class="u-sidebar" aria-label="博客介绍与主题">
-    <section><h2>关于这片小宇宙</h2><p>不限定主题，<br />也不急着给出答案。<br />把值得记住的事情，<br />一点一点留在这里。</p></section>
-    <section><h2>沿着主题探索</h2><div class="u-topic-list">{categories.map((category, i) => <a href={href(`/categories/${categorySlug(category)}/`)}><span><span class="u-topic-mark"></span>{category}</span><span>{['生活的切片', '念头的轨迹', '摸索的经验'][i]}</span></a>)}</div></section>
-    {tags.length > 0 && <section><h2>最近关心的事</h2><div class="u-side-tags">{tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}>{tag}</a>)}</div></section>}
+<div class="u-home-layout" data-post-filter-scope data-filter-home>
+  <aside class="u-topic-sidebar" aria-label="一级分类">
+    <TopicTree posts={allPosts} inline rootsOnly />
   </aside>
+  <div class="u-main-grid">
+    <section aria-labelledby="recent-title">
+      <DailyQuote />
+      <div class="u-section-head"><div class="u-list-heading"><h2 id="recent-title">{current === 1 ? '最近记录' : '往日记录'}</h2><span class="u-result-count" data-filter-count role="status" data-enhanced>显示 {posts.length} 篇</span></div><PostFilters /></div>
+      <SubcategoryFilters posts={allPosts} />
+      <PostList posts={allPosts} initialIds={posts.map(post => post.id)} filters />
+      <Pagination current={current} total={total} />
+      <a class="u-more" href={href('/archive/')}>去归档里逛逛 <Icon name="right" size={14} /></a>
+    </section>
+    <aside class="u-sidebar" aria-label="博客介绍与主题">
+      <section><h2>关于这片小宇宙</h2><p>不限定主题，<br />也不急着给出答案。<br />把值得记住的事情，<br />一点一点留在这里。</p></section>
+      <section><h2>沿着主题探索</h2><div class="u-topic-list">{rootTopics.map(topic => <a href={href(`/categories/${topic.slug}/`)}><span><span class="u-topic-mark"></span>{topic.label}</span><span>{topic.path === '技术' ? '摸索的经验' : '生活的切片'}</span></a>)}</div></section>
+      {tags.length > 0 && <section><h2>最近关心的事</h2><div class="u-side-tags">{tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}>{tag}</a>)}</div></section>}
+    </aside>
+  </div>
 </div>
+<script>
+  import '../scripts/post-filters';
+</script>

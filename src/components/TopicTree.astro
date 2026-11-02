@@ -1,0 +1,15 @@
+---
+import TopicBranch from './TopicBranch.astro';
+import { topicTree } from '../lib/topics.mjs';
+import { href, type Post } from '../lib/posts';
+interface Props { posts: Post[]; active?: string; inline?: boolean; rootsOnly?: boolean }
+const { posts, active = '', inline = false, rootsOnly = false } = Astro.props;
+const nodes = topicTree(posts);
+---
+<nav class="u-topic-navigation" aria-label="分类筛选" data-topic-navigation>
+  <h2>按分类浏览</h2>
+  <a class="u-topic-all" href={href('/')} data-topic-filter={inline ? '' : undefined} aria-current={!active ? 'true' : undefined}>
+    <span>全部</span><span class="u-topic-count" aria-label={`${posts.length} 篇`}>{posts.length}</span>
+  </a>
+  <TopicBranch nodes={rootsOnly ? nodes.map(node => ({ ...node, children: [] })) : nodes} active={active} inline={inline} rootsOnly={rootsOnly} />
+</nav>

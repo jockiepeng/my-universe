@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { photoPostIssues } from './lib/photo-posts.mjs';
 import { publishedLoader } from './lib/published-loader.mjs';
+import { categories } from './lib/topics.mjs';
 
 const posts = defineCollection({
   loader: publishedLoader(glob({
@@ -14,7 +15,7 @@ const posts = defineCollection({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug 使用小写英文、数字与连接符'),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
-    category: z.enum(['日常', '随想', '实践']),
+    category: z.string().refine(value => categories.includes(value), '未知分类，请使用 src/lib/topics.mjs 中配置的完整分类路径'),
     tags: z.array(z.string().trim().min(1).regex(/^[^/\\?#%]+$/, '标签不包含 URL 路径保留字符')).default([]),
     kind: z.enum(['post', 'photo']).default('post'),
     summary: z.string().optional(),

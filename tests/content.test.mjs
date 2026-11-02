@@ -27,7 +27,7 @@ test('reading time counts Chinese characters and English words separately', () =
 });
 
 test('category URLs remain stable when displayed in Chinese', () => {
-  assert.equal(categorySlug('日常'), 'daily');
-  assert.equal(categorySlug('随想'), 'thoughts');
-  assert.equal(categorySlug('实践'), 'practice');
+  assert.equal(categorySlug('技术'), 'technology');
+  assert.equal(categorySlug('技术/AI'), 'technology/ai');
+  assert.equal(categorySlug('生活'), 'life');
 });

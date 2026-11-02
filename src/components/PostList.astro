@@ -2,11 +2,12 @@
 import ArticleMeta from './ArticleMeta.astro';
 import { summarize } from '../lib/content.mjs';
 import { href, postHref, type Post } from '../lib/posts';
-interface Props { posts: Post[]; filters?: boolean }
-const { posts, filters = false } = Astro.props;
+interface Props { posts: Post[]; filters?: boolean; initialIds?: string[] }
+const { posts, filters = false, initialIds } = Astro.props;
+const initial = initialIds ? new Set(initialIds) : undefined;
 ---
 <div class="u-post-list" data-post-list>
-  {posts.map(post => <article class="u-post" data-kind={post.data.kind}>
+  {posts.map(post => <article class="u-post" data-kind={post.data.kind} data-category={post.data.category} data-initial={String(!initial || initial.has(post.id))} hidden={initial && !initial.has(post.id)}>
     <div>
       <ArticleMeta post={post} />
       <h3><a href={postHref(post)}>{post.data.title}</a></h3>
@@ -15,5 +16,5 @@ const { posts, filters = false } = Astro.props;
     </div>
   </article>)}
   {posts.length === 0 && <p class="u-empty">这里还没有文章，过段时间再来看看。</p>}
-  {filters && <p class="u-empty" data-filter-empty hidden>这一页暂时没有这类记录，可以切换筛选或去归档看看。</p>}
+  {filters && <p class="u-empty" data-filter-empty hidden>当前分类下没有这类内容，试试其他分类或切换到“全部”。</p>}
 </div>
