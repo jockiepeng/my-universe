@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { publishedPosts } from './content.mjs';
 import { withBase } from './paths.mjs';
+import { validatePhotoBody } from './photo-posts.mjs';
 
 export type Post = CollectionEntry<'posts'>;
 export const href = (path = '/') => withBase(path, import.meta.env.BASE_URL);
@@ -10,6 +11,7 @@ export async function getPosts() {
   const entries = await getCollection('posts');
   const slugs = new Set<string>();
   for (const entry of entries) {
+    if (entry.data.kind === 'photo') validatePhotoBody(entry.body, entry.id);
     if (slugs.has(entry.data.slug)) throw new Error(`文章 slug 重复：${entry.data.slug}`);
     slugs.add(entry.data.slug);
   }

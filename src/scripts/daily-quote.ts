@@ -10,9 +10,7 @@ if (section) {
     const result = getDailyQuote(quotes);
     if (lastDate !== result.dateKey) {
       section!.querySelector<HTMLElement>('[data-quote-text]')!.textContent = result.quote?.text || '留一点空白，等待下一段话。';
-      section!.querySelector<HTMLElement>('[data-quote-source]')!.textContent = result.quote?.source || '';
-      const date = section!.querySelector<HTMLTimeElement>('[data-quote-date]')!;
-      date.dateTime = result.dateKey; date.textContent = result.dateKey.replaceAll('-', '.');
+      section!.dataset.quoteDay = result.dateKey;
       section!.dataset.quoteId = result.quote?.id || '';
       lastDate = result.dateKey;
     }
