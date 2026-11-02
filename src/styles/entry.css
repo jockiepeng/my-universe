@@ -1,0 +1,42 @@
+html[data-entry="open"] { overflow:hidden; }
+html[data-entry="open"] :is(.u-header-shell,.u-page,.u-footer-shell,.u-skip) { visibility:hidden; }
+.u-entry-gate { position:fixed; inset:0; z-index:50; color:#edf3f8; background:radial-gradient(ellipse at 50% 42%,#02061500 10%,#02061588 100%); transition:opacity .5s,transform .5s; }
+.u-entry-gate.is-leaving { opacity:0; transform:scale(1.025); pointer-events:none; }
+.u-entry-particles { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.u-entry-skip { position:absolute; right:30px; top:max(25px,env(safe-area-inset-top)); padding:10px 17px; color:#d1dce5; background:#0307134d; border:1px solid #e8f4ff40; border-radius:24px; font-size:12px !important; z-index:2; }
+.u-entry-skip:hover { background:#e8f4ff14; }
+.u-entry-inner { position:absolute; left:20px; right:20px; top:45%; transform:translateY(-50%); text-align:center; }
+.u-entry-welcome { color:#dcecf4ba; font-size:12px; letter-spacing:.23em; margin:0 0 24px; min-height:18px; }
+.u-entry-gate h2 { font-size:clamp(30px,6.3vw,88px); font-weight:500; letter-spacing:.015em; line-height:1.4; margin:0; opacity:0; transform:translateY(12px); filter:blur(9px); transition:opacity 1.2s,transform 1.2s,filter 1.2s; text-shadow:0 4px 60px #0008; white-space:nowrap; }
+.u-entry-gate.is-revealed h2 { opacity:1; transform:translateY(0); filter:none; }
+.u-entry-sub { font-size:14px; letter-spacing:.14em; color:#c4d8e6; line-height:2; opacity:0; transition:opacity 1s; margin:22px 0 34px; }
+.u-entry-gate.is-revealed .u-entry-sub { opacity:1; }
+.u-entry-enter { display:inline-flex; align-items:center; gap:24px; background:#e4eff3; color:#0a172b; border:1px solid #fff8; padding:15px 27px; border-radius:30px; font-size:14px !important; box-shadow:0 0 40px #c2ebf729; opacity:0; transform:translateY(10px); transition:opacity .8s,transform .8s,background .2s; }
+.u-entry-enter[hidden] { display:inline-flex !important; visibility:hidden; }
+.u-entry-gate.is-ready .u-entry-enter { opacity:1; transform:translateY(0); }
+.u-entry-enter:hover { background:#fff; }
+.u-entry-enter span { font-size:20px; line-height:1; }
+.u-entry-note { color:#bbd5e580; font-size:11px; margin:20px 0 0; opacity:0; transition:opacity 1s; }
+.u-entry-gate.is-ready .u-entry-note { opacity:1; }
+.u-entry-portal { position:absolute; left:50%; top:44%; width:min(47vw,430px); aspect-ratio:1; transform:translate(-50%,-50%); pointer-events:none; opacity:0; }
+.u-entry-gate[data-opening="portal"]:not(.is-ready) .u-entry-portal { animation:u-gate-arrive 4.3s both; }
+.u-entry-portal:before,.u-entry-portal:after { content:""; position:absolute; inset:0; border-radius:50%; border:2px solid #d8ffffa6; box-shadow:0 0 30px #a4eaff77,inset 0 0 45px #a4eaff55; transform:rotateX(25deg); }
+.u-entry-portal:after { inset:12%; border:1px dashed #fff6; box-shadow:0 0 45px #80a9ee55; animation:u-gate-orbit 6s linear infinite; }
+@keyframes u-gate-orbit { to { transform:rotate(180deg); } }
+@keyframes u-gate-arrive { 0%{opacity:0;transform:translate(-50%,-50%) scale(.05) rotate(-70deg)}20%{opacity:1}55%{opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(4) rotate(40deg)} }
+html[data-motion="off"] .u-entry-portal,html[data-motion="off"] .u-entry-portal:after { animation:none !important; }
+html[data-motion="off"] :is(.u-entry-gate,.u-entry-gate h2,.u-entry-sub,.u-entry-enter,.u-entry-note) { transition:none; }
+html.u-paused .u-entry-portal,html.u-paused .u-entry-portal:after { animation-play-state:paused; }
+@media(max-width:580px) {
+  .u-entry-skip { top:max(20px,env(safe-area-inset-top)); right:20px; font-size:11px !important; padding:9px 13px; }
+  .u-entry-inner { top:44%; left:16px; right:16px; }
+  .u-entry-gate h2 { font-size:clamp(27px,7.5vw,43px); }
+  .u-entry-welcome { font-size:10px; margin-bottom:20px; }
+  .u-entry-sub { font-size:12px; margin:18px 0 30px; }
+  .u-entry-enter { padding:13px 24px; gap:18px; }
+  .u-entry-portal { width:70vw; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .u-entry-gate,.u-entry-gate h2,.u-entry-sub,.u-entry-enter,.u-entry-note { transition:none; }
+  .u-entry-portal,.u-entry-portal:after { animation:none !important; }
+}

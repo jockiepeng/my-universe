@@ -26,7 +26,7 @@ async function getSearch() {
 
 async function search(query: string, id: number) {
   if (!status || !results) return;
-  if (!query) { results.replaceChildren(); status.textContent = '输入关键词，搜索文章与短记。'; return; }
+  if (!query) { results.replaceChildren(); status.textContent = '输入关键词，搜索文章与贴图。'; return; }
   status.textContent = '正在找找相关记录…';
   try {
     const module = await getSearch();

@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import ArticleMeta from './ArticleMeta.astro';
 import { summarize } from '../lib/content.mjs';
 import { href, postHref, type Post } from '../lib/posts';
@@ -7,13 +6,11 @@ interface Props { posts: Post[]; filters?: boolean }
 const { posts, filters = false } = Astro.props;
 ---
 <div class="u-post-list" data-post-list>
-  {posts.map(post => <article class:list={['u-post', { 'u-short': post.data.kind === 'note' }]} data-kind={post.data.kind}>
-    {post.data.kind === 'note' && <span class="u-note-dot" aria-hidden="true"></span>}
+  {posts.map(post => <article class="u-post" data-kind={post.data.kind}>
     <div>
       <ArticleMeta post={post} />
-      {post.data.kind !== 'note' && <h3><a href={postHref(post)}>{post.data.title}</a></h3>}
-      <p>{post.data.kind === 'note' ? <a href={postHref(post)} aria-label={`阅读短记：${post.data.title}`}>{post.data.summary || summarize(post.body, 150)}</a> : post.data.summary || summarize(post.body)}</p>
-      {post.data.cover && <a href={postHref(post)} class="u-cover-link"><Image src={post.data.cover} alt={post.data.coverAlt || post.data.title} width={700} loading="lazy" class="u-post-cover" /></a>}
+      <h3><a href={postHref(post)}>{post.data.title}</a></h3>
+      <p>{post.data.summary || summarize(post.body)}</p>
       {post.data.tags.length > 0 && <div class="u-tags">{post.data.tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}># {tag}</a>)}</div>}
     </div>
   </article>)}

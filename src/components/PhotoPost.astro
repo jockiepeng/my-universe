@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import type { Post } from '../lib/posts';
+interface Props { post: Post }
+const { post } = Astro.props;
+const pictures = post.data.images;
+---
+<div class="u-photo-post">
+  <section class="u-photo-carousel" data-photo-carousel aria-label={`${post.data.title}的图片`} data-pagefind-ignore>
+    <div class="u-photo-track" data-photo-track tabindex="0" role="group" aria-roledescription="轮播图" aria-label={`共 ${pictures.length} 张图片，可左右滑动查看`}>
+      {pictures.map((picture, index) => <div class="u-photo-slide" role="group" aria-roledescription="图片" aria-label={`第 ${index + 1} 张，共 ${pictures.length} 张`}>
+        <a href={picture.src.src} target="_blank" rel="noopener noreferrer" aria-label={`查看原图 ${index + 1}：${picture.alt}`}>
+          <Image src={picture.src} alt={picture.alt} width={960} widths={[320, 640, 960]} sizes="(max-width: 760px) 90vw, 680px" loading={index === 0 ? 'eager' : 'lazy'} />
+        </a>
+      </div>)}
+    </div>
+    {pictures.length > 1 && <div class="u-photo-navigation">
+      <p class="u-photo-hint">左右滑动查看图片</p>
+      <div class="u-photo-controls" data-photo-controls hidden>
+        <button type="button" data-photo-prev aria-label="上一张图片" disabled><Icon name="left" size={16} /></button>
+        <span class="u-photo-count" aria-live="polite" aria-atomic="true"><span data-photo-position>1</span> / {pictures.length}</span>
+        <button type="button" data-photo-next aria-label="下一张图片"><Icon name="right" size={16} /></button>
+      </div>
+    </div>}
+  </section>
+  <div class="u-photo-text">{post.body?.trim()}</div>
+</div>
+
+<style>
+  .u-photo-post { margin-top:24px; min-width:0; }
+  .u-photo-carousel { max-width:680px; }
+  .u-photo-track { display:flex; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; scrollbar-width:thin; scrollbar-color:var(--u-line) transparent; border-radius:8px; background:var(--u-soft); }
+  .u-photo-track:focus-visible { outline:2px solid var(--u-link); outline-offset:4px; }
+  .u-photo-slide { flex:0 0 100%; min-width:0; scroll-snap-align:start; scroll-snap-stop:always; }
+  .u-photo-slide a { display:block; width:100%; height:clamp(240px,58vw,480px); }
+  .u-photo-slide a:focus-visible { outline:2px solid var(--u-link); outline-offset:-4px; }
+  .u-photo-slide img { display:block; width:100%; height:100%; object-fit:contain; }
+  .u-photo-navigation { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; min-height:36px; }
+  .u-photo-hint { margin:0; color:var(--u-muted); font-size:12px; line-height:1.7; }
+  .u-photo-controls { display:flex; align-items:center; gap:10px; }
+  .u-photo-controls button { display:grid; place-items:center; width:36px; height:36px; padding:0; border:1px solid var(--u-line); border-radius:50%; color:var(--u-text); background:var(--u-paper); }
+  .u-photo-controls button:hover:not(:disabled) { color:var(--u-link); border-color:var(--u-link); }
+  .u-photo-controls button:disabled { opacity:.35; cursor:default; }
+  .u-photo-count { min-width:34px; text-align:center; font-size:12px; color:var(--u-muted); font-variant-numeric:tabular-nums; }
+  .u-photo-text { margin-top:22px; overflow-wrap:anywhere; white-space:pre-wrap; font-size:var(--u-reading-size,17px); line-height:1.95; color:var(--u-text); }
+  .u-photo-text:empty { display:none; }
+  @media (pointer:coarse) { .u-photo-controls button { width:44px; height:44px; } }
+</style>
+
+<script>
+  import '../scripts/photo-carousel';
+</script>

@@ -3,6 +3,9 @@ import Icon from './Icon.astro';
 import CalendarClock from './CalendarClock.astro';
 import { href } from '../lib/posts';
 import { siteConfig } from '../site.config';
+import { scenePresets, openingPresets } from '../lib/motion.mjs';
+interface Props { home?: boolean }
+const { home = false } = Astro.props;
 const pathname = Astro.url.pathname;
 const nav = [{ path: '/', label: '首页' }, { path: '/archive/', label: '归档' }, { path: '/about/', label: '关于我' }];
 ---
@@ -16,14 +19,15 @@ const nav = [{ path: '/', label: '首页' }, { path: '/archive/', label: '归档
   </nav>
   <div class="u-actions" data-enhanced>
     <div class="u-scene-control">
-      <button class="u-icon u-scene-trigger" type="button" data-scene-toggle aria-label="切换背景" aria-expanded="false" aria-controls="scene-picker"><Icon name="image" /><span data-scene-label>深空</span></button>
+      <button class="u-icon u-scene-trigger" type="button" data-scene-toggle aria-label="切换背景" aria-expanded="false" aria-controls="scene-picker"><Icon name="image" /><span data-scene-label>星系</span></button>
       <div class="u-scene-picker" id="scene-picker" hidden>
         <p class="u-scene-heading">换个风景，继续记录</p>
         <div class="u-scene-options" role="group" aria-label="选择背景场景">
-          <button type="button" class="u-scene-option" data-scene-option="space" aria-pressed="true"><span class="u-scene-thumb space" aria-hidden="true"></span><strong>深空</strong><small>星点与缓慢的轨道</small></button>
-          <button type="button" class="u-scene-option" data-scene-option="beach" aria-pressed="false"><span class="u-scene-thumb beach" aria-hidden="true"></span><strong>沙滩</strong><small>海风与轻轻的潮汐</small></button>
+          {scenePresets.map(scene => <button type="button" class="u-scene-option" data-scene-option={scene.id} aria-pressed="false"><span class={`u-scene-thumb ${scene.id}`} aria-hidden="true"></span><strong>{scene.name}</strong><small>{scene.description}</small></button>)}
         </div>
-        <p class="u-scene-picker-note">背景与深浅色可以自由搭配，选择会保存在当前浏览器。</p>
+        {home && <><p class="u-scene-heading u-opening-heading">开场方式</p><div class="u-opening-options" role="group" aria-label="选择开场方式">{openingPresets.map(opening => <button type="button" data-opening-option={opening.id} aria-pressed="false">{opening.name}</button>)}</div><button class="u-entry-replay" type="button" data-intro-replay>重播开场</button></>}
+        <button class="u-scene-daily" type="button" data-motion-daily aria-pressed="true">恢复今日自动组合</button>
+        <p class="u-scene-picker-note" data-scene-status>按北京时间日期尾号自动选择</p>
       </div>
     </div>
     <button class="u-icon" type="button" data-search-open aria-label="搜索文章" aria-controls="site-search" aria-haspopup="dialog"><Icon name="search" /></button>

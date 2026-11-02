@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import SearchDialog from '../components/SearchDialog.astro';
 import BackToTop from '../components/BackToTop.astro';
 import HomeScene from '../components/HomeScene.astro';
+import EntryGate from '../components/EntryGate.astro';
 import { siteConfig } from '../site.config';
 import { href } from '../lib/posts';
 import '../styles/global.css';
@@ -11,9 +12,10 @@ interface Props { title?: string; description?: string; article?: boolean; noInd
 const { title, description = siteConfig.description, article = false, noIndex = false, image, home = false } = Astro.props;
 const pageTitle = title ? `${title} · ${siteConfig.title}` : siteConfig.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const showEntry = home && Astro.url.pathname === href('/');
 ---
 <!doctype html>
-<html id="page-top" lang="zh-CN" data-scene="space" data-theme="auto" data-motion="on">
+<html id="page-top" lang="zh-CN" data-scene="galaxy" data-opening="particles" data-theme="auto" data-motion="on">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,21 +31,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     {image && <meta property="og:image" content={new URL(image, Astro.site).href} />}
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <script is:inline>
-      (()=>{const el=document.documentElement;el.classList.add('js');try{const data=JSON.parse(localStorage.getItem('little-universe-appearance-v1')||'null');if(data&&typeof data==='object'){if(['space','beach'].includes(data.scene))el.dataset.scene=data.scene;if(['auto','light','dark'].includes(data.theme)){el.dataset.theme=data.theme;el.style.colorScheme=data.theme==='auto'?'light dark':data.theme;}if(data.motion===false)el.dataset.motion='off';}}catch{}if(matchMedia('(prefers-reduced-motion:reduce)').matches)el.dataset.motion='off';})();
+      (()=>{const el=document.documentElement;el.classList.add('js');try{const data=JSON.parse(localStorage.getItem('little-universe-appearance-v1')||'null');if(data&&typeof data==='object'){if(['auto','light','dark'].includes(data.theme)){el.dataset.theme=data.theme;el.style.colorScheme=data.theme==='auto'?'light dark':data.theme;}if(data.motion===false)el.dataset.motion='off';}}catch{}if(matchMedia('(prefers-reduced-motion:reduce)').matches)el.dataset.motion='off';})();
     </script>
   </head>
   <body class="universe" data-home={home || undefined} data-production-origin={Astro.site?.origin}>
     {home && <HomeScene />}
     <a class="u-skip" href="#main-content">跳到正文</a>
-    <Header />
+    <Header home={showEntry} />
     <div class="u-page">
       <div class="u-wrap">
-        <main id="main-content"><slot /></main>
+        <main id="main-content" tabindex="-1"><slot /></main>
       </div>
     </div>
     <Footer />
     {article && <BackToTop />}
     <SearchDialog />
+    {showEntry && <EntryGate />}
     <script>
       import '../scripts/appearance';
       import '../scripts/fixed-bars';

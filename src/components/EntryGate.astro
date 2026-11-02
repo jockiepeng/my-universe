@@ -1,0 +1,19 @@
+---
+import { siteConfig } from '../site.config';
+import '../styles/entry.css';
+---
+<section class="u-entry-gate" data-entry-gate data-state="closed" hidden role="dialog" aria-modal="true" aria-labelledby="entry-title" data-pagefind-ignore>
+  <canvas class="u-entry-particles" data-entry-particles aria-hidden="true"></canvas>
+  <div class="u-entry-portal" aria-hidden="true"></div>
+  <button class="u-entry-skip" type="button" data-entry-skip>跳过开场</button>
+  <div class="u-entry-inner">
+    <p class="u-entry-welcome" data-entry-welcome>让每一个念头，都有自己的轨道</p>
+    <h2 id="entry-title">{siteConfig.title}</h2>
+    <p class="u-entry-sub">记录生活，也探索未知。</p>
+    <button class="u-entry-enter" type="button" data-entry-enter hidden>进入博客 <span aria-hidden="true">↗</span></button>
+    <p class="u-entry-note">开场结束后，由你决定何时启程</p>
+  </div>
+</section>
+<script>
+  import '../scripts/entry-gate';
+</script>
