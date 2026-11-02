@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleMeta from '../../components/ArticleMeta.astro';
+import Comments from '../../components/Comments.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, href, postHref, type Post } from '../../lib/posts';
+import { summarize, formatDate } from '../../lib/content.mjs';
+export async function getStaticPaths() {
+  return (await getPosts()).map(post => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+interface Props { post: Post }
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const posts = await getPosts();
+const index = posts.findIndex(entry => entry.id === post.id);
+const newer = posts[index - 1];
+const older = posts[index + 1];
+const toc = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
+const comments = post.data.comments ?? post.data.kind === 'post';
+---
+<BaseLayout title={post.data.title} description={post.data.summary || summarize(post.body, 150)} article noIndex={post.data.draft} image={post.data.cover?.src}>
+  <a class="u-back" href={href('/')}><Icon name="left" size={14} />返回首页</a>
+  <div class:list={['u-article-layout', { 'u-no-toc': toc.length === 0 }]}>
+    <article class="u-article" data-pagefind-body>
+      <header class="u-article-head"><h1 data-pagefind-meta="title">{post.data.title}</h1><ArticleMeta post={post} showViews={!post.data.draft} />{post.data.updated && <p class="u-updated" data-pagefind-ignore>更新于 {formatDate(post.data.updated)}</p>}</header>
+      <div class="u-article-content">
+        {post.data.cover && <Image src={post.data.cover} alt={post.data.coverAlt || post.data.title} width={1000} class="u-article-cover" />}
+        <div class="u-article-body"><Content /></div>
+        {post.data.tags.length > 0 && <div class="u-article-tags" data-pagefind-ignore>{post.data.tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}># {tag}</a>)}</div>}
+        <nav class="u-post-neighbors" aria-label="继续阅读" data-pagefind-ignore>
+          {newer && <a class="u-next" href={postHref(newer)} rel="prev"><span>上一篇</span><p>{newer.data.title}</p></a>}
+          {older && <a class="u-next" href={postHref(older)} rel="next"><span>下一篇</span><p>{older.data.title}</p></a>}
+        </nav>
+        {comments && !post.data.draft && <Comments />}
+      </div>
+    </article>
+    {toc.length > 0 && <details class="u-toc" open><summary>这篇文章里</summary><ol>{toc.map(heading => <li class:list={{ 'u-toc-child': heading.depth === 3 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></details>}
+  </div>
+  <script>
+    import '../../scripts/article-services';
+  </script>
+</BaseLayout>

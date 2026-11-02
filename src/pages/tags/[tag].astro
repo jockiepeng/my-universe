@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, href } from '../../lib/posts';
+export async function getStaticPaths() {
+  const tags = [...new Set((await getPosts()).flatMap(post => post.data.tags))];
+  return tags.map(tag => ({ params: { tag }, props: { tag } }));
+}
+const { tag } = Astro.props;
+const posts = (await getPosts()).filter(post => post.data.tags.includes(tag));
+---
+<BaseLayout title={`标签：${tag}`}><header class="u-page-head"><h1># {tag}</h1><p>围绕这个话题留下的记录。</p></header><div class="u-list-page"><PostList posts={posts} /><a class="u-more" href={href('/archive/')}>返回归档</a></div></BaseLayout>

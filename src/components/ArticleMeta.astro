@@ -1,0 +1,15 @@
+---
+import { formatDate, readingMinutes, categorySlug } from '../lib/content.mjs';
+import { href, type Post } from '../lib/posts';
+import PageViews from './PageViews.astro';
+interface Props { post: Post; showViews?: boolean }
+const { post, showViews = false } = Astro.props;
+---
+<div class="u-meta" data-pagefind-ignore>
+  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+  <a class="u-category" href={href(`/categories/${categorySlug(post.data.category)}/`)}>{post.data.category}</a>
+  <span>{post.data.kind === 'note' ? '短记' : `约 ${readingMinutes(post.body)} 分钟`}</span>
+  {showViews && <PageViews />}
+  {post.data.example && <span class="u-example">示例内容</span>}
+  {post.data.draft && <span class="u-draft">草稿 · 仅本地预览</span>}
+</div>

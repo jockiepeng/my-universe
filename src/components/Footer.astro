@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+import { href } from '../lib/posts';
+---
+<footer class="u-footer" data-pagefind-ignore>
+  <span>个人小宇宙 · 慢慢写，慢慢生长。</span>
+  <div class="u-footer-tools">
+    <a class="u-rss" href={href('/rss.xml')} aria-label="订阅 RSS"><Icon name="rss" size={13} /> RSS</a>
+    <span>Astro · GitHub Pages</span>
+    <button type="button" class="u-motion" aria-pressed="true" data-motion-toggle data-enhanced><Icon name="sparkles" size={13} /><span data-motion-label>背景动态：开</span></button>
+  </div>
+</footer>

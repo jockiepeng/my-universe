@@ -1,0 +1,524 @@
+<style>
+#universe-preview { width:100%; }
+#universe-preview * { box-sizing:border-box; }
+#universe-preview [hidden] { display:none !important; }
+#universe-preview .up-controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding:0 100px 16px 0; }
+#universe-preview .up-hint { color:var(--muted-foreground); font-size:12px; }
+#universe-preview .up-frame { width:100%; margin-inline:auto; transition:max-width .25s ease; }
+#universe-preview .up-frame.is-mobile { max-width:390px; }
+#universe-preview .universe {
+  --u-bg:light-dark(#f6f8fc,#101d35); --u-paper:light-dark(#ffffff,#172740);
+  --u-text:light-dark(#22324a,#e8edf5); --u-muted:light-dark(#5d6d83,#a6b4ca);
+  --u-line:light-dark(#dce3ed,#2c3d57); --u-link:light-dark(#315c9d,#9bc4ff);
+  --u-star:light-dark(#7094c5,#b3d3ff); --u-warm:light-dark(#ad7938,#e8c992);
+  --u-soft:light-dark(#eaf0f8,#1c304e); --u-reading-size:17px; --u-content-width:680px;
+  font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--u-text); background:var(--u-bg); position:relative; isolation:isolate;
+  container-type:inline-size; container-name:universe; min-width:0;
+  border:1px solid var(--u-line); border-radius:12px; overflow:clip;
+}
+#universe-preview .universe:before { content:""; position:absolute; inset:0 0 auto; height:440px; pointer-events:none; z-index:-1; background:radial-gradient(ellipse at 85% 25%,color-mix(in srgb,var(--u-star) 9%,transparent),transparent 60%); }
+#universe-preview .universe[data-scene="beach"] {
+  --u-bg:light-dark(#f7f7f0,#142e38); --u-paper:light-dark(#fffdf7,#1b3943);
+  --u-text:light-dark(#293e40,#e6f0ed); --u-muted:light-dark(#5e7475,#adbfbd);
+  --u-line:light-dark(#d8e2dc,#36535b); --u-link:light-dark(#246b76,#9cdbda);
+  --u-star:light-dark(#6ba7b0,#99cbd2); --u-warm:light-dark(#c19751,#e9cb92);
+  --u-soft:light-dark(#e9f0ea,#23454e);
+  --u-sky:light-dark(#d8edf0,#244b5d); --u-sea:light-dark(#7db9c3,#397481);
+  --u-sand:light-dark(#e6d6b3,#827c67); --u-foam:light-dark(#f8ffff,#bedadd);
+}
+#universe-preview .universe[data-scene="beach"]:before { background:linear-gradient(165deg,color-mix(in srgb,var(--u-sky) 50%,transparent),transparent 58%),radial-gradient(ellipse at 90% 5%,color-mix(in srgb,var(--u-warm) 13%,transparent),transparent 65%); }
+#universe-preview .universe button, #universe-preview .universe input { font:inherit; }
+#universe-preview .universe button { cursor:var(--cursor-interaction,pointer); }
+#universe-preview .universe a { color:inherit; text-decoration:none; cursor:var(--cursor-interaction,pointer); }
+#universe-preview .universe button:focus-visible, #universe-preview .universe a:focus-visible { outline:2px solid var(--u-link); outline-offset:5px; }
+#universe-preview .u-wrap { width:calc(100% - 88px); max-width:1060px; margin-inline:auto; }
+#universe-preview .u-header { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:83px; border-bottom:1px solid var(--u-line); position:relative; z-index:2; }
+#universe-preview .u-brand { display:flex; align-items:center; gap:10px; font-size:17px; font-weight:600; white-space:nowrap; }
+#universe-preview .u-mark { width:26px; height:26px; display:inline-block; position:relative; color:var(--u-link); }
+#universe-preview .u-mark:before { content:""; position:absolute; inset:6px -1px; border:1.3px solid currentColor; border-radius:50%; transform:rotate(-36deg); }
+#universe-preview .u-mark:after { content:""; position:absolute; left:10px; top:9px; height:8px; width:8px; background:currentColor; border-radius:50%; box-shadow:10px -4px 0 -2px var(--u-warm); }
+#universe-preview .u-nav { display:flex; align-items:center; gap:25px; font-size:13px; color:var(--u-muted); }
+#universe-preview .u-nav a { padding:10px 0; position:relative; }
+#universe-preview .u-nav a[aria-current="page"] { color:var(--u-text); }
+#universe-preview .u-nav a[aria-current="page"]:after { content:""; position:absolute; bottom:0; left:calc(50% - 2px); width:4px; height:4px; border-radius:50%; background:var(--u-link); }
+#universe-preview .u-actions { display:flex; gap:6px; align-items:center; position:relative; }
+#universe-preview .u-icon { border:0; background:transparent; color:var(--u-muted); min-width:32px; min-height:34px; display:inline-flex; justify-content:center; align-items:center; gap:5px; border-radius:6px; padding:7px; }
+#universe-preview .u-icon:hover { background:var(--u-soft); color:var(--u-text); }
+#universe-preview .u-icon svg { width:17px; height:17px; }
+#universe-preview .u-scene-control { position:static; }
+#universe-preview .u-scene-trigger { font-size:12px !important; gap:7px; padding-inline:9px; white-space:nowrap; border:1px solid var(--u-line); }
+#universe-preview .u-scene-picker { position:absolute; top:calc(100% + 12px); right:0; width:min(276px,calc(100cqi - 40px)); padding:17px; border:1px solid var(--u-line); border-radius:10px; background:var(--u-paper); box-shadow:0 12px 35px color-mix(in srgb,var(--u-text) 13%,transparent); z-index:5; }
+#universe-preview .u-scene-heading { font-size:13px; margin:0 0 13px; font-weight:550; }
+#universe-preview .u-scene-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+#universe-preview .u-scene-option { color:var(--u-text); background:var(--u-bg); border:1px solid var(--u-line); border-radius:7px; text-align:left; padding:8px; min-width:0; }
+#universe-preview .u-scene-option[aria-pressed="true"] { border-color:var(--u-link); box-shadow:0 0 0 1px var(--u-link); }
+#universe-preview .u-scene-option strong { display:block; font-size:12px; font-weight:550; margin-top:9px; }
+#universe-preview .u-scene-option small { display:block; font-size:10px; color:var(--u-muted); margin-top:5px; }
+#universe-preview .u-scene-thumb { display:block; height:52px; border-radius:4px; position:relative; overflow:hidden; }
+#universe-preview .u-scene-thumb.space { background:radial-gradient(circle at 30% 28%,#d6e7ff 0 1px,transparent 1.5px),radial-gradient(circle at 78% 42%,#e7c891 0 2px,transparent 3px),radial-gradient(circle at 62% 70%,#a4c6f0 0 1px,transparent 1.5px),linear-gradient(140deg,#172d4b,#0c1a30); }
+#universe-preview .u-scene-thumb.space:after { content:""; position:absolute; inset:12px 8px; border:1px solid #8ba8ce66; border-radius:50%; transform:rotate(-25deg); }
+#universe-preview .u-scene-thumb.beach { background:radial-gradient(circle at 70% 27%,#fff1c8 0 5px,transparent 6px),linear-gradient(#b5dce5 0 54%,#72b4c0 54% 76%,#f1edda 77% 81%,#e7d6b4 82%); }
+#universe-preview .u-scene-picker-note { margin:13px 0 0; font-size:11px; line-height:1.8; color:var(--u-muted); }
+#universe-preview .u-hero { display:grid; grid-template-columns:1.2fr 1fr; align-items:center; gap:25px; min-height:305px; padding:38px 0 30px; }
+#universe-preview .u-hero h1 { font-size:clamp(30px,4.2cqi,43px); line-height:1.5; letter-spacing:.015em; font-weight:550; margin:0 0 18px; }
+#universe-preview .u-hero p { color:var(--u-muted); font-size:14px; line-height:1.95; margin:0; }
+#universe-preview .u-hero .u-intro-link { display:inline-flex; align-items:center; gap:8px; margin-top:21px; color:var(--u-link); font-size:13px; }
+#universe-preview .u-intro-link svg { width:14px; height:14px; }
+#universe-preview .u-cosmos { min-height:225px; position:relative; display:grid; place-items:center; }
+#universe-preview .u-space-scene { position:absolute; inset:0; display:grid; place-items:center; }
+#universe-preview .u-beach-scene { position:absolute; width:86%; height:178px; top:13px; left:7%; border-radius:95px 95px 16px 16px; overflow:hidden; background:linear-gradient(var(--u-sky) 0 55%,var(--u-sea) 55% 85%,var(--u-sand) 85%); }
+#universe-preview .u-beach-sun { position:absolute; width:24px; height:24px; top:31px; left:65%; border-radius:50%; background:#fff0c8; box-shadow:0 0 38px #fff0c84a; }
+#universe-preview .u-beach-cloud { position:absolute; top:44px; left:17%; width:60px; height:4px; border-radius:50%; background:color-mix(in srgb,var(--u-foam) 50%,transparent); box-shadow:16px 7px 0 -1px color-mix(in srgb,var(--u-foam) 35%,transparent); }
+#universe-preview .u-beach-wave { position:absolute; width:135%; height:35px; left:-17%; top:72%; border-top:2px solid color-mix(in srgb,var(--u-foam) 70%,transparent); border-radius:50%; transform:rotate(-7deg); animation:u-tide 9s ease-in-out infinite alternate; }
+#universe-preview .u-beach-wave.second { top:61%; height:20px; border-top-width:1px; opacity:.5; animation-delay:-4s; }
+#universe-preview .u-beach-shore { position:absolute; bottom:-20px; width:125%; height:51px; left:-9%; border-radius:50% 70% 0 0; background:var(--u-sand); transform:rotate(-5deg); border-top:3px solid color-mix(in srgb,var(--u-foam) 75%,transparent); }
+#universe-preview .u-cosmos:before { content:""; position:absolute; width:85%; height:100%; background:radial-gradient(ellipse,color-mix(in srgb,var(--u-star) 10%,transparent),transparent 68%); }
+#universe-preview .u-ring { position:absolute; width:80%; height:53%; border:1px solid color-mix(in srgb,var(--u-star) 25%,transparent); border-radius:50%; transform:rotate(-26deg); }
+#universe-preview .u-ring.second { width:58%; height:80%; transform:rotate(35deg); border-color:color-mix(in srgb,var(--u-star) 15%,transparent); }
+#universe-preview .u-ring.third { width:93%; height:70%; transform:rotate(-26deg); border-style:dashed; border-color:color-mix(in srgb,var(--u-star) 11%,transparent); }
+#universe-preview .u-sun { height:26px; width:26px; border-radius:50%; position:relative; background:radial-gradient(circle at 30% 25%,#fff5d8,var(--u-warm)); box-shadow:0 0 35px color-mix(in srgb,var(--u-warm) 25%,transparent); }
+#universe-preview .u-planet { position:absolute; height:9px; width:9px; border-radius:50%; background:var(--u-star); top:28%; right:18%; box-shadow:0 0 15px color-mix(in srgb,var(--u-star) 40%,transparent); }
+#universe-preview .u-planet.small { height:5px; width:5px; top:76%; left:31%; background:var(--u-warm); }
+#universe-preview .u-spark { position:absolute; border-radius:50%; background:var(--u-star); opacity:.45; }
+#universe-preview .u-star-layer { position:absolute; inset:0; animation:u-drift 18s ease-in-out infinite alternate; }
+#universe-preview .u-cosmos-caption { position:absolute; bottom:8px; right:3px; color:var(--u-muted); font-size:11px; letter-spacing:.12em; opacity:.65; }
+#universe-preview .u-main-grid { display:grid; grid-template-columns:minmax(0,1fr) 190px; gap:44px; padding-bottom:42px; }
+#universe-preview .u-section-head { display:flex; align-items:center; justify-content:space-between; gap:15px; padding-bottom:17px; border-bottom:1px solid var(--u-line); }
+#universe-preview .u-section-head h2 { margin:0; font-size:16px; font-weight:550; }
+#universe-preview .u-filter { display:flex; gap:15px; font-size:12px; }
+#universe-preview .u-filter button { padding:3px 0; border:0; color:var(--u-muted); background:transparent; }
+#universe-preview .u-filter button[aria-pressed="true"] { color:var(--u-link); }
+#universe-preview .u-post { padding:25px 0; border-bottom:1px solid var(--u-line); }
+#universe-preview .u-meta { display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:11px; line-height:1.7; color:var(--u-muted); }
+#universe-preview .u-meta .u-category { color:var(--u-link); }
+#universe-preview .u-views { white-space:nowrap; font-variant-numeric:tabular-nums; }
+#universe-preview .u-post h3 { margin:9px 0 10px; font-size:19px; font-weight:550; line-height:1.65; }
+#universe-preview .u-post h3 a:hover { color:var(--u-link); }
+#universe-preview .u-post p { margin:0; font-size:13px; line-height:1.95; color:var(--u-muted); }
+#universe-preview .u-post .u-tags { display:flex; gap:14px; margin-top:13px; font-size:11px; color:var(--u-muted); }
+#universe-preview .u-short { display:grid; grid-template-columns:19px minmax(0,1fr); gap:8px; }
+#universe-preview .u-note-dot { height:7px; width:7px; background:var(--u-warm); border-radius:50%; margin-top:7px; }
+#universe-preview .u-short p { margin-top:10px; color:var(--u-text); font-size:14px; }
+#universe-preview .u-more { display:inline-flex; align-items:center; gap:9px; font-size:12px; color:var(--u-link); margin-top:20px; padding:8px 0; }
+#universe-preview .u-more svg { width:14px; height:14px; }
+#universe-preview .u-sidebar { border-left:1px solid var(--u-line); padding-left:24px; padding-top:3px; }
+#universe-preview .u-sidebar h2 { font-size:13px; font-weight:550; margin:0 0 13px; }
+#universe-preview .u-sidebar p { font-size:12px; line-height:2; color:var(--u-muted); margin:0; }
+#universe-preview .u-sidebar section+section { margin-top:30px; }
+#universe-preview .u-topic-list { display:grid; gap:11px; font-size:12px; color:var(--u-muted); }
+#universe-preview .u-topic-list button { display:flex; align-items:center; justify-content:space-between; gap:8px; border:0; background:transparent; padding:3px 0; color:inherit; text-align:left; }
+#universe-preview .u-topic-list button:hover { color:var(--u-link); }
+#universe-preview .u-topic-mark { width:6px; height:6px; border:1px solid var(--u-link); border-radius:50%; display:inline-block; margin-right:8px; }
+#universe-preview .u-side-tags { display:flex; flex-wrap:wrap; gap:9px; font-size:11px; color:var(--u-muted); }
+#universe-preview .u-side-tags span { padding:4px 8px; background:var(--u-soft); border-radius:4px; }
+#universe-preview .u-footer { padding:22px 0; border-top:1px solid var(--u-line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; color:var(--u-muted); font-size:11px; }
+#universe-preview .u-footer-tools { display:flex; align-items:center; gap:18px; }
+#universe-preview .u-motion { padding:0; border:0; color:var(--u-muted); font-size:11px; background:transparent; display:flex; align-items:center; gap:6px; }
+#universe-preview .u-motion svg { width:13px; height:13px; }
+#universe-preview .u-back { display:inline-flex; align-items:center; gap:7px; color:var(--u-muted); font-size:12px; margin:30px 0; }
+#universe-preview .u-back svg { width:14px; height:14px; }
+#universe-preview .u-article-layout { display:grid; grid-template-columns:minmax(0,1fr) 165px; gap:40px; padding-bottom:48px; }
+#universe-preview .u-article { max-width:var(--u-content-width); min-width:0; }
+#universe-preview .u-article h1 { font-size:32px; line-height:1.65; letter-spacing:.025em; margin:0 0 14px; font-weight:550; }
+#universe-preview .u-article-body { font-size:var(--u-reading-size); line-height:1.95; padding-top:28px; overflow-wrap:anywhere; }
+#universe-preview .u-article-body p { margin:0 0 22px; }
+#universe-preview .u-article-body h2 { font-size:21px; line-height:1.7; font-weight:550; margin:35px 0 15px; scroll-margin-top:20px; }
+#universe-preview .u-article-body blockquote { margin:26px 0; border-left:2px solid var(--u-link); padding:13px 20px; background:var(--u-soft); color:var(--u-muted); font-size:16px; }
+#universe-preview .u-article-body blockquote p { margin:0; }
+#universe-preview .u-article-body ul { padding-left:24px; margin:0 0 22px; }
+#universe-preview .u-article-body li+li { margin-top:7px; }
+#universe-preview .u-article-body code { font-size:14px; background:var(--u-soft); padding:2px 5px; border-radius:3px; }
+#universe-preview .u-article-tags { display:flex; gap:12px; padding:15px 0 28px; font-size:12px; color:var(--u-muted); }
+#universe-preview .u-toc { border-left:1px solid var(--u-line); padding-left:20px; align-self:start; margin-top:8px; }
+#universe-preview .u-toc summary { font-size:12px; color:var(--u-muted); margin-bottom:17px; }
+#universe-preview .u-toc ol { list-style:none; padding:0; margin:0; display:grid; gap:15px; font-size:12px; color:var(--u-muted); }
+#universe-preview .u-toc a:hover { color:var(--u-link); }
+#universe-preview .u-next { display:block; padding:20px 0; border-top:1px solid var(--u-line); border-bottom:1px solid var(--u-line); }
+#universe-preview .u-next span { color:var(--u-muted); font-size:11px; }
+#universe-preview .u-next p { margin:8px 0 0; font-size:14px; }
+#universe-preview .u-comments { padding-top:30px; }
+#universe-preview .u-comments h2 { font-size:19px; margin:0 0 12px; font-weight:550; }
+#universe-preview .u-comments p { font-size:12px; color:var(--u-muted); line-height:1.9; margin:0 0 18px; }
+#universe-preview .u-login { border:1px solid var(--u-line); background:var(--u-paper); color:var(--u-text); display:inline-flex; align-items:center; gap:9px; padding:10px 16px; border-radius:6px; font-size:12px; }
+#universe-preview .u-login svg { width:16px; height:16px; }
+#universe-preview .u-comment-note { margin-top:12px !important; font-size:11px !important; }
+#universe-preview .u-page-head { padding:45px 0 30px; }
+#universe-preview .u-page-head h1 { font-size:31px; margin:0 0 12px; font-weight:550; }
+#universe-preview .u-page-head p { font-size:14px; color:var(--u-muted); line-height:1.9; margin:0; }
+#universe-preview .u-archive { padding:5px 0 65px; max-width:720px; min-height:410px; }
+#universe-preview .u-archive h2 { font-size:18px; font-weight:550; margin:10px 0 22px; }
+#universe-preview .u-archive-list { border-left:1px solid var(--u-line); margin-left:5px; display:grid; gap:25px; padding:5px 0 0 24px; }
+#universe-preview .u-archive-item { position:relative; display:grid; grid-template-columns:55px 1fr; gap:16px; align-items:baseline; }
+#universe-preview .u-archive-item:before { content:""; position:absolute; width:5px; height:5px; border-radius:50%; background:var(--u-link); top:9px; left:-27px; }
+#universe-preview .u-archive-item time { font-size:12px; color:var(--u-muted); }
+#universe-preview .u-archive-item a { font-size:15px; line-height:1.8; }
+#universe-preview .u-archive-item a:hover { color:var(--u-link); }
+#universe-preview .u-about { max-width:640px; min-height:470px; font-size:16px; line-height:2; padding:0 0 50px; }
+#universe-preview .u-about h2 { margin:28px 0 12px; font-size:20px; font-weight:550; }
+#universe-preview .u-about p { margin:0 0 18px; }
+#universe-preview .u-about-note { padding:18px 22px; background:var(--u-soft); border-radius:7px; color:var(--u-muted); font-size:14px; }
+#universe-preview .u-search { border-bottom:1px solid var(--u-line); padding:24px 0; }
+#universe-preview .u-search label { display:block; margin-bottom:10px; color:var(--u-muted); font-size:12px; }
+#universe-preview .u-search input { width:100%; padding:12px 15px; border:1px solid var(--u-line); background:var(--u-paper); border-radius:7px; color:var(--u-text); font-size:16px; }
+#universe-preview .u-search-results { display:grid; gap:12px; padding-top:15px; font-size:13px; }
+#universe-preview .u-search-results p { color:var(--u-muted); margin:0; font-size:12px; }
+#universe-preview .u-search-results a { padding:5px 0; }
+#universe-preview .u-search-results a:hover { color:var(--u-link); }
+#universe-preview .u-paused .u-star-layer { animation-play-state:paused; }
+#universe-preview .u-paused .u-beach-wave { animation-play-state:paused; }
+@keyframes u-drift { from { transform:translate(-3px,2px); } to { transform:translate(4px,-4px); } }
+@keyframes u-tide { from { transform:translate(-3px,-1px) rotate(-7deg); } to { transform:translate(6px,4px) rotate(-5deg); } }
+@container universe (max-width:760px) {
+  #universe-preview .u-wrap { width:calc(100% - 52px); }
+  #universe-preview .u-main-grid { grid-template-columns:minmax(0,1fr) 150px; gap:25px; }
+  #universe-preview .u-sidebar { padding-left:18px; }
+  #universe-preview .u-nav { gap:17px; }
+  #universe-preview .u-article-layout { grid-template-columns:minmax(0,1fr) 140px; gap:25px; }
+}
+@container universe (max-width:580px) {
+  #universe-preview .u-wrap { width:calc(100% - 40px); }
+  #universe-preview .u-header { min-height:70px; gap:9px; flex-wrap:wrap; padding:16px 0 12px; }
+  #universe-preview .u-brand { font-size:16px; }
+  #universe-preview .u-actions { margin-left:auto; }
+  #universe-preview .u-icon { min-width:36px; min-height:36px; }
+  #universe-preview .u-nav { order:3; width:100%; gap:26px; font-size:12px; padding-top:5px; }
+  #universe-preview .u-nav a { padding:8px 0; }
+  #universe-preview .u-hero { grid-template-columns:1fr; min-height:0; padding:32px 0 28px; gap:0; position:relative; }
+  #universe-preview .u-hero-copy { position:relative; z-index:1; }
+  #universe-preview .u-hero h1 { font-size:29px; margin-bottom:14px; }
+  #universe-preview .u-hero p { font-size:13px; max-width:240px; }
+  #universe-preview .u-hero .u-intro-link { margin-top:17px; }
+  #universe-preview .u-cosmos { position:absolute; width:180px; height:170px; min-height:170px; top:16px; right:-14px; opacity:.26; pointer-events:none; }
+  #universe-preview .u-cosmos-caption { display:none; }
+  #universe-preview .u-main-grid { grid-template-columns:1fr; gap:0; padding-bottom:25px; }
+  #universe-preview .u-sidebar { display:none; }
+  #universe-preview .u-section-head { align-items:baseline; gap:10px; }
+  #universe-preview .u-filter { gap:15px; }
+  #universe-preview .u-section-head h2 { font-size:15px; }
+  #universe-preview .u-post { padding:23px 0; }
+  #universe-preview .u-post h3 { font-size:18px; }
+  #universe-preview .u-post p { font-size:13px; }
+  #universe-preview .u-footer { font-size:10px; line-height:1.8; }
+  #universe-preview .u-footer-tools { width:100%; justify-content:space-between; }
+  #universe-preview .u-article-layout { display:flex; flex-direction:column; gap:23px; padding-bottom:32px; }
+  #universe-preview .u-article { display:contents; }
+  #universe-preview .u-article-head { order:0; }
+  #universe-preview .u-toc { order:1; padding:14px 16px; margin:0; width:100%; border:1px solid var(--u-line); border-radius:6px; }
+  #universe-preview .u-toc summary { margin:0; cursor:var(--cursor-interaction,pointer); }
+  #universe-preview .u-toc[open] summary { margin-bottom:15px; }
+  #universe-preview .u-article-content { order:2; }
+  #universe-preview .u-article h1 { font-size:26px; }
+  #universe-preview .u-article-body { padding-top:0; font-size:var(--u-reading-size); line-height:1.95; }
+  #universe-preview .u-article-body h2 { font-size:20px; }
+  #universe-preview .u-back { margin:23px 0; }
+  #universe-preview .u-page-head { padding:31px 0 25px; }
+  #universe-preview .u-page-head h1 { font-size:27px; }
+  #universe-preview .u-archive-item { grid-template-columns:43px 1fr; gap:10px; }
+  #universe-preview .u-archive-item a { font-size:14px; }
+}
+@media (pointer:coarse) { #universe-preview .u-scene-trigger, #universe-preview .u-icon, #universe-preview .u-scene-option { min-height:44px; } }
+@media (prefers-reduced-motion:reduce) { #universe-preview .u-star-layer, #universe-preview .u-beach-wave { animation:none; } #universe-preview .up-frame { transition:none; } }
+</style>
+
+<div id="universe-preview">
+  <div class="up-controls">
+    <div class="nav nav-pills" aria-label="原型预览尺寸">
+      <button type="button" class="nav-link active" data-device="desktop" aria-pressed="true">桌面</button>
+      <button type="button" class="nav-link" data-device="mobile" aria-pressed="false">手机</button>
+    </div>
+    <span class="up-hint">视觉原型 · 文中内容均为示例</span>
+  </div>
+  <div class="up-frame">
+    <div class="universe" data-scene="space" aria-label="个人小宇宙博客原型">
+      <div class="u-wrap">
+        <header class="u-header">
+          <a class="u-brand" href="#home" data-page="home"><span class="u-mark" aria-hidden="true"></span>个人小宇宙</a>
+          <nav class="u-nav" aria-label="主导航">
+            <a href="#home" data-page="home" aria-current="page">首页</a>
+            <a href="#archive" data-page="archive">归档</a>
+            <a href="#about" data-page="about">关于我</a>
+          </nav>
+          <div class="u-actions">
+            <div class="u-scene-control">
+              <button class="u-icon u-scene-trigger" type="button" data-scene-toggle aria-label="切换背景，当前为深空" aria-expanded="false" aria-controls="universe-scene-picker"><i data-lucide="image" aria-hidden="true"></i><span data-scene-label>深空</span></button>
+              <div class="u-scene-picker" id="universe-scene-picker" hidden>
+                <p class="u-scene-heading">换个风景，继续记录</p>
+                <div class="u-scene-options" role="group" aria-label="选择背景场景">
+                  <button type="button" class="u-scene-option" data-scene-option="space" aria-pressed="true"><span class="u-scene-thumb space" aria-hidden="true"></span><strong>深空</strong><small>星点与缓慢的轨道</small></button>
+                  <button type="button" class="u-scene-option" data-scene-option="beach" aria-pressed="false"><span class="u-scene-thumb beach" aria-hidden="true"></span><strong>沙滩</strong><small>海风与轻轻的潮汐</small></button>
+                </div>
+                <p class="u-scene-picker-note">背景与深浅色可以自由搭配，选择会保存在当前浏览器。</p>
+              </div>
+            </div>
+            <button class="u-icon" type="button" data-search aria-label="搜索文章" aria-expanded="false"><i data-lucide="search" aria-hidden="true"></i></button>
+            <button class="u-icon" type="button" data-theme-toggle aria-label="切换深浅色主题"><i data-lucide="sun-moon" aria-hidden="true"></i></button>
+          </div>
+        </header>
+        <section class="u-search" hidden aria-label="搜索文章">
+          <label for="universe-search">在这片小宇宙里找一找</label>
+          <input id="universe-search" type="search" placeholder="搜索文章、日常或工具…" autocomplete="off">
+          <div class="u-search-results" aria-live="polite"><p>输入关键词，搜索示例文章。</p></div>
+        </section>
+
+        <main>
+          <section data-screen="home" aria-label="首页">
+            <div class="u-hero">
+              <div class="u-hero-copy">
+                <h1>写下生活，<br>也写下新的发现。</h1>
+                <p>一些日常，一些思考，还有路上捡到的经验。<br>在自己的小宇宙里，慢慢记录。</p>
+                <a class="u-intro-link" href="#about" data-page="about">认识一下这里的我 <i data-lucide="move-up-right" aria-hidden="true"></i></a>
+              </div>
+              <div class="u-cosmos" aria-hidden="true">
+                <div class="u-space-scene"><div class="u-star-layer"></div><span class="u-ring third"></span><span class="u-ring"></span><span class="u-ring second"></span><span class="u-sun"></span><span class="u-planet"></span><span class="u-planet small"></span></div>
+                <div class="u-beach-scene" hidden><span class="u-beach-sun"></span><span class="u-beach-cloud"></span><span class="u-beach-wave"></span><span class="u-beach-wave second"></span><span class="u-beach-shore"></span></div>
+                <span class="u-cosmos-caption" data-scene-caption>每一个念头，都有自己的轨道</span>
+              </div>
+            </div>
+            <div class="u-main-grid">
+              <section aria-label="最近记录">
+                <div class="u-section-head">
+                  <h2>最近记录</h2>
+                  <div class="u-filter" aria-label="筛选内容类型">
+                    <button type="button" data-filter="all" aria-pressed="true">全部</button>
+                    <button type="button" data-filter="post" aria-pressed="false">文章</button>
+                    <button type="button" data-filter="note" aria-pressed="false">短记</button>
+                  </div>
+                </div>
+                <article class="u-post" data-kind="post" data-category="随想">
+                  <div class="u-meta"><time datetime="2026-11-02">2026 年 11 月 2 日</time><span class="u-category">随想</span><span>约 3 分钟</span></div>
+                  <h3><a href="#article" data-page="article" data-article="thought">记录不必等到想明白</a></h3>
+                  <p>有时候写下来，并不是因为已经有了答案。只是想给那些转瞬即逝的念头，留一个可以回来的地方。</p>
+                  <div class="u-tags"><span># 写作</span><span># 自我观察</span></div>
+                </article>
+                <article class="u-post u-short" data-kind="note" data-category="日常">
+                  <span class="u-note-dot" aria-hidden="true"></span>
+                  <div><div class="u-meta"><time datetime="2026-10-30">2026 年 10 月 30 日</time><span class="u-category">日常</span><span>短记</span></div>
+                    <p><a href="#article" data-page="article" data-article="note">傍晚出去走了走。没有目的地，也没有听播客。才发现熟悉的街道，在这个季节有不一样的颜色。</a></p>
+                  </div>
+                </article>
+                <article class="u-post" data-kind="post" data-category="实践">
+                  <div class="u-meta"><time datetime="2026-10-28">2026 年 10 月 28 日</time><span class="u-category">实践</span><span>约 4 分钟</span></div>
+                  <h3><a href="#article" data-page="article" data-article="tools">那些让我少折腾的日常小工具</a></h3>
+                  <p>工具的意义，是让事情更顺手。整理几个真正留下来的习惯与小工具，以及它们各自解决的问题。</p>
+                  <div class="u-tags"><span># 工具</span><span># 效率</span></div>
+                </article>
+                <a class="u-more" href="#archive" data-page="archive">去归档里逛逛 <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+              </section>
+              <aside class="u-sidebar" aria-label="博客介绍与主题">
+                <section><h2>关于这片小宇宙</h2><p>不限定主题，<br>也不急着给出答案。<br>把值得记住的事情，<br>一点一点留在这里。</p></section>
+                <section><h2>沿着主题探索</h2><div class="u-topic-list">
+                  <button type="button" data-category-filter="日常"><span><span class="u-topic-mark"></span>日常</span><span>生活的切片</span></button>
+                  <button type="button" data-category-filter="随想"><span><span class="u-topic-mark"></span>随想</span><span>念头的轨迹</span></button>
+                  <button type="button" data-category-filter="实践"><span><span class="u-topic-mark"></span>实践</span><span>摸索的经验</span></button>
+                </div></section>
+                <section><h2>最近关心的事</h2><div class="u-side-tags"><span>写作</span><span>生活</span><span>工具</span><span>自我观察</span></div></section>
+              </aside>
+            </div>
+          </section>
+
+          <section data-screen="article" aria-label="文章详情" hidden>
+            <a class="u-back" href="#home" data-page="home"><i data-lucide="arrow-left" aria-hidden="true"></i>返回首页</a>
+            <div class="u-article-layout">
+              <article class="u-article">
+                <header class="u-article-head"><h1 data-article-title>记录不必等到想明白</h1><div class="u-meta" data-article-meta><time datetime="2026-11-02">2026 年 11 月 2 日</time><span class="u-category">随想</span><span>约 3 分钟</span><span class="u-views" data-read-count>阅读 128 次（示例）</span></div></header>
+                <div class="u-article-content">
+                  <div class="u-article-body" data-article-body>
+                    <p>以前总觉得，写一篇东西之前，应该先把事情想清楚。观点要完整，表达要准确，最好还能给读到的人一点帮助。</p>
+                    <p>后来发现，这个“等想明白再写”的念头，常常让记录永远停在开始之前。</p>
+                    <h2 id="universe-section-a">先留下一个念头</h2>
+                    <p>生活里的很多感受都很轻。散步时突然想到的一句话，读书时没能立刻回答的问题，或者某个让人停顿了几秒的瞬间。</p>
+                    <p>如果不留下来，它们很快就消失了。记录的第一步，也许只是承认：这一刻，对我来说有一点意义。</p>
+                    <blockquote><p>写下来，不一定是为了给出答案，也可以是为了把问题看得更清楚。</p></blockquote>
+                    <h2 id="universe-section-b">把门槛降下来</h2>
+                    <p>于是给自己留了一个更容易开始的方式：</p>
+                    <ul><li>只有一句话，也可以是一则记录。</li><li>暂时想不明白，就先把问题留下来。</li><li>不要求每次写作都有一个漂亮的结尾。</li></ul>
+                    <p>长文适合慢慢展开，短记适合及时留下。重要的是，这两种表达都能在这里找到自己的位置。</p>
+                    <h2 id="universe-section-c">允许答案改变</h2>
+                    <p>过一段时间再回来读，也许会发现，自己的看法已经不一样了。这并不妨碍当时的记录有价值。</p>
+                    <p>它们像一张张坐标，标记着我曾经怎样看待生活。把这些坐标连起来，才慢慢看见自己的轨迹。</p>
+                  </div>
+                  <div class="u-article-tags" data-article-tags><span># 写作</span><span># 自我观察</span></div>
+                  <a class="u-next" href="#article" data-page="article" data-article="tools"><span>继续阅读</span><p>那些让我少折腾的日常小工具</p></a>
+                  <section class="u-comments" aria-label="评论区原型"><h2>聊聊这篇文章</h2><p>有什么想法，欢迎在这里留下来。</p><button type="button" class="u-login" data-comment><i data-lucide="github" aria-hidden="true"></i>使用 GitHub 账号参与讨论</button><p class="u-comment-note" data-comment-note aria-live="polite">评论区排版示意，正式站点将接入 giscus。</p></section>
+                </div>
+              </article>
+              <details class="u-toc" open><summary>这篇文章里</summary><ol data-toc><li><a href="#universe-section-a">先留下一个念头</a></li><li><a href="#universe-section-b">把门槛降下来</a></li><li><a href="#universe-section-c">允许答案改变</a></li></ol></details>
+            </div>
+          </section>
+
+          <section data-screen="archive" aria-label="归档" hidden>
+            <header class="u-page-head"><h1>时间留下的轨迹</h1><p>把零散的记录，放回时间里。</p></header>
+            <div class="u-archive"><h2>2026</h2><div class="u-archive-list">
+              <div class="u-archive-item"><time>11 / 02</time><a href="#article" data-page="article" data-article="thought">记录不必等到想明白</a></div>
+              <div class="u-archive-item"><time>10 / 30</time><a href="#article" data-page="article" data-article="note">一个没有目的地的傍晚</a></div>
+              <div class="u-archive-item"><time>10 / 28</time><a href="#article" data-page="article" data-article="tools">那些让我少折腾的日常小工具</a></div>
+            </div></div>
+          </section>
+
+          <section data-screen="about" aria-label="关于我" hidden>
+            <header class="u-page-head"><h1>你好，欢迎来坐坐。</h1><p>这里是一个慢慢生长的个人小宇宙。</p></header>
+            <div class="u-about"><p>我想在这里留下日常、思考和摸索的过程。有时是一篇认真整理的经验，有时只是散步回来想写下的几句话。</p><p>内容不限定主题，也没有必须保持的更新节奏。希望过一段时间回头看时，还能记得当时在关心什么、为什么出发。</p><h2>这里会写些什么</h2><p>日常里的小事，尚未成形的感悟，解决问题的经验，以及让生活更顺手的工具。</p><div class="u-about-note">这段介绍是用于确认排版的示例文案。正式制作时，替换成你的昵称、个人介绍，以及你愿意公开的联系方式。</div></div>
+          </section>
+        </main>
+
+        <footer class="u-footer"><span>个人小宇宙 · 慢慢写，慢慢生长。</span><div class="u-footer-tools"><span>Astro · GitHub Pages</span><button type="button" class="u-motion" aria-pressed="true"><i data-lucide="sparkles" aria-hidden="true"></i><span data-motion-label>背景动态：开</span></button></div></footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.getElementById('universe-preview');
+  const app = root.querySelector('.universe');
+  const frame = root.querySelector('.up-frame');
+  const starLayer = root.querySelector('.u-star-layer');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const settings = { fontSize:17, stars:true, motion:!reduceMotion };
+  const state = { page:'home', device:'desktop', filter:'all', category:null, theme:'auto', article:'thought', scene:'space' };
+  const appearanceKey = 'little-universe-appearance-v1';
+  const sceneNames = { space:'深空', beach:'沙滩' };
+  const thoughtBody = root.querySelector('[data-article-body]').innerHTML;
+  const articles = {
+    thought:{title:'记录不必等到想明白',category:'随想',date:'2026 年 11 月 2 日',minutes:'约 3 分钟',tags:['写作','自我观察'],sections:['先留下一个念头','把门槛降下来','允许答案改变'],body:thoughtBody},
+    tools:{title:'那些让我少折腾的日常小工具',category:'实践',date:'2026 年 10 月 28 日',minutes:'约 4 分钟',tags:['工具','效率'],sections:['先看重复发生的问题','让工具待在顺手的位置','定期做一次减法'],body:'<p>以前尝试新工具，总想找到一个能解决所有问题的系统。后来发现，真正留下来的，往往只是几个很小、很顺手的习惯。</p><h2 id="universe-section-a">先看重复发生的问题</h2><p>如果每天都要找同一个文件、复制同一段文字，或者反复整理相似的资料，这些才是值得优化的地方。先记下阻力，再决定要不要增加一个工具。</p><blockquote><p>好的工具不需要一直提醒我它的存在，它只是让事情更顺利地发生。</p></blockquote><h2 id="universe-section-b">让工具待在顺手的位置</h2><p>例如，把常用的操作留给几个记得住的快捷键，把临时想法放进一个固定的收集入口。比起复杂配置，容易开始更重要。</p><ul><li>一个随时能打开的文本编辑器。</li><li>一个用来快速查找文件的入口。</li><li>一套自己记得住的命名方式。</li></ul><h2 id="universe-section-c">定期做一次减法</h2><p>偶尔看看那些已经很久没有打开的工具。卸下多余的选择，让真正好用的部分留下来。</p><p>这份清单会继续变化，判断标准也很简单：它有没有让我少折腾一点。</p>'},
+    note:{title:'一个没有目的地的傍晚',category:'日常',date:'2026 年 10 月 30 日',minutes:'短记',tags:['生活'],sections:[],body:'<p>傍晚出去走了走。没有目的地，也没有听播客。</p><p>才发现熟悉的街道，在这个季节有不一样的颜色。</p><p>回来的路上想，也许不是每一段时间都需要被填满。</p>'}
+  };
+  // Prototype figures demonstrate placement; production counts come from the article's own URL.
+  const exampleViews = { thought:128, tools:86, note:24 };
+  for(let i=0;i<39;i++) {
+    const star=document.createElement('span'); star.className='u-spark';
+    const size=i%8===0?2.8:1.4;
+    Object.assign(star.style,{left:((i*41+7)%97)+'%',top:((i*29+11)%91)+'%',width:size+'px',height:size+'px',opacity:String(.2+(i%5)*.11)});
+    starLayer.append(star);
+  }
+  function save(){
+    try { localStorage.setItem(appearanceKey,JSON.stringify({scene:state.scene,theme:state.theme,motion:settings.motion,stars:settings.stars})); } catch {}
+    if(window.openai?.setWidgetState) window.openai.setWidgetState({modelContent:{prototype:'个人小宇宙',page:state.page,device:state.device,theme:state.theme,scene:sceneNames[state.scene]},privateContent:{...state,settings:{...settings}}}).catch(()=>{});
+  }
+  function renderScene(){
+    if(!Object.hasOwn(sceneNames,state.scene))state.scene='space';
+    app.dataset.scene=state.scene;
+    root.querySelector('[data-scene-label]').textContent=sceneNames[state.scene];
+    root.querySelector('[data-scene-toggle]').setAttribute('aria-label','切换背景，当前为'+sceneNames[state.scene]);
+    root.querySelectorAll('[data-scene-option]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.sceneOption===state.scene)));
+    root.querySelector('.u-space-scene').hidden=state.scene!=='space';
+    root.querySelector('.u-beach-scene').hidden=state.scene!=='beach';
+    root.querySelector('[data-scene-caption]').textContent=state.scene==='beach'?'让想法，随着海风慢慢展开':'每一个念头，都有自己的轨道';
+  }
+  function setScenePicker(open,returnFocus=false){
+    root.querySelector('.u-scene-picker').hidden=!open;
+    root.querySelector('[data-scene-toggle]').setAttribute('aria-expanded',String(open));
+    if(returnFocus)root.querySelector('[data-scene-toggle]').focus();
+  }
+  function renderSettings(){
+    app.style.setProperty('--u-reading-size',settings.fontSize+'px');
+    starLayer.hidden=!settings.stars;
+    app.classList.toggle('u-paused',!settings.motion);
+    root.querySelector('.u-motion').setAttribute('aria-pressed',String(settings.motion));
+    root.querySelector('[data-motion-label]').textContent='背景动态：'+(settings.motion?'开':'关');
+  }
+  function renderArticle(key){
+    const article=articles[key]||articles.thought;
+    state.article=articles[key]?key:'thought';
+    root.querySelector('[data-article-title]').textContent=article.title;
+    const meta=root.querySelector('[data-article-meta]'); meta.replaceChildren();
+    for(const [text,cls] of [[article.date,''],[article.category,'u-category'],[article.minutes,'']]){const el=document.createElement('span');el.textContent=text;el.className=cls;meta.append(el);}
+    const views=document.createElement('span');views.className='u-views';views.dataset.readCount='';views.textContent='阅读 '+exampleViews[state.article]+' 次（示例）';meta.append(views);
+    root.querySelector('[data-article-body]').innerHTML=article.body;
+    const tags=root.querySelector('[data-article-tags]');tags.replaceChildren();
+    for(const tag of article.tags){const el=document.createElement('span');el.textContent='# '+tag;tags.append(el);}
+    const toc=root.querySelector('[data-toc]');toc.replaceChildren();
+    article.sections.forEach((heading,i)=>{const item=document.createElement('li'),a=document.createElement('a');a.href='#universe-section-'+String.fromCharCode(97+i);a.textContent=heading;item.append(a);toc.append(item);});
+    root.querySelector('.u-toc').hidden=article.sections.length===0;
+    root.querySelector('.u-comments').hidden=state.article==='note';
+    const nextKey=state.article==='tools'?'thought':'tools';
+    const next=root.querySelector('.u-next');next.dataset.article=nextKey;next.querySelector('p').textContent=articles[nextKey].title;
+    root.querySelector('[data-comment-note]').textContent='评论区排版示意，正式站点将接入 giscus。';
+  }
+  function renderPage(){
+    root.querySelectorAll('[data-screen]').forEach(el=>el.hidden=el.dataset.screen!==state.page);
+    root.querySelectorAll('.u-nav [data-page]').forEach(el=>{if(el.dataset.page===state.page)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
+  }
+  function showPage(page,article){
+    if(!['home','article','archive','about'].includes(page)) return;
+    state.page=page;if(page==='article')renderArticle(article||state.article);
+    renderPage();save();
+  }
+  function filterPosts(filter,category=null,persist=true){
+    state.filter=filter;state.category=category;
+    root.querySelectorAll('[data-kind]').forEach(el=>el.hidden=!((filter==='all'||el.dataset.kind===filter)&&(!category||el.dataset.category===category)));
+    root.querySelectorAll('[data-filter]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.filter===filter)));
+    root.querySelector('.u-section-head h2').textContent=category?category+'记录':'最近记录';if(persist)save();
+  }
+  function setDevice(device){
+    state.device=device;frame.classList.toggle('is-mobile',device==='mobile');
+    root.querySelectorAll('[data-device]').forEach(button=>{const selected=button.dataset.device===device;button.setAttribute('aria-pressed',String(selected));button.classList.toggle('active',selected);});
+    root.querySelector('.u-toc').open=device!=='mobile';
+  }
+  root.addEventListener('click',event=>{
+    if(event.target.closest('[data-scene-toggle]')){setScenePicker(root.querySelector('.u-scene-picker').hidden);return;}
+    const sceneOption=event.target.closest('[data-scene-option]');
+    if(sceneOption){state.scene=sceneOption.dataset.sceneOption;renderScene();setScenePicker(false,true);save();return;}
+    const nav=event.target.closest('[data-page]');
+    if(nav){event.preventDefault();showPage(nav.dataset.page,nav.dataset.article);return;}
+    const device=event.target.closest('[data-device]');if(device){setDevice(device.dataset.device);save();return;}
+    const filter=event.target.closest('[data-filter]');if(filter){filterPosts(filter.dataset.filter);return;}
+    const category=event.target.closest('[data-category-filter]');if(category){filterPosts('all',category.dataset.categoryFilter);return;}
+    if(event.target.closest('[data-theme-toggle]')){
+      const dark=state.theme==='dark'||(state.theme==='auto'&&matchMedia('(prefers-color-scheme:dark)').matches);
+      state.theme=dark?'light':'dark';app.style.colorScheme=state.theme;save();return;
+    }
+    if(event.target.closest('[data-search]')){
+      const search=root.querySelector('.u-search');search.hidden=!search.hidden;
+      root.querySelector('[data-search]').setAttribute('aria-expanded',String(!search.hidden));if(!search.hidden)root.querySelector('#universe-search').focus();return;
+    }
+    if(event.target.closest('.u-motion')){settings.motion=!settings.motion;renderSettings();save();return;}
+    if(event.target.closest('[data-comment]')){root.querySelector('[data-comment-note]').textContent='这里是评论区原型；正式接入 giscus 后，可登录 GitHub 发表评论。';return;}
+  });
+  document.addEventListener('click',event=>{if(!event.target.closest('.u-scene-control'))setScenePicker(false);});
+  root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!root.querySelector('.u-scene-picker').hidden){event.preventDefault();setScenePicker(false,true);}});
+  root.querySelector('.u-scene-control').addEventListener('focusout',event=>{if(!event.currentTarget.contains(event.relatedTarget))setScenePicker(false);});
+  root.querySelector('#universe-search').addEventListener('input',event=>{
+    const query=event.target.value.trim().toLowerCase();const result=root.querySelector('.u-search-results');result.replaceChildren();
+    if(!query){const p=document.createElement('p');p.textContent='输入关键词，搜索示例文章。';result.append(p);return;}
+    let count=0;for(const [key,article] of Object.entries(articles)){
+      const text=article.title+article.category+article.tags.join(' ')+article.body.replace(/<[^>]*>/g,'');
+      if(!text.toLowerCase().includes(query))continue;
+      const link=document.createElement('a');link.href='#article';link.dataset.page='article';link.dataset.article=key;link.textContent=article.title;result.append(link);count++;
+    }
+    if(!count){const p=document.createElement('p');p.textContent='没有找到相关示例，试试“记录”“工具”或“傍晚”。';result.append(p);}
+  });
+  function restore(saved){
+    const data=saved?.privateContent;if(!data)return;
+    if(['home','article','archive','about'].includes(data.page))state.page=data.page;
+    if(['light','dark','auto'].includes(data.theme))state.theme=data.theme;
+    if(Object.hasOwn(sceneNames,data.scene))state.scene=data.scene;
+    if(data.settings){settings.fontSize=Number(data.settings.fontSize)||17;settings.stars=data.settings.stars!==false;settings.motion=data.settings.motion!==false&&!reduceMotion;}
+    setDevice(data.device==='mobile'?'mobile':'desktop');app.style.colorScheme=state.theme==='auto'?'':state.theme;
+    renderArticle(data.article);renderPage();filterPosts(['all','post','note'].includes(data.filter)?data.filter:'all',data.category||null,false);renderSettings();renderScene();
+  }
+  try {
+    const appearance=JSON.parse(localStorage.getItem(appearanceKey)||'null');
+    if(appearance&&typeof appearance==='object'){
+      if(Object.hasOwn(sceneNames,appearance.scene))state.scene=appearance.scene;
+      if(['auto','light','dark'].includes(appearance.theme))state.theme=appearance.theme;
+      if(typeof appearance.motion==='boolean')settings.motion=appearance.motion&&!reduceMotion;
+      if(typeof appearance.stars==='boolean')settings.stars=appearance.stars;
+    }
+  } catch {}
+  app.style.colorScheme=state.theme==='auto'?'':state.theme;
+  renderScene();
+  renderSettings();
+  if(window.openai?.widgetState)restore(window.openai.widgetState);
+  window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState)restore(event.detail.globals.widgetState);});
+  if(globalThis.Tweak){
+    const tweak=new Tweak({container:app,onChange:()=>{renderSettings();renderScene();save();}});
+    tweak.addSelect(state,'scene',{label:'背景场景',options:[{label:'深空',value:'space'},{label:'沙滩',value:'beach'}]});
+    tweak.addSlider(settings,'fontSize',{label:'正文字号',min:15,max:20,step:1,unit:'px',reference:'--u-reading-size'});
+    tweak.addToggle(settings,'stars',{label:'背景星点'});
+    tweak.addToggle(settings,'motion',{label:'星点缓慢移动'});
+  }
+})();
+</script>

@@ -1,0 +1,45 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchDialog from '../components/SearchDialog.astro';
+import { siteConfig } from '../site.config';
+import { href } from '../lib/posts';
+import '../styles/global.css';
+interface Props { title?: string; description?: string; article?: boolean; noIndex?: boolean; image?: string }
+const { title, description = siteConfig.description, article = false, noIndex = false, image } = Astro.props;
+const pageTitle = title ? `${title} · ${siteConfig.title}` : siteConfig.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN" data-scene="space" data-theme="auto" data-motion="on">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.title} RSS`} href={href('/rss.xml')} />
+    <meta property="og:title" content={pageTitle} /><meta property="og:description" content={description} />
+    <meta property="og:type" content={article ? 'article' : 'website'} /><meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="zh_CN" /><meta property="og:site_name" content={siteConfig.title} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site).href} />}
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <script is:inline>
+      (()=>{const el=document.documentElement;el.classList.add('js');try{const data=JSON.parse(localStorage.getItem('little-universe-appearance-v1')||'null');if(data&&typeof data==='object'){if(['space','beach'].includes(data.scene))el.dataset.scene=data.scene;if(['auto','light','dark'].includes(data.theme)){el.dataset.theme=data.theme;el.style.colorScheme=data.theme==='auto'?'light dark':data.theme;}if(data.motion===false)el.dataset.motion='off';}}catch{}if(matchMedia('(prefers-reduced-motion:reduce)').matches)el.dataset.motion='off';})();
+    </script>
+  </head>
+  <body class="universe" data-production-origin={Astro.site?.origin}>
+    <a class="u-skip" href="#main-content">跳到正文</a>
+    <div class="u-wrap">
+      <Header />
+      <main id="main-content"><slot /></main>
+      <Footer />
+    </div>
+    <SearchDialog />
+    <script>
+      import '../scripts/appearance';
+    </script>
+  </body>
+</html>
