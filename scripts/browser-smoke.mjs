@@ -383,7 +383,7 @@ try {
   assert.equal(await temporary.locator('[data-entry-gate]').getAttribute('data-opening'), 'portal');
   await temporary.locator('[data-entry-skip]').click();
   await blocked.close(); checks.push('存储被禁用时背景切换仍可用');
-  for (const [slug, imageCount] of [['ai-tools-setup', 2], ['knowledge-base-practice', 8]]) {
+  for (const [slug, imageCount] of [['ai-tools-setup', 2], ['knowledge-base-practice', 8], ['codex-reconnecting-troubleshooting', 1]]) {
     await page.goto(`${url}posts/${slug}/`);
     const images = page.locator('.u-article-body img');
     assert.equal(await images.count(), imageCount);
@@ -394,7 +394,7 @@ try {
     }
     assert.equal(await page.locator('canvas').count(), 0);
   }
-  checks.push('两篇迁移长文的十张配图可加载，阅读背景无动画画布');
+  checks.push('两篇迁移长文和 Codex 排查文章的十一张配图可加载，阅读背景无动画画布');
   assert.deepEqual(errors, []); checks.push('页面无 JavaScript 运行错误');
 
   // Use local responses under the real origin to verify actual browser referrer policy.
