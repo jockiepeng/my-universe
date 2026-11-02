@@ -8,6 +8,7 @@ import EntryGate from '../components/EntryGate.astro';
 import EntryBootstrap from '../components/EntryBootstrap.astro';
 import { siteConfig } from '../site.config';
 import { href } from '../lib/posts';
+import { dailyMotionPairs } from '../lib/motion.mjs';
 import '../styles/global.css';
 interface Props { title?: string; description?: string; article?: boolean; noIndex?: boolean; image?: string; home?: boolean }
 const { title, description = siteConfig.description, article = false, noIndex = false, image, home = false } = Astro.props;
@@ -31,13 +32,37 @@ const showEntry = home && Astro.url.pathname === href('/');
     <meta property="og:locale" content="zh_CN" /><meta property="og:site_name" content={siteConfig.title} />
     {image && <meta property="og:image" content={new URL(image, Astro.site).href} />}
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
-    <script is:inline>
-      (()=>{const el=document.documentElement;el.classList.add('js');try{const data=JSON.parse(localStorage.getItem('little-universe-appearance-v1')||'null');if(data&&typeof data==='object'){if(['auto','light','dark'].includes(data.theme)){el.dataset.theme=data.theme;el.style.colorScheme=data.theme==='auto'?'light dark':data.theme;}if(data.motion===false)el.dataset.motion='off';}}catch{}if(matchMedia('(prefers-reduced-motion:reduce)').matches)el.dataset.motion='off';})();
+    <script is:inline define:vars={{ dailyMotionPairs }}>
+      (() => {
+        const el = document.documentElement;
+        el.classList.add('js');
+        let data = {};
+        try {
+          const stored = JSON.parse(localStorage.getItem('little-universe-appearance-v1') || 'null');
+          if (stored && typeof stored === 'object' && !Array.isArray(stored)) data = stored;
+        } catch { /* Daily appearance still works without storage. */ }
+        const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
+        }).formatToParts(new Date()).map(part => [part.type, part.value]));
+        const today = `${parts.year}-${parts.month}-${parts.day}`;
+        const daily = dailyMotionPairs[Number(parts.day) % 10 % dailyMotionPairs.length];
+        const manualScene = data.selectionDate === today && dailyMotionPairs.some(pair => pair.scene === data.scene);
+        const manualOpening = data.selectionDate === today && dailyMotionPairs.some(pair => pair.opening === data.opening);
+        el.dataset.scene = manualScene ? data.scene : daily.scene;
+        el.dataset.opening = manualOpening ? data.opening : daily.opening;
+        el.dataset.sceneMode = manualScene ? 'manual' : 'daily';
+        el.dataset.motionDay = today;
+        if (['auto', 'light', 'dark'].includes(data.theme)) {
+          el.dataset.theme = data.theme;
+          el.style.colorScheme = data.theme === 'auto' ? 'light dark' : data.theme;
+        }
+        if (data.motion === false || matchMedia('(prefers-reduced-motion:reduce)').matches) el.dataset.motion = 'off';
+      })();
     </script>
     {showEntry && <EntryBootstrap />}
   </head>
   <body class="universe" data-home={home || undefined} data-production-origin={Astro.site?.origin}>
-    {home && <HomeScene />}
+    <HomeScene animated={home} />
     {showEntry && <EntryGate />}
     <a class="u-skip" href="#main-content">跳到正文</a>
     <Header home={showEntry} />

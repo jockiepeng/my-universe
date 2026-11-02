@@ -1,5 +1,9 @@
+---
+interface Props { animated?: boolean }
+const { animated = true } = Astro.props;
+---
 <div class="u-home-scene" aria-hidden="true">
-  <canvas data-home-scene></canvas>
+  <canvas data-home-scene data-scene-animated={String(animated)}></canvas>
   <div class="u-scene-shade"></div>
 </div>
 <script>

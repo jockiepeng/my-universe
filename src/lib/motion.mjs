@@ -24,6 +24,9 @@ for (let i = pairs.length - 1; i > 0; i--) {
   [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
 }
 
+// The head bootstrap uses the same schedule before browser modules load.
+export { pairs as dailyMotionPairs };
+
 export function getDailyMotion(now = new Date()) {
   const { dateKey, day } = getZonedClock(now);
   const tail = day % 10;

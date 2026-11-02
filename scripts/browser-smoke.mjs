@@ -223,7 +223,8 @@ try {
   await page.locator('[data-daily-quote]').screenshot({ path: path.join(screenshots, 'home-thought-beach.png') });
   await page.getByRole('link', { name: 'AI探索：先搭工具箱，再让 AI 帮我做一个博客', exact: true }).click();
   await page.waitForFunction(() => Boolean(document.documentElement.dataset.motionDay));
-  assert.equal(await page.locator('canvas').count(), 0, '文章阅读页不包含动画画布');
+  await page.waitForFunction(() => document.querySelector('[data-home-scene]')?.dataset.state === 'paused');
+  assert.equal(await page.locator('[data-home-scene]').getAttribute('data-scene-animated'), 'false', '文章阅读页使用静态场景');
   assert.equal(await page.locator('html').getAttribute('data-scene'), 'ocean');
   assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
   assert.equal(await page.locator('script[src*="busuanzi"]').count(), 0);
@@ -392,9 +393,10 @@ try {
       await image.evaluate(el => el.complete ? Promise.resolve() : new Promise((resolve, reject) => { el.onload = resolve; el.onerror = reject; }));
       assert.ok(await image.evaluate((el, base) => el.naturalWidth > 0 && new URL(el.src).pathname.startsWith(`${base}/_astro/`), base), '迁移配图应从本站构建产物加载');
     }
-    assert.equal(await page.locator('canvas').count(), 0);
+    await page.waitForFunction(() => document.querySelector('[data-home-scene]')?.dataset.state === 'paused');
+    assert.equal(await page.locator('[data-home-scene]').getAttribute('data-scene-animated'), 'false');
   }
-  checks.push('两篇迁移长文和 Codex 排查文章的十一张配图可加载，阅读背景无动画画布');
+  checks.push('两篇迁移长文和 Codex 排查文章的十一张配图可加载，阅读背景保持静态');
   assert.deepEqual(errors, []); checks.push('页面无 JavaScript 运行错误');
 
   // Use local responses under the real origin to verify actual browser referrer policy.

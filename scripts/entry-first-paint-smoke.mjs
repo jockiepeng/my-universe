@@ -28,6 +28,60 @@ for (const candidate of ['C:/Program Files (x86)/Google/Chrome/Application/chrom
 }
 const browser = await chromium.launch({ executablePath: executable, headless: true, args: ['--enable-unsafe-swiftshader'] });
 try {
+  // Returning home must select the right scene even while module downloads stall.
+  for (const source of ['archive/', 'games/']) {
+    for (const scenario of [
+      { name: 'daily', stored: null, scene: 'ocean', opening: 'portal' },
+      { name: 'manual', stored: JSON.stringify({ scene: 'aurora', opening: 'particles', selectionDate: '2026-11-03', theme: 'dark', motion: false }), scene: 'aurora', opening: 'particles' },
+      { name: 'expired', stored: JSON.stringify({ scene: 'aurora', opening: 'particles', selectionDate: '2026-11-02' }), scene: 'ocean', opening: 'portal' },
+      { name: 'malformed', stored: '{', scene: 'ocean', opening: 'portal' },
+      { name: 'unavailable', stored: null, scene: 'ocean', opening: 'portal' },
+    ]) {
+      const context = await browser.newContext();
+      await context.addInitScript(({ stored, unavailable, base }) => {
+        if (stored !== null) localStorage.setItem('little-universe-appearance-v1', stored);
+        sessionStorage.setItem(`universe-entry-v1:${base}/`, '2026-11-03');
+        if (unavailable) {
+          const getItem = Storage.prototype.getItem;
+          Storage.prototype.getItem = function (key) {
+            if (key === 'little-universe-appearance-v1') throw new Error('Storage unavailable');
+            return getItem.call(this, key);
+          };
+        }
+      }, { stored: scenario.stored, unavailable: scenario.name === 'unavailable', base });
+      const page = await context.newPage();
+      await page.clock.install({ time: new Date('2026-11-03T04:00:00Z') });
+      const errors = [];
+      page.on('pageerror', error => errors.push(error.message));
+      let resume;
+      const scriptsReady = new Promise(resolve => { resume = resolve; });
+      try {
+        await page.goto(`${url}${source}`);
+        await page.route('**/*.js', async route => { await scriptsReady; await route.continue(); });
+        await page.locator('.u-nav a').first().click({ noWaitAfter: true });
+        await page.waitForURL(url, { waitUntil: 'commit' });
+        await page.locator('[data-home-scene]').waitFor({ state: 'attached' });
+        const inspect = () => ({
+          scene: document.documentElement.dataset.scene,
+          opening: document.documentElement.dataset.opening,
+          theme: document.documentElement.dataset.theme,
+          motion: document.documentElement.dataset.motion,
+          background: getComputedStyle(document.querySelector('.u-home-scene')).backgroundImage,
+        });
+        const before = await page.evaluate(inspect);
+        assert.equal(before.scene, scenario.scene, `${source} ${scenario.name}: correct scene before modules load`);
+        assert.equal(before.opening, scenario.opening, `${source} ${scenario.name}: correct opening before modules load`);
+        assert.equal(await page.locator('.u-page').isVisible(), true, 'Returning home does not replay the opening');
+        resume();
+        await page.waitForLoadState('load');
+        await page.waitForFunction(() => document.querySelector('[data-home-scene]').dataset.renderer);
+        assert.deepEqual(await page.evaluate(inspect), before, 'Module startup must preserve the initial appearance');
+        assert.deepEqual(errors, []);
+        console.log(`PASS: ${source} ${scenario.name} scene stays correct before and after module startup`);
+      } finally { resume(); await context.close(); }
+    }
+  }
+
   const context = await browser.newContext();
   const page = await context.newPage();
   let release;

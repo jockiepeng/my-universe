@@ -54,7 +54,7 @@ if (canvas) {
     gl.uniform1i(uniforms.mode, root.dataset.scene === 'ocean' ? 2 : root.dataset.scene === 'aurora' ? 1 : 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
-  function enabled() { return Boolean(gl) && root.dataset.motion !== 'off' && !reduced.matches && !document.hidden && onScreen; }
+  function enabled() { return surface.dataset.sceneAnimated === 'true' && Boolean(gl) && root.dataset.motion !== 'off' && !reduced.matches && !document.hidden && onScreen; }
   function tick(now: number) {
     frame = 0;
     if (!enabled()) return;

@@ -440,12 +440,14 @@ html[data-scene="ocean"] .u-home-hero .u-intro-link { color:#ffe2b6; }
   .u-back-to-top { right:14px; }
 }
 
-/* The scene is the entire homepage backdrop, not a banner. */
-.universe[data-home] .u-home-scene { position:fixed; inset:0; z-index:-1; }
+/* Every page shares the scene; inner pages render a still frame. */
+.universe .u-home-scene { position:fixed; inset:0; z-index:-1; }
+.universe:before { content:none; }
 .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f27b3, #080f2722 68%, transparent); }
 .universe[data-home] .u-home-hero { overflow:visible; background:transparent; border-radius:0; margin:12px 0 20px; padding:38px 4px; min-height:300px; }
 .universe[data-home] .u-main-grid { padding:26px 28px 30px; margin-bottom:28px; background:color-mix(in srgb,var(--u-bg) 94%,transparent); border:1px solid color-mix(in srgb,var(--u-line) 80%,transparent); border-radius:12px; }
-.universe[data-home] .u-footer-shell { background:color-mix(in srgb,var(--u-bg) 96%,transparent); }
+.universe .u-footer-shell { background:color-mix(in srgb,var(--u-bg) 96%,transparent); }
+.universe:not([data-home]) #main-content { background:color-mix(in srgb,var(--u-bg) 94%,transparent); border:1px solid color-mix(in srgb,var(--u-line) 80%,transparent); border-radius:12px; padding:0 28px 28px; margin-top:24px; }
 .u-home-hero .u-hero-copy { width:min(100%,520px); }
 .u-daily-quote { display:grid; gap:8px; min-width:0; margin:0 0 22px; padding-bottom:22px; border-bottom:1px solid var(--u-line); }
 .u-quote-heading h2 { color:var(--u-muted); font-size:12px; line-height:1.5; font-weight:400; margin:0; }
@@ -464,6 +466,7 @@ html[data-scene="ocean"] .u-home-hero .u-intro-link { color:#ffe2b6; }
 /* The fixed backdrop sits outside the named content containers. */
 @media (max-width:580px) {
   .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f27bd,#080f2799); }
+  .universe:not([data-home]) #main-content { padding:0 18px 20px; margin-top:20px; }
 }
 
 /* The three approved WebGL scenes share the existing reading layout. */
@@ -485,14 +488,14 @@ html[data-scene="ocean"] .u-home-hero .u-intro-link { color:#ffe2b6; }
 html[data-scene="aurora"] .u-home-scene { background:radial-gradient(ellipse at 30% 30%,light-dark(#bbddd2,#198078),light-dark(#e0efec,#143449) 45%,light-dark(#f1f7f3,#030713) 85%); }
 html[data-scene="ocean"] .u-home-scene { background:linear-gradient(light-dark(#d1dde3,#234865),light-dark(#f1d8c8,#bb8076) 43%,light-dark(#c3dcd9,#326578) 44%,light-dark(#e1ece3,#102b3c)); }
 html[data-scene="aurora"] .universe { --u-star:light-dark(#6eaaa7,#99d8cf); --u-warm:light-dark(#6887ae,#bdc7ee); }
-.universe[data-home] .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa66,#080f2766),light-dark(#edf2fa11,#080f2711) 65%,transparent); }
+.universe .u-home-scene .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa66,#080f2766),light-dark(#edf2fa11,#080f2711) 65%,transparent); }
 .universe[data-home] .u-home-hero { color:var(--u-text); }
 .universe[data-home] .u-home-hero .u-hero-copy { text-shadow:0 2px 22px light-dark(#ffffff80,#040b1dcc); }
 .universe[data-home] .u-home-hero p { color:var(--u-muted); }
 .universe[data-home] .u-home-hero .u-intro-link { color:var(--u-link); }
 .universe[data-home] .u-home-hero .u-game-link { color:var(--u-text); background:color-mix(in srgb,var(--u-paper) 70%,transparent); border-color:var(--u-line); }
 .universe[data-home] .u-home-hero .u-game-link:hover { background:var(--u-paper); }
-html[data-scene="aurora"] .universe[data-home] {
+html[data-scene="aurora"] .universe {
   --u-bg:light-dark(#eff6f3,#112b35); --u-paper:light-dark(#f8fcfa,#193a43);
   --u-text:light-dark(#243e40,#e6f0ed); --u-muted:light-dark(#536e6f,#adbfbd);
   --u-line:light-dark(#d5e4df,#34565b); --u-link:light-dark(#28696b,#a1dcd2);
@@ -501,4 +504,4 @@ html[data-scene="aurora"] .universe[data-home] {
 /* Openings keep their night backdrop in either reading theme. */
 html:is([data-entry="pending"],[data-entry="open"]) .u-home-scene { color-scheme:dark; }
 html:is([data-entry="pending"],[data-entry="open"]) .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f2766,#080f2711 65%,transparent); }
-@media(max-width:580px) { .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa99,#080f2799),light-dark(#edf2fa44,#080f2744)); } }
+@media(max-width:580px) { .universe .u-home-scene .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa99,#080f2799),light-dark(#edf2fa44,#080f2744)); } }
