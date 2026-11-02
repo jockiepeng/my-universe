@@ -1,0 +1,50 @@
+---
+import ArcadeLayout from '../../layouts/ArcadeLayout.astro';
+import '../../styles/breakout.css';
+---
+<ArcadeLayout title="星际打砖块" description="接住每一道星光，把整片星空慢慢点亮。" slug="breakout">
+  <div class="a-toolbar">
+    <dl class="a-metrics">
+      <div><dt>分数</dt><dd data-breakout-score>0</dd></div>
+      <div><dt>最高分</dt><dd data-breakout-best>0</dd></div>
+      <div><dt>关卡</dt><dd data-breakout-level>01</dd></div>
+      <div><dt>生命</dt><dd data-breakout-lives>3</dd></div>
+    </dl>
+  </div>
+  <div class="a-surface b-surface">
+    <canvas width="720" height="560" tabindex="0" data-breakout-canvas aria-label="星际打砖块游戏画布，用左右方向键或 A、D 移动挡板" aria-describedby="breakout-controls breakout-message">请使用支持 Canvas 的浏览器游玩。</canvas>
+  </div>
+  <div class="a-status" role="status" aria-live="polite" aria-atomic="true"><p id="breakout-message" data-breakout-message>移动挡板，点击「开始 / 发球」出发。</p></div>
+  <div class="a-actions">
+    <button type="button" class="a-button a-primary" data-breakout-start disabled>开始 / 发球</button>
+    <button type="button" class="a-button" data-breakout-pause disabled>暂停</button>
+    <button type="button" class="a-button" data-breakout-new disabled>新游戏</button>
+  </div>
+  <div class="a-controls b-controls">
+    <p id="breakout-controls">左右移动挡板 · <kbd>Space</kbd> 发球 / 暂停<br /><span>也可在画布内移动鼠标或拖动手指</span></p>
+    <div class="b-directions" role="group" aria-label="移动挡板">
+      <button type="button" class="a-button" data-breakout-direction="left" aria-label="挡板向左，按住持续移动" disabled>←</button>
+      <button type="button" class="a-button" data-breakout-direction="right" aria-label="挡板向右，按住持续移动" disabled>→</button>
+    </div>
+  </div>
+  <p class="a-note" data-breakout-save>最高分自动保存在此浏览器。</p>
+  <Fragment slot="guide">
+    <div class="a-game-symbol" aria-hidden="true">▰</div>
+    <h2>让星光继续反弹</h2>
+    <p>从挡板发出小球，击碎上方的星际砖块。清空一片星域，再出发去下一关。</p>
+    <h3>怎么操作</h3>
+    <ul>
+      <li>鼠标在画布内移动，或用手指拖动，挡板会跟随你。</li>
+      <li>用 <kbd>←</kbd> <kbd>→</kbd> 或 <kbd>A</kbd> <kbd>D</kbd> 移动，也可以按住下方的方向按钮。</li>
+      <li>聚焦画布后，<kbd>Space</kbd> 发球、暂停或继续。按钮也可通过键盘操作。</li>
+    </ul>
+    <h3>星域规则</h3>
+    <ul>
+      <li>每击碎一块砖获得 10 分。清空全部砖块，点击「下一关」继续；后续关卡球速会逐渐提高。</li>
+      <li>每局有 3 条生命。小球落出底部会失去一条生命，准备好后重新发球。</li>
+      <li>击中挡板两侧，小球会向对应方向弹出；击中中央，反弹更接近竖直。</li>
+      <li>切换标签页或离开窗口会自动暂停。回来后点击「继续」，从刚才的位置接着玩。</li>
+    </ul>
+  </Fragment>
+</ArcadeLayout>
+<script>import '../../scripts/breakout';</script>

@@ -1,0 +1,18 @@
+---
+import ArcadeLayout from '../../layouts/ArcadeLayout.astro';
+import '../../styles/minesweeper.css';
+---
+<ArcadeLayout title="星域扫雷" description="小心探索未知星域，让每一面旗帜都有依据。" slug="minesweeper">
+  <div class="a-toolbar">
+    <dl class="a-metrics"><div><dt>剩余雷数</dt><dd data-mines-remaining>10</dd></div><div><dt>用时</dt><dd><span data-mines-time>0</span><small> 秒</small></dd></div><div><dt>最快纪录</dt><dd data-mines-best>—</dd></div></dl>
+  </div>
+  <div class="a-surface mines-surface">
+    <div class="mines-scroll" data-mines-scroll tabindex="-1"><div class="mines-board" data-mines-board role="grid" aria-label="扫雷棋盘"></div></div>
+    <div class="mines-cover" data-mines-cover hidden><span>探索已暂停</span><small>继续后显示星域</small></div>
+  </div>
+  <div class="a-status" data-mines-status role="status" aria-live="polite">翻开任意一格开始。第一次探索及周围一圈始终安全。</div>
+  <div class="a-controls"><div class="a-actions"><button class="a-button" data-mines-pause disabled>暂停</button><button class="a-button" data-mines-restart>重新开始</button><button class="a-button" data-mines-flag aria-pressed="false">插旗模式：关</button></div><label>难度<select data-mines-difficulty aria-label="扫雷难度"><option value="easy">简单 · 9 × 9</option><option value="normal">中等 · 12 × 12</option><option value="hard">困难 · 16 × 16</option></select></label></div>
+  <p class="a-note" data-mines-storage>纪录保存在当前浏览器。窄屏下可在棋盘内横向滚动。</p>
+  <div slot="guide"><div class="a-game-symbol" aria-hidden="true">⚑</div><h2>把未知变成确定</h2><p>数字表示周围八格的雷数。翻开全部安全格即可获胜，踩到地雷则本局结束。</p><h3>操作</h3><ul><li>点按翻格；右键插旗。手机可开启「插旗模式」。</li><li><kbd>方向键</kbd> 移动焦点，<kbd>Enter</kbd> / <kbd>空格</kbd> 操作，<kbd>F</kbd> 插旗。</li><li>空白区域会自动展开，已经插旗的格子会保留。</li></ul><h3>从容探索</h3><p>计时从第一次翻格开始；暂停与切到后台都会停止计时并遮住棋盘。每个难度分别记录最快通关时间。</p></div>
+</ArcadeLayout>
+<script>import '../../scripts/minesweeper';</script>

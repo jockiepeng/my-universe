@@ -1,0 +1,16 @@
+.mines-surface { isolation:isolate; }
+.mines-scroll { overflow:auto; max-width:100%; overscroll-behavior:contain; padding:16px; scrollbar-color:#738b9d #122b43; }
+.mines-board { display:grid; grid-template-columns:repeat(var(--mines-cols,9),minmax(28px,1fr)); gap:3px; min-width:calc(var(--mines-cols,9)*31px - 3px); }
+.mines-board[data-difficulty="hard"] { min-width:calc(16*35px - 3px); }
+.mines-row { display:contents; }
+.a-game .mines-cell { display:grid; place-items:center; aspect-ratio:1; padding:0; border:1px solid #567086; border-radius:4px; background:#284760; color:#edf5ff; font-size:clamp(13px,2.3vw,21px); font-weight:650; touch-action:manipulation; user-select:none; }
+.mines-cell:hover { background:#355872; border-color:#efcc8a; }
+.mines-cell[data-revealed="true"] { background:#10283c; border-color:#29475e; }
+.mines-cell[data-number="1"] { color:#9ac6f1; }.mines-cell[data-number="2"] { color:#8edcc0; }.mines-cell[data-number="3"] { color:#ed9685; }.mines-cell[data-number="4"] { color:#d4b5ef; }.mines-cell[data-number="5"],.mines-cell[data-number="6"],.mines-cell[data-number="7"],.mines-cell[data-number="8"] { color:#efcc8a; }
+.mines-cell[data-flagged="true"] { color:#efcc8a; }.mines-cell[data-mine="true"] { color:#ed9685; }.mines-cell[data-exploded="true"] { background:#713d44; border-color:#ed9685; }
+.a-game .mines-cell:focus-visible { outline:3px solid #efcc8a; outline-offset:-3px; z-index:1; }
+.mines-cover { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:#10283c; color:#efcc8a; font-size:22px; }
+.mines-cover[hidden] { display:none; }.mines-cover small { color:#b7cadb; font-size:12px; }
+.mines-surface[data-paused="true"] .mines-board { visibility:hidden; }
+.a-metrics small { font-size:11px; font-weight:400; color:var(--u-muted); }
+@media(max-width:400px) { .mines-scroll { padding:10px; }.mines-board { gap:2px; min-width:calc(var(--mines-cols,9)*30px - 2px); } }

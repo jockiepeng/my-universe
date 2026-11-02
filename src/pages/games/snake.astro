@@ -1,0 +1,54 @@
+---
+import ArcadeLayout from '../../layouts/ArcadeLayout.astro';
+import '../../styles/snake.css';
+---
+<ArcadeLayout title="星际贪吃蛇" description="沿着星轨，吃掉下一颗星星。留一点空间，给下一次转弯。" slug="snake">
+  <div class="a-toolbar">
+    <dl class="a-metrics">
+      <div><dt>本局得分</dt><dd data-snake-score>0</dd></div>
+      <div><dt>本档最高</dt><dd data-snake-best>0</dd></div>
+      <div><dt>飞船长度</dt><dd data-snake-length>3</dd></div>
+    </dl>
+    <label class="s-speed">飞行速度<select data-snake-speed aria-label="飞行速度" disabled><option value="easy">漫游 · 慢速</option><option value="normal" selected>巡航 · 标准</option><option value="fast">跃迁 · 快速</option></select></label>
+  </div>
+  <div class="a-surface s-surface" data-snake-board tabindex="0" role="group" aria-label="星际贪吃蛇棋盘" aria-describedby="snake-instructions">
+    <canvas data-snake-canvas width="600" height="600" role="img" aria-label="20 行 20 列的星际棋盘">20×20 棋盘，方向键或 WASD 转向，吃星星得分。</canvas>
+    <div class="s-overlay" data-snake-overlay>
+      <span class="s-overline" data-snake-eyebrow>20 × 20 星域</span>
+      <strong data-snake-overlay-title>下一颗星星，在前方</strong>
+      <p data-snake-overlay-copy>点击「开始飞行」，沿着星轨出发。</p>
+    </div>
+  </div>
+  <div class="a-controls">
+    <div class="a-actions">
+      <button class="a-button a-primary" type="button" data-snake-start disabled>开始飞行</button>
+      <button class="a-button" type="button" data-snake-pause disabled>暂停</button>
+      <button class="a-button" type="button" data-snake-new disabled>新一局</button>
+    </div>
+    <div class="a-directions" role="group" aria-label="控制飞行方向">
+      <button type="button" data-snake-direction="up" aria-label="向上" disabled>↑</button>
+      <button type="button" data-snake-direction="left" aria-label="向左" disabled>←</button>
+      <button type="button" data-snake-direction="down" aria-label="向下" disabled>↓</button>
+      <button type="button" data-snake-direction="right" aria-label="向右" disabled>→</button>
+    </div>
+  </div>
+  <div class="a-status" role="status" aria-live="polite" aria-atomic="true"><p data-snake-status>准备就绪。选择速度，开始你的星际漫游。</p></div>
+  <p class="a-note" id="snake-instructions">方向键 / WASD 转向 · 空格暂停或继续 · 棋盘内滑动也能转弯</p>
+  <p class="a-note" data-snake-save>各档最高分保存在此浏览器。切换速度会开始新一局。</p>
+  <Fragment slot="guide">
+    <div class="a-game-symbol" aria-hidden="true">✦</div>
+    <h2>给下一次转弯，留点余地</h2>
+    <p>一条小小的星际飞船，在 20 × 20 的夜空里寻找星星。不必着急，每一步都算数。</p>
+    <h3>怎么飞？</h3>
+    <ul>
+      <li>点击「开始飞行」后，用 <kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> 或 WASD 转向。手机可在棋盘上滑动，或使用四向按钮。</li>
+      <li>吃掉一颗星星，获得 10 分，飞船增长一格。不能直接掉头，快速转向会依次执行。</li>
+      <li>撞到边界或自己的身体，本次飞行结束。吃满整片星空即获胜。</li>
+    </ul>
+    <h3>随时停靠</h3>
+    <p>空格或「暂停」让时间停下。切换窗口、离开页面会自动暂停，回来后点击「继续」再出发。</p>
+    <h3>找到你的速度</h3>
+    <p>漫游适合熟悉路线；巡航保持节奏；跃迁考验预判。各档最高分分别记录，换一种速度也是新的旅程。</p>
+  </Fragment>
+  <script>import '../../scripts/snake';</script>
+</ArcadeLayout>

@@ -1,0 +1,16 @@
+---
+import ArcadeLayout from '../../layouts/ArcadeLayout.astro';
+import '../../styles/link-game.css';
+---
+<ArcadeLayout title="星图连连看" description="把散落星图连成一线，在倒计时结束前清空星空。" slug="link">
+  <div class="a-toolbar"><dl class="a-metrics"><div><dt>本局得分</dt><dd data-link-score>0</dd></div><div><dt>剩余时间</dt><dd><span data-link-time>180</span><small> 秒</small></dd></div><div><dt>最高纪录</dt><dd data-link-best>0</dd></div></dl></div>
+  <div class="a-surface link-surface">
+    <div class="link-stage" data-link-stage><div class="link-board" data-link-board role="grid" aria-label="星图连连看棋盘"></div><svg class="link-path" data-link-path aria-hidden="true" preserveAspectRatio="none"><polyline data-link-line points="" /></svg></div>
+    <div class="link-cover" data-link-cover hidden><span>星空已暂停</span><small>继续后显示图案</small></div>
+  </div>
+  <div class="a-status" data-link-status role="status" aria-live="polite">点击开始，或选择任意图案开始本局。</div>
+  <div class="a-controls"><div class="a-actions"><button class="a-button a-primary" data-link-start>开始</button><button class="a-button" data-link-pause disabled>暂停</button><button class="a-button" data-link-restart>重新开始</button><button class="a-button" data-link-hint disabled>提示 · 3</button><button class="a-button" data-link-shuffle disabled>洗牌 · 3</button></div><label>难度<select data-link-difficulty aria-label="连连看难度"><option value="easy">简单 · 6 × 6</option><option value="normal">普通 · 6 × 8</option></select></label></div>
+  <p class="a-note" data-link-storage>最高纪录保存在当前浏览器。错配不扣分；每局可提示、洗牌各 3 次。</p>
+  <div slot="guide"><div class="a-game-symbol" aria-hidden="true">✧</div><h2>找到彼此相连的星星</h2><p>选择两个相同图案。只要能用最多两次转弯的横竖线连通，即可消除。线路可经过棋盘外围，但不能穿过其他图案。</p><h3>操作</h3><ul><li>点选两个图案；再点一次已选图案可以取消。</li><li><kbd>方向键</kbd> 移动焦点，<kbd>Enter</kbd> / <kbd>空格</kbd> 选择。</li><li>提示会照亮一对可消图案；洗牌保留剩余图案并保证有路可连。</li></ul><h3>与时间赛跑</h3><p>每对得 100 分，全部消除后每剩余 1 秒奖励 10 分。没有合法连接时会自动免费洗牌。暂停与切到后台都会冻结时间并遮住图案。</p></div>
+</ArcadeLayout>
+<script>import '../../scripts/link-game';</script>
