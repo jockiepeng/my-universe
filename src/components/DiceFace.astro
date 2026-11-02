@@ -1,0 +1,7 @@
+---
+interface Props { value?: number; interactive?: boolean }
+const { value = 1, interactive = false } = Astro.props;
+---
+<span class="g-die" data-value={value} data-die={interactive || undefined} role="img" aria-label={`${value} 点`}>
+  {Array.from({ length: 9 }, (_, i) => <span class={`g-pip g-pip-${i + 1}`} aria-hidden="true"></span>)}
+</span>

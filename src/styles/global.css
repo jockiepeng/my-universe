@@ -34,7 +34,7 @@ html[data-scene="ocean"] .universe:before { background:linear-gradient(165deg,co
 .u-mark:before { content:""; position:absolute; inset:6px -1px; border:1.3px solid currentColor; border-radius:50%; transform:rotate(-36deg); }
 .u-mark:after { content:""; position:absolute; left:10px; top:9px; height:8px; width:8px; background:currentColor; border-radius:50%; box-shadow:10px -4px 0 -2px var(--u-warm); }
 .u-nav { display:flex; align-items:center; gap:25px; font-size:13px; color:var(--u-muted); }
-.u-nav a { padding:10px 0; position:relative; }
+.u-nav a { padding:10px 0; position:relative; white-space:nowrap; flex-shrink:0; }
 .u-nav a[aria-current="page"] { color:var(--u-text); }
 .u-nav a[aria-current="page"]:after { content:""; position:absolute; bottom:0; left:calc(50% - 2px); width:4px; height:4px; border-radius:50%; background:var(--u-link); }
 .u-actions { display:flex; gap:6px; align-items:center; position:relative; }
@@ -60,6 +60,11 @@ html[data-scene="ocean"] .universe:before { background:linear-gradient(165deg,co
 .u-hero p { color:var(--u-muted); font-size:14px; line-height:1.95; margin:0; }
 .u-hero .u-intro-link { display:inline-flex; align-items:center; gap:8px; margin-top:21px; color:var(--u-link); font-size:13px; }
 .u-intro-link svg { width:14px; height:14px; }
+.u-home-hero .u-game-link { display:inline-flex; align-items:center; gap:8px; margin:18px 0 0 18px; padding:10px 15px; border:1px solid #c5d7f37a; border-radius:7px; color:#f1f6ff; background:#203a6380; font-size:13px; }
+.u-game-link > span { font-size:21px; line-height:1; }
+.u-home-hero .u-game-link:hover { background:#35557b; color:#fff; }
+@media (max-width:580px) { .u-home-hero .u-game-link { display:flex; width:max-content; margin:16px 0 0; } }
+@media (max-width:380px) { .u-scene-trigger [data-scene-label] { display:none; } }
 .u-cosmos { min-height:225px; position:relative; display:grid; place-items:center; }
 .u-space-scene { position:absolute; inset:0; display:grid; place-items:center; }
 .u-beach-scene { position:absolute; width:86%; height:178px; top:13px; left:7%; border-radius:95px 95px 16px 16px; overflow:hidden; background:linear-gradient(var(--u-sky) 0 55%,var(--u-sea) 55% 85%,var(--u-sand) 85%); }
