@@ -1,5 +1,11 @@
 .g-sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-.g-catalog { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(200px,1fr); gap:28px; padding:8px 0 70px; }
+.g-catalog { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; padding:8px 0 70px; }
+.g-planet-art { background:#122a40; gap:14px; }
+.g-planet-preview { width:80px; height:105px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid #c4e1ee33; border-radius:10px; background:#2a465d; color:#f4f0e6; }
+.g-planet-preview .p-orb { width:58px; }
+.g-planet-preview b { font-size:20px; font-weight:500; margin-top:2px; }
+.g-planet-preview:first-child { transform:rotate(-9deg) translateY(10px); }
+.g-planet-preview:last-child { transform:rotate(9deg) translateY(-10px); }
 .g-game-card { display:block; border:1px solid var(--u-line); border-radius:16px; overflow:hidden; background:var(--u-paper); }
 .g-card-art { display:flex; position:relative; isolation:isolate; align-items:center; justify-content:center; gap:20px; min-height:230px; overflow:hidden; background:#183952; }
 .g-art-ring { position:absolute; z-index:-1; width:360px; height:170px; border:1px solid #e5c78665; border-radius:50%; transform:rotate(-18deg); }

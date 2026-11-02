@@ -120,8 +120,9 @@ if (entry) {
   window.addEventListener('resize', makePoints);
   window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); clearTimeout(readyTimer); });
   window.addEventListener('pageshow', () => { if (active && playing) { cancelAnimationFrame(frame); clearTimeout(readyTimer); readyTimer = setTimeout(ready, 5500); last = 0; frame = requestAnimationFrame(tick); } });
-  let enteredToday = false;
-  try { enteredToday = sessionStorage.getItem(sessionKey) === getDailyMotion().dateKey; } catch { /* Show once on this page. */ }
-  if (!enteredToday && !location.hash) play();
+  // The head bootstrap owns the initial decision. After a timeout or an early
+  // skip, a late module download must not interrupt reading with an opening.
+  if (root.dataset.entry === 'pending') play();
   root.dataset.entryInitialized = 'true';
+  window.dispatchEvent(new Event('universe:entry-initialized'));
 }

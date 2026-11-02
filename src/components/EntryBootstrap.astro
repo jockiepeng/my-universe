@@ -1,0 +1,40 @@
+---
+const entrySessionKey = `universe-entry-v1:${import.meta.env.BASE_URL}`;
+---
+<!-- Decide before the first paint, while the animation modules load. -->
+<style is:inline>
+  html[data-entry="pending"] { overflow:hidden; }
+  html[data-entry="pending"] :is(.u-header-shell,.u-page,.u-footer-shell,.u-skip) { visibility:hidden; }
+  html[data-entry="pending"] [data-entry-gate][hidden] { display:block !important; }
+</style>
+<script is:inline define:vars={{ entrySessionKey }}>
+  (() => {
+    if (location.hash) return;
+    const root = document.documentElement;
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
+    }).formatToParts(new Date()).map(part => [part.type, part.value]));
+    const today = `${parts.year}-${parts.month}-${parts.day}`;
+    try { if (sessionStorage.getItem(entrySessionKey) === today) return; } catch { /* Storage is optional. */ }
+    root.dataset.entry = 'pending';
+
+    function cleanup() {
+      clearTimeout(timeout);
+      document.removeEventListener('click', skipPending);
+      window.removeEventListener('universe:entry-initialized', cleanup);
+    }
+    function release() {
+      if (root.dataset.entry === 'pending') delete root.dataset.entry;
+      cleanup();
+    }
+    function skipPending(event) {
+      if (root.dataset.entry !== 'pending' || !(event.target instanceof Element) || !event.target.closest('[data-entry-skip]')) return;
+      try { sessionStorage.setItem(entrySessionKey, today); } catch { /* Storage is optional. */ }
+      release();
+    }
+    // A failed download must never leave the reader behind a loading screen.
+    const timeout = setTimeout(release, 8000);
+    document.addEventListener('click', skipPending);
+    window.addEventListener('universe:entry-initialized', cleanup, { once: true });
+  })();
+</script>

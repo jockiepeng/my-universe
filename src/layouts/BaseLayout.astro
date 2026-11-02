@@ -5,6 +5,7 @@ import SearchDialog from '../components/SearchDialog.astro';
 import BackToTop from '../components/BackToTop.astro';
 import HomeScene from '../components/HomeScene.astro';
 import EntryGate from '../components/EntryGate.astro';
+import EntryBootstrap from '../components/EntryBootstrap.astro';
 import { siteConfig } from '../site.config';
 import { href } from '../lib/posts';
 import '../styles/global.css';
@@ -33,9 +34,11 @@ const showEntry = home && Astro.url.pathname === href('/');
     <script is:inline>
       (()=>{const el=document.documentElement;el.classList.add('js');try{const data=JSON.parse(localStorage.getItem('little-universe-appearance-v1')||'null');if(data&&typeof data==='object'){if(['auto','light','dark'].includes(data.theme)){el.dataset.theme=data.theme;el.style.colorScheme=data.theme==='auto'?'light dark':data.theme;}if(data.motion===false)el.dataset.motion='off';}}catch{}if(matchMedia('(prefers-reduced-motion:reduce)').matches)el.dataset.motion='off';})();
     </script>
+    {showEntry && <EntryBootstrap />}
   </head>
   <body class="universe" data-home={home || undefined} data-production-origin={Astro.site?.origin}>
     {home && <HomeScene />}
+    {showEntry && <EntryGate />}
     <a class="u-skip" href="#main-content">跳到正文</a>
     <Header home={showEntry} />
     <div class="u-page">
@@ -46,7 +49,6 @@ const showEntry = home && Astro.url.pathname === href('/');
     <Footer />
     {article && <BackToTop />}
     <SearchDialog />
-    {showEntry && <EntryGate />}
     <script>
       import '../scripts/appearance';
       import '../scripts/fixed-bars';

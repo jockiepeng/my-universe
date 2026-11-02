@@ -1,0 +1,23 @@
+.p-orb { --p-color:#aabecb; --p-glow:#859eaf; display:inline-grid; position:relative; isolation:isolate; place-items:center; width:54%; aspect-ratio:1; flex-shrink:0; }
+.p-orb-surface { position:absolute; inset:9%; border-radius:50%; background:radial-gradient(circle at 30% 23%,#ffffffbc,transparent 35%),radial-gradient(circle at 30% 30%,var(--p-color) 15%,var(--p-glow) 47%,#081523 100%); box-shadow:inset -5px -6px 9px #07132470,0 0 16px color-mix(in srgb,var(--p-color) 18%,transparent); }
+.p-orb-ring { position:absolute; z-index:1; width:125%; height:35%; border:2px solid var(--p-color); border-radius:50%; transform:rotate(-27deg); opacity:0; }
+.p-orb[data-value="2"] { --p-color:#c4e1ee; --p-glow:#638598; }
+.p-orb[data-value="2"] .p-orb-surface { inset:32%; box-shadow:14px -8px 0 -4px #c4e1ee,-12px 11px 0 -4px #a4c0d4,12px 14px 0 -5px #e4d1a5; }
+.p-orb[data-value="4"] { --p-color:#bba69c; --p-glow:#817e85; }
+.p-orb[data-value="4"] .p-orb-surface { border-radius:43% 54% 40% 57%; }
+.p-orb[data-value="8"] { --p-color:#ceb692; --p-glow:#927e69; }
+.p-orb[data-value="8"] .p-orb-surface { border-radius:48% 40% 51% 43%; }
+.p-orb[data-value="16"] { --p-color:#e1dfcc; --p-glow:#8f9ba3; }
+.p-orb[data-value="32"] { --p-color:#e7ae80; --p-glow:#9d6053; }
+.p-orb[data-value="64"] { --p-color:#78c8be; --p-glow:#3d829d; }
+.p-orb[data-value="128"] { --p-color:#e3c68f; --p-glow:#b07d58; }
+.p-orb[data-value="128"] .p-orb-surface { background:repeating-linear-gradient(-15deg,#d5ba91aa 0 7%,#88765a88 9% 13%),radial-gradient(circle at 25% 25%,#f6e3b9,#b68c66 50%,#172638); }
+.p-orb[data-value="256"] { --p-color:#ecc29d; --p-glow:#aa8180; }
+.p-orb[data-value="256"] .p-orb-ring { opacity:.75; }
+.p-orb[data-value="512"] { --p-color:#ffe7a2; --p-glow:#e49c59; }
+.p-orb[data-value="512"] .p-orb-surface { background:radial-gradient(circle at 38% 33%,#fff9dd,#f7c371 55%,#d77846); box-shadow:0 0 18px #f3c37c70; }
+.p-orb[data-value="1024"] { --p-color:#dfb6de; --p-glow:#837da8; }
+.p-orb[data-value="1024"] .p-orb-surface { background:radial-gradient(ellipse at 30% 40%,#eac4e4,transparent 58%),radial-gradient(ellipse at 65% 60%,#98c5e7,transparent 60%); box-shadow:0 0 13px #ad9ed850; }
+.p-orb[data-value="2048"] { --p-color:#f0cd88; --p-glow:#ddad69; }
+.p-orb[data-value="2048"] .p-orb-surface { background:radial-gradient(ellipse,#fff3cf 4%,#f0cd88 12%,#d7bd8f66 32%,transparent 65%); transform:rotate(-25deg) scale(1.35,.6); box-shadow:0 0 17px #f0cd8850; }
+.p-orb[data-value="2048"] .p-orb-ring { opacity:.7; width:95%; border-style:dotted; height:65%; transform:rotate(-25deg); }

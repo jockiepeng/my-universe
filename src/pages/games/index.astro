@@ -1,15 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DiceFace from '../../components/DiceFace.astro';
+import PlanetOrb from '../../components/PlanetOrb.astro';
 import { games } from '../../lib/games';
 import { href } from '../../lib/posts';
 import '../../styles/games.css';
 ---
-<BaseLayout title="游戏大厅" description="在小宇宙里玩一会儿。从三骰猜大小开始，慢慢收集更多小游戏。">
+<BaseLayout title="游戏大厅" description="在小宇宙里玩一会儿。三骰猜大小、2048 星球合成，选一款随时开始。">
   <header class="u-page-head g-lobby-head"><h1>留一点时间，玩一会儿。</h1><p>欢迎来到小宇宙的游戏角落。选一款，随时开始。</p></header>
   <div class="g-catalog">
     {games.map(game => <a class="g-game-card" href={href(game.href)}>
-      <div class="g-card-art" aria-hidden="true"><span class="g-art-ring"></span><DiceFace value={3} /><DiceFace value={5} /><DiceFace value={2} /><span class="g-art-chip">50</span></div>
+      {game.slug === '2048' ? <div class="g-card-art g-planet-art" aria-hidden="true"><span class="g-planet-preview"><PlanetOrb value={32} /><b>32</b></span><span class="g-planet-preview"><PlanetOrb value={64} /><b>64</b></span><span class="g-planet-preview"><PlanetOrb value={256} /><b>256</b></span></div> : <div class="g-card-art" aria-hidden="true"><span class="g-art-ring"></span><DiceFace value={3} /><DiceFace value={5} /><DiceFace value={2} /><span class="g-art-chip">50</span></div>}
       <div class="g-card-copy"><span class="g-available">可以开玩</span><h2>{game.title}</h2><p>{game.description}</p><small>{game.detail}</small><span class="g-card-play">开始游戏 <span aria-hidden="true">↗</span></span></div>
     </a>)}
     <div class="g-next-game"><span aria-hidden="true">＋</span><h2>下一款，慢慢来。</h2><p>这里会继续加入新的小游戏。</p></div>
