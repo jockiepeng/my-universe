@@ -118,7 +118,9 @@ try {
   await page.waitForFunction(() => document.querySelector('[data-home-scene]')?.dataset.state === 'running');
   const background = await page.locator('[data-home-scene]').boundingBox();
   assert.deepEqual([background.x, background.y, background.width, background.height], [0, 0, 1360, 1000], '动画背景应覆盖整个视口');
-  assert.equal(await page.locator('.u-post').count(), 3, '首页包含两篇长文与人缘贴图');
+  for (const slug of ['ai-tools-setup', 'knowledge-base-practice', 'renyuan-20261102', 'codex-reconnecting-troubleshooting']) {
+    assert.equal(await page.locator(`.u-post h3 a[href="${base}/posts/${slug}/"]`).count(), 1, `首页包含正式记录 ${slug}`);
+  }
   assert.equal(await page.locator('#daily-quote-title').innerText(), '随想');
   assert.equal(await page.locator('[data-daily-quote] time, [data-quote-source]').count(), 0);
   await page.locator('[data-daily-quote][data-quote-id]:not([data-quote-id=""])').waitFor();

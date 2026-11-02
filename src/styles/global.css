@@ -402,7 +402,7 @@ html.u-paused .u-star-layer, html.u-paused .u-beach-wave, html[data-motion="off"
 .u-home-hero h1 { font-size:clamp(28px,3.8cqi,41px); font-weight:550; line-height:1.55; letter-spacing:.04em; text-shadow:0 2px 25px #080f2733; }
 .u-home-hero p { color:#c2cede; }
 .u-home-hero .u-intro-link { color:#dbd9bc; }
-.u-home-scene { position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(ellipse at 78% 40%,#52649a,#0a142c 70%); }
+.u-home-scene { position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(ellipse at 78% 40%,light-dark(#c9d7ef,#52649a),light-dark(#edf2fa,#0a142c) 70%); }
 .u-home-scene canvas { display:block; width:100%; height:100%; }
 .u-scene-shade { position:absolute; inset:0; background:linear-gradient(90deg,#080f27c9, #080f2744 55%, transparent); }
 .u-scene-coordinate { position:absolute; right:25px; bottom:19px; color:#d9eaff88; font-size:9px; letter-spacing:.18em; }
@@ -480,11 +480,25 @@ html[data-scene="ocean"] .u-home-hero .u-intro-link { color:#ffe2b6; }
 .u-opening-options button[aria-pressed="true"] { border-color:var(--u-link); color:var(--u-link); }
 .u-entry-replay,.u-scene-daily { display:block; width:100%; margin-top:10px; }
 .u-scene-daily[aria-pressed="true"] { color:var(--u-link); }
-.u-home-scene:has([data-renderer="fallback"]) { background:radial-gradient(ellipse at 60% 55%,#56658b,#10192f 48%,#030713); }
+.u-home-scene:has([data-renderer="fallback"]) { background:radial-gradient(ellipse at 60% 55%,light-dark(#c8d4e9,#56658b),light-dark(#edf2fa,#10192f) 48%,light-dark(#f6f8fc,#030713)); }
 .u-home-scene [data-renderer="fallback"] { visibility:hidden; }
-html[data-scene="aurora"] .u-home-scene { background:radial-gradient(ellipse at 30% 30%,#198078,#143449 45%,#030713 85%); }
-html[data-scene="ocean"] .u-home-scene { background:linear-gradient(#234865,#bb8076 43%,#326578 44%,#102b3c); }
+html[data-scene="aurora"] .u-home-scene { background:radial-gradient(ellipse at 30% 30%,light-dark(#bbddd2,#198078),light-dark(#e0efec,#143449) 45%,light-dark(#f1f7f3,#030713) 85%); }
+html[data-scene="ocean"] .u-home-scene { background:linear-gradient(light-dark(#d1dde3,#234865),light-dark(#f1d8c8,#bb8076) 43%,light-dark(#c3dcd9,#326578) 44%,light-dark(#e1ece3,#102b3c)); }
 html[data-scene="aurora"] .universe { --u-star:light-dark(#6eaaa7,#99d8cf); --u-warm:light-dark(#6887ae,#bdc7ee); }
-.universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f2766,#080f2711 65%,transparent); }
-.universe[data-home] .u-home-hero .u-hero-copy { text-shadow:0 2px 22px #040b1dcc; }
-@media(max-width:580px) { .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f2799,#080f2744); } }
+.universe[data-home] .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa66,#080f2766),light-dark(#edf2fa11,#080f2711) 65%,transparent); }
+.universe[data-home] .u-home-hero { color:var(--u-text); }
+.universe[data-home] .u-home-hero .u-hero-copy { text-shadow:0 2px 22px light-dark(#ffffff80,#040b1dcc); }
+.universe[data-home] .u-home-hero p { color:var(--u-muted); }
+.universe[data-home] .u-home-hero .u-intro-link { color:var(--u-link); }
+.universe[data-home] .u-home-hero .u-game-link { color:var(--u-text); background:color-mix(in srgb,var(--u-paper) 70%,transparent); border-color:var(--u-line); }
+.universe[data-home] .u-home-hero .u-game-link:hover { background:var(--u-paper); }
+html[data-scene="aurora"] .universe[data-home] {
+  --u-bg:light-dark(#eff6f3,#112b35); --u-paper:light-dark(#f8fcfa,#193a43);
+  --u-text:light-dark(#243e40,#e6f0ed); --u-muted:light-dark(#536e6f,#adbfbd);
+  --u-line:light-dark(#d5e4df,#34565b); --u-link:light-dark(#28696b,#a1dcd2);
+  --u-soft:light-dark(#e4f0eb,#21454c);
+}
+/* Openings keep their night backdrop in either reading theme. */
+html:is([data-entry="pending"],[data-entry="open"]) .u-home-scene { color-scheme:dark; }
+html:is([data-entry="pending"],[data-entry="open"]) .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f2766,#080f2711 65%,transparent); }
+@media(max-width:580px) { .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa99,#080f2799),light-dark(#edf2fa44,#080f2744)); } }

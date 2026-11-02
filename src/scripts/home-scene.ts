@@ -5,6 +5,7 @@ if (canvas) {
   const surface = canvas;
   const root = document.documentElement;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const systemTheme = matchMedia('(prefers-color-scheme: dark)');
   let gl: WebGLRenderingContext | null = null;
   let uniforms: Record<string, WebGLUniformLocation | null> = {};
   let frame = 0, last = 0, elapsed = 0, warp = 0;
@@ -35,7 +36,7 @@ if (canvas) {
       context.bufferData(context.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), context.STATIC_DRAW);
       const position = context.getAttribLocation(program, 'position');
       context.enableVertexAttribArray(position); context.vertexAttribPointer(position, 2, context.FLOAT, false, 0, 0);
-      uniforms = Object.fromEntries(['resolution', 'mouse', 'time', 'warp', 'mode'].map(name => [name, context.getUniformLocation(program, `u_${name}`)]));
+      uniforms = Object.fromEntries(['resolution', 'mouse', 'time', 'warp', 'light', 'mode'].map(name => [name, context.getUniformLocation(program, `u_${name}`)]));
       gl = context; surface.dataset.renderer = 'webgl';
     } catch {
       gl = null; surface.dataset.renderer = 'fallback';
@@ -47,6 +48,9 @@ if (canvas) {
     gl.uniform2f(uniforms.resolution, surface.width, surface.height);
     gl.uniform2f(uniforms.mouse, pointer[0], pointer[1]);
     gl.uniform1f(uniforms.time, elapsed); gl.uniform1f(uniforms.warp, warp);
+    const opening = root.dataset.entry === 'pending' || root.dataset.entry === 'open';
+    const dark = root.dataset.theme === 'dark' || (root.dataset.theme !== 'light' && systemTheme.matches);
+    gl.uniform1f(uniforms.light, opening || dark ? 0 : 1);
     gl.uniform1i(uniforms.mode, root.dataset.scene === 'ocean' ? 2 : root.dataset.scene === 'aurora' ? 1 : 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
@@ -73,14 +77,14 @@ if (canvas) {
   }
   initialize(); resize();
   new ResizeObserver(resize).observe(surface);
-  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-scene', 'data-motion'] });
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-scene', 'data-motion', 'data-theme', 'data-entry'] });
   new IntersectionObserver(entries => { onScreen = entries[0].isIntersecting; sync(); }).observe(surface);
   window.addEventListener('universe:entry-progress', event => { warp = (event as CustomEvent<{ warp: number }>).detail.warp; });
   window.addEventListener('pointermove', event => {
     if (event.pointerType !== 'mouse' || !enabled()) return;
     const box = surface.getBoundingClientRect(); pointer = [event.clientX / box.width, 1 - event.clientY / box.height];
   });
-  document.addEventListener('visibilitychange', sync); reduced.addEventListener('change', sync);
+  document.addEventListener('visibilitychange', sync); reduced.addEventListener('change', sync); systemTheme.addEventListener('change', sync);
   window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); last = 0; }); window.addEventListener('pageshow', sync);
   surface.addEventListener('webglcontextlost', event => { event.preventDefault(); gl = null; surface.dataset.renderer = 'fallback'; sync(); });
   surface.addEventListener('webglcontextrestored', () => { initialize(); resize(); });
