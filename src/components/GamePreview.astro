@@ -1,0 +1,10 @@
+---
+interface Props { slug: string }
+const { slug } = Astro.props;
+---
+<div class={`a-preview a-preview-${slug}`} aria-hidden="true">
+  {slug === 'snake' && <svg viewBox="0 0 450 205" fill="none"><path d="M57 43H393M57 83H393M57 123H393M57 163H393M97 24V183M137 24V183M177 24V183M217 24V183M257 24V183M297 24V183M337 24V183M377 24V183" stroke="#416078" stroke-opacity=".3" /><path d="M115 143H194V64H274" stroke="#8edcc0" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" /><circle cx="279" cy="60" r="2.5" fill="#122b43" /><circle cx="279" cy="69" r="2.5" fill="#122b43" /><path d="m335 106 5 12 13 2-10 8 3 13-11-7-11 7 3-13-10-8 13-2Z" fill="#efcc8a" /></svg>}
+  {slug === 'minesweeper' && <div class="a-preview-grid">{['', '', '⚑', '', '', '1', '2', '', '', '', '', '1', '', '⚑', '', '', '', '2', '1', ''].map((value, i) => <span data-open={['1','2'].includes(value) || i === 15 || undefined} data-flag={value === '⚑' || undefined}>{value}</span>)}</div>}
+  {slug === 'breakout' && <svg viewBox="0 0 450 205"><g fill="#ed9685">{[0,1,2,3,4,5].map(col => <rect x={65+col*54} y="35" width="47" height="17" rx="4" />)}</g><g fill="#efcc8a">{[0,1,2,4,5].map(col => <rect x={65+col*54} y="60" width="47" height="17" rx="4" />)}</g><g fill="#9ac6f1">{[0,1,4,5].map(col => <rect x={65+col*54} y="85" width="47" height="17" rx="4" />)}</g><path d="m210 153 28-39" stroke="#edf5ff" stroke-width="2" stroke-dasharray="5 7" opacity=".4" /><circle cx="243" cy="107" r="6" fill="#edf5ff" /><rect x="167" y="170" width="80" height="8" rx="4" fill="#ed9685" /></svg>}
+  {slug === 'link' && <><svg viewBox="0 0 450 205" style="position:absolute"><path d="M135 70V31H315V70" stroke="#efcc8a" stroke-width="3" fill="none" stroke-linejoin="round" /></svg><div class="a-preview-links">{['✦','☾','◎','✦','☾','♢','◎','♢'].map(icon => <span>{icon}</span>)}</div></>}
+</div>

@@ -1,0 +1,11 @@
+.b-surface { box-shadow:inset 0 0 0 1px #ffffff05,0 10px 35px #081b2d12; }
+.b-surface canvas { aspect-ratio:9/7; cursor:crosshair; outline:none; }
+.b-surface canvas:focus-visible { box-shadow:inset 0 0 0 3px #ed9685; }
+.b-controls p { margin:0; font-size:12px; line-height:1.9; }
+.b-controls p span { font-size:11px; color:var(--u-muted); }
+.b-controls kbd { font:inherit; }
+.b-directions { display:flex; gap:9px; flex-shrink:0; }
+.b-directions button { width:58px; min-height:48px; font-size:23px !important; touch-action:none; user-select:none; -webkit-user-select:none; }
+.b-directions button[data-held] { border-color:#ed9685; background:#ed968525; }
+[data-arcade="breakout"] .a-primary { background:#ed9685; color:#17283a; border-color:#ed9685; }
+@media(max-width:380px) { .b-controls { align-items:flex-start; } .b-directions button { width:53px; } }
