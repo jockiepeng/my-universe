@@ -1,0 +1,14 @@
+---
+import { giscusConfig } from '../site.config';
+const configured = Boolean(giscusConfig.repoId && giscusConfig.categoryId);
+---
+<section class="u-comments" aria-labelledby="comments-title" data-pagefind-ignore>
+  <h2 id="comments-title">聊聊这篇文章</h2>
+  <p>有什么想法，欢迎在这里留下来。</p>
+  {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId}>
+    <p data-comment-status>评论将在滚动到这里时加载，需要登录 GitHub 才能发表评论。</p>
+    <div class="giscus"></div>
+    <a class="u-comment-fallback" href={`https://github.com/${giscusConfig.repo}/discussions`} target="_blank" rel="noopener noreferrer">也可以前往 GitHub Discussions 查看讨论</a>
+  </div> : <p class="u-comment-note">评论暂未开放，开放后可使用 GitHub 账号参与讨论。</p>}
+  <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
+</section>

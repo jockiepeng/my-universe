@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { href } from '../lib/posts';
+import SceneArt from '../components/SceneArt.astro';
+---
+<BaseLayout title="页面没有找到" noIndex><div class="u-hero u-not-found"><div class="u-hero-copy"><h1>这颗星星，<br />暂时不在这里。</h1><p>链接可能已经改变，也许可以从其他记录继续探索。</p><div class="u-contact-links"><a class="u-more" href={href('/')}>回到首页</a><a class="u-more" href={href('/archive/')}>看看归档</a></div></div><SceneArt /></div></BaseLayout>

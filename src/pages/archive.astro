@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, href, postHref } from '../lib/posts';
+import { categories, categorySlug } from '../lib/content.mjs';
+const posts = await getPosts();
+const yearFormat = new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Shanghai' });
+const monthDay = new Intl.DateTimeFormat('zh-CN', { month: '2-digit', day: '2-digit', timeZone: 'Asia/Shanghai' });
+const years = [...new Set(posts.map(post => yearFormat.format(post.data.date)))];
+const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+---
+<BaseLayout title="归档">
+  <header class="u-page-head"><h1>时间留下的轨迹</h1><p>把零散的记录，放回时间里。</p></header>
+  <nav class="u-taxonomy-links" aria-label="按主题浏览">{categories.map(category => <a href={href(`/categories/${categorySlug(category)}/`)}>{category}</a>)}</nav>
+  <div class="u-archive">
+    {years.map(year => <section class="u-year"><h2>{year}</h2><div class="u-archive-list">{posts.filter(post => yearFormat.format(post.data.date) === year).map(post => <div class="u-archive-item"><time datetime={post.data.date.toISOString()}>{monthDay.format(post.data.date)}</time><div><a href={postHref(post)}>{post.data.title}</a>{post.data.kind === 'note' && <span class="u-archive-kind">短记</span>}{post.data.example && <span class="u-archive-kind">示例</span>}{post.data.draft && <span class="u-archive-kind">草稿</span>}</div></div>)}</div></section>)}
+    {posts.length === 0 && <p class="u-empty">第一篇记录，还在路上。</p>}
+    {tags.length > 0 && <section class="u-archive-tags"><h2>也可以沿着标签找找</h2><div class="u-side-tags">{tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}>{tag}</a>)}</div></section>}
+  </div>
+</BaseLayout>

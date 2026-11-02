@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeContent from '../components/HomeContent.astro';
+import { getPosts } from '../lib/posts';
+import { siteConfig } from '../site.config';
+const posts = await getPosts();
+---
+<BaseLayout><HomeContent posts={posts.slice(0, siteConfig.pageSize)} allPosts={posts} total={Math.ceil(posts.length / siteConfig.pageSize)} /></BaseLayout>

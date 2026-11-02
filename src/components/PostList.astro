@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import ArticleMeta from './ArticleMeta.astro';
+import { summarize } from '../lib/content.mjs';
+import { href, postHref, type Post } from '../lib/posts';
+interface Props { posts: Post[]; filters?: boolean }
+const { posts, filters = false } = Astro.props;
+---
+<div class="u-post-list" data-post-list>
+  {posts.map(post => <article class:list={['u-post', { 'u-short': post.data.kind === 'note' }]} data-kind={post.data.kind}>
+    {post.data.kind === 'note' && <span class="u-note-dot" aria-hidden="true"></span>}
+    <div>
+      <ArticleMeta post={post} />
+      {post.data.kind !== 'note' && <h3><a href={postHref(post)}>{post.data.title}</a></h3>}
+      <p>{post.data.kind === 'note' ? <a href={postHref(post)} aria-label={`阅读短记：${post.data.title}`}>{post.data.summary || summarize(post.body, 150)}</a> : post.data.summary || summarize(post.body)}</p>
+      {post.data.cover && <a href={postHref(post)} class="u-cover-link"><Image src={post.data.cover} alt={post.data.coverAlt || post.data.title} width={700} loading="lazy" class="u-post-cover" /></a>}
+      {post.data.tags.length > 0 && <div class="u-tags">{post.data.tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}># {tag}</a>)}</div>}
+    </div>
+  </article>)}
+  {posts.length === 0 && <p class="u-empty">这里还没有文章，过段时间再来看看。</p>}
+  {filters && <p class="u-empty" data-filter-empty hidden>这一页暂时没有这类记录，可以切换筛选或去归档看看。</p>}
+</div>
