@@ -2,16 +2,18 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SearchDialog from '../components/SearchDialog.astro';
+import BackToTop from '../components/BackToTop.astro';
+import HomeScene from '../components/HomeScene.astro';
 import { siteConfig } from '../site.config';
 import { href } from '../lib/posts';
 import '../styles/global.css';
-interface Props { title?: string; description?: string; article?: boolean; noIndex?: boolean; image?: string }
-const { title, description = siteConfig.description, article = false, noIndex = false, image } = Astro.props;
+interface Props { title?: string; description?: string; article?: boolean; noIndex?: boolean; image?: string; home?: boolean }
+const { title, description = siteConfig.description, article = false, noIndex = false, image, home = false } = Astro.props;
 const pageTitle = title ? `${title} · ${siteConfig.title}` : siteConfig.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
-<html lang="zh-CN" data-scene="space" data-theme="auto" data-motion="on">
+<html id="page-top" lang="zh-CN" data-scene="space" data-theme="auto" data-motion="on">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,16 +32,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       (()=>{const el=document.documentElement;el.classList.add('js');try{const data=JSON.parse(localStorage.getItem('little-universe-appearance-v1')||'null');if(data&&typeof data==='object'){if(['space','beach'].includes(data.scene))el.dataset.scene=data.scene;if(['auto','light','dark'].includes(data.theme)){el.dataset.theme=data.theme;el.style.colorScheme=data.theme==='auto'?'light dark':data.theme;}if(data.motion===false)el.dataset.motion='off';}}catch{}if(matchMedia('(prefers-reduced-motion:reduce)').matches)el.dataset.motion='off';})();
     </script>
   </head>
-  <body class="universe" data-production-origin={Astro.site?.origin}>
+  <body class="universe" data-home={home || undefined} data-production-origin={Astro.site?.origin}>
+    {home && <HomeScene />}
     <a class="u-skip" href="#main-content">跳到正文</a>
-    <div class="u-wrap">
-      <Header />
-      <main id="main-content"><slot /></main>
-      <Footer />
+    <Header />
+    <div class="u-page">
+      <div class="u-wrap">
+        <main id="main-content"><slot /></main>
+      </div>
     </div>
+    <Footer />
+    {article && <BackToTop />}
     <SearchDialog />
     <script>
       import '../scripts/appearance';
+      import '../scripts/fixed-bars';
     </script>
   </body>
 </html>

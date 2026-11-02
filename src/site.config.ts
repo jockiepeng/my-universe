@@ -1,5 +1,5 @@
 export const siteConfig = {
-  title: '个人小宇宙',
+  title: 'jockie的小宇宙',
   description: '一些日常，一些思考，还有路上捡到的经验。在自己的小宇宙里，慢慢记录。',
   intro: '写下生活，\n也写下新的发现。',
   github: 'https://github.com/jockiepeng/my-universe',

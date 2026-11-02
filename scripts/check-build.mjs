@@ -35,4 +35,5 @@ const indexedPages = Object.values(index.languages).reduce((sum, language) => su
 const articleFiles = files.filter(file => file.includes(`${path.sep}posts${path.sep}`) && file.endsWith('.html'));
 assert.equal(indexedPages, articleFiles.length, '搜索应只索引正式文章详情');
 assert.ok(!files.some(file => file.includes(`${path.sep}draft-example${path.sep}`)), '草稿不应生成静态路由');
+assert.ok(!files.some(file => file.includes(`${path.sep}draft-note${path.sep}`)), '迁移的草稿不应生成静态路由');
 console.log(`产物检查通过：${files.length} 个文件，${links} 个站内资源/链接，${indexedPages} 篇可搜索文章；无草稿泄露。`);

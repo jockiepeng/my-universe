@@ -12,4 +12,4 @@ const { current } = Astro.props;
 const posts = await getPosts();
 const total = Math.ceil(posts.length / siteConfig.pageSize);
 ---
-<BaseLayout title={`记录 · 第 ${current} 页`}><HomeContent posts={posts.slice((current - 1) * siteConfig.pageSize, current * siteConfig.pageSize)} allPosts={posts} current={current} total={total} /></BaseLayout>
+<BaseLayout home title={`记录 · 第 ${current} 页`}><HomeContent posts={posts.slice((current - 1) * siteConfig.pageSize, current * siteConfig.pageSize)} allPosts={posts} current={current} total={total} /></BaseLayout>
