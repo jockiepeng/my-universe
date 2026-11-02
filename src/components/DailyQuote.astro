@@ -1,0 +1,12 @@
+---
+import quotes from '../data/daily-quotes.json';
+import { getDailyQuote } from '../lib/daily-quote.mjs';
+const { quote } = getDailyQuote(quotes);
+---
+<section class="u-daily-quote" aria-labelledby="daily-quote-title" data-daily-quote data-pagefind-ignore>
+  <div class="u-quote-heading"><h2 id="daily-quote-title">每日一句</h2><time data-quote-date></time></div>
+  <div><blockquote data-quote-text>{quote?.text || '留一点空白，等待下一段话。'}</blockquote><p data-quote-source>{quote?.source}</p></div>
+</section>
+<script>
+  import '../scripts/daily-quote';
+</script>

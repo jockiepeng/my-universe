@@ -3,6 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../site.config';
 ---
 <BaseLayout title="关于我">
-  <header class="u-page-head"><h1>你好，欢迎来坐坐。</h1><p>这里是一个慢慢生长的个人小宇宙。</p></header>
+  <header class="u-page-head"><h1>你好，欢迎来坐坐。</h1><p>这里是慢慢生长的{siteConfig.title}。</p></header>
   <div class="u-about"><p>我想在这里留下日常、思考和摸索的过程。有时是一篇认真整理的经验，有时只是散步回来想写下的几句话。</p><p>内容不限定主题，也没有必须保持的更新节奏。希望过一段时间回头看时，还能记得当时在关心什么、为什么出发。</p><h2>这里会写些什么</h2><p>日常里的小事，尚未成形的感悟，解决问题的经验，以及让生活更顺手的工具。</p><p class="u-about-note">这是一段示例介绍，之后会换成自己的故事。</p>{siteConfig.contactLinks.length > 0 && <section><h2>找到我</h2><div class="u-contact-links">{siteConfig.contactLinks.map(link => <a href={link.href} rel="me noopener noreferrer" target="_blank">{link.label}</a>)}</div></section>}</div>
 </BaseLayout>

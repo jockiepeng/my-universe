@@ -1,0 +1,43 @@
+---
+import { countdownTargets } from '../lib/countdown.mjs';
+---
+<div class="u-calendar-control" data-pagefind-ignore data-enhanced>
+  <button type="button" class="u-clock-trigger" data-clock-toggle aria-expanded="false" aria-controls="calendar-panel" aria-label="打开日历与倒计时（北京时间）">
+    <span data-clock-compact-date>日历</span><time data-clock-compact-time>--:--</time>
+  </button>
+<section id="calendar-panel" class="u-calendar-widget" aria-labelledby="calendar-clock-title" hidden>
+  <h2 id="calendar-clock-title">日历与时间</h2>
+  <div data-live-clock hidden>
+    <div class="u-clock-face">
+      <div><p class="u-clock-date" data-clock-date></p><p class="u-clock-zone">北京时间 · UTC+8</p></div>
+      <time class="u-clock-time" data-clock-time></time>
+    </div>
+    <div class="u-countdowns" aria-label="2027 年倒计时">
+      {countdownTargets.map(target => <div class="u-countdown" data-countdown={target.id}>
+        <p class="u-countdown-label">{target.label}<time datetime={target.target}>{target.dateLabel}</time></p>
+        <p class="u-countdown-value" data-countdown-value><strong data-countdown-days>—</strong><span>天</span><span class="u-countdown-clock" data-countdown-clock>--:--:--</span></p>
+        <p class="u-countdown-reached" data-countdown-reached hidden>{target.reachedLabel}</p>
+      </div>)}
+    </div>
+    <details class="u-calendar-details" open>
+      <summary><span data-calendar-month></span><span class="u-calendar-expand" aria-hidden="true"></span></summary>
+      <div class="u-calendar-navigation">
+        <button type="button" data-calendar-prev aria-label="上个月">‹</button>
+        <input type="month" data-calendar-jump aria-label="跳转到指定年月" min="1900-01" max="2100-12" />
+        <button type="button" data-calendar-next aria-label="下个月">›</button>
+      </div>
+      <button type="button" class="u-calendar-current" data-calendar-current>回到本月</button>
+      <table class="u-calendar-grid" aria-label="本月日历">
+        <caption class="u-sr-only" data-calendar-caption>当前月份，周一为一周的第一天</caption>
+        <thead><tr>{['一', '二', '三', '四', '五', '六', '日'].map(day => <th scope="col">{day}</th>)}</tr></thead>
+        <tbody data-calendar-days></tbody>
+      </table>
+    </details>
+  </div>
+  <p class="u-clock-status" data-clock-status data-enhanced>正在加载日期与时间…</p>
+  <noscript><p class="u-clock-status">启用 JavaScript 后可查看当前日期、日历、实时时间与倒计时。</p></noscript>
+</section>
+</div>
+<script>
+  import '../scripts/calendar-clock';
+</script>
