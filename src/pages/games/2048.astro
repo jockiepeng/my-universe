@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PlanetOrb from '../../components/PlanetOrb.astro';
+import { href } from '../../lib/posts';
+import { planets } from '../../lib/planet-2048.mjs';
+import '../../styles/games.css';
+import '../../styles/planet-2048.css';
+---
+<BaseLayout title="2048 星球合成" description="滑动星球，合并相同数字。从一粒星尘开始，在 4×4 棋盘里合成自己的星系。">
+  <div class="g-game p-game" data-planet-game data-pagefind-ignore>
+    <header class="g-game-head"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1>2048 星球合成</h1><p>从一粒星尘开始，慢慢拼出你的星系。</p></div></header>
+    <noscript><p class="g-notice">请启用 JavaScript 后游玩。下方可以查看星体图鉴和游戏规则。</p></noscript>
+    <div class="p-layout">
+      <section class="p-play" aria-label="2048 星球合成游戏">
+        <div class="p-toolbar"><dl class="p-scores"><div><dt>分数</dt><dd data-planet-score>0</dd></div><div><dt>最高分</dt><dd data-planet-best>0</dd></div><div><dt>步数</dt><dd data-planet-moves>0</dd></div></dl><button type="button" class="g-button p-new" data-planet-new disabled>新游戏</button></div>
+        <div class="p-board" data-planet-board role="grid" tabindex="0" aria-label="4 行 4 列星球棋盘，使用方向键移动" aria-describedby="planet-instructions">
+          {Array.from({ length: 4 }, (_, row) => <div class="p-row" role="row">{Array.from({ length: 4 }, (_, col) => <div class="p-cell" data-planet-cell data-value="0" role="gridcell" aria-label={`第 ${row + 1} 行第 ${col + 1} 列，空`}></div>)}</div>)}
+        </div>
+        <div class="p-status" role="status" aria-live="polite" aria-atomic="true"><p data-planet-message>准备好，让第一颗星球出发。</p><button type="button" class="g-button p-continue" data-planet-continue hidden>继续探索</button></div>
+        <div class="p-under-board"><p id="planet-instructions">方向键或在棋盘上滑动<br /><span>相同数字相碰，合成下一颗星球</span></p><div class="p-directions" role="group" aria-label="移动星球">{[{ key: 'up', symbol: '↑', label: '向上' }, { key: 'left', symbol: '←', label: '向左' }, { key: 'down', symbol: '↓', label: '向下' }, { key: 'right', symbol: '→', label: '向右' }].map(direction => <button type="button" data-planet-direction={direction.key} aria-label={direction.label} disabled>{direction.symbol}</button>)}</div></div>
+        <p class="p-save" data-planet-save>进度与最高分自动保存在此浏览器。</p>
+      </section>
+      <aside class="p-guide">
+        <div class="p-discovery"><PlanetOrb value={2} /><div><span>当前最高星体</span><h2 data-planet-highest>星尘</h2><p data-planet-highest-value>2</p></div></div>
+        <h2 class="p-guide-heading">星体图鉴</h2><p class="p-guide-note">相同的两颗，遇见下一种可能。</p>
+        <ol class="p-legend">{planets.map(planet => <li data-planet-legend={planet.value}><PlanetOrb value={planet.value} /><span>{planet.name}</span><b>{planet.value}</b></li>)}</ol>
+        <details class="p-rules" open><summary>怎么玩？</summary><ul><li>所有星球一起向滑动方向移动，相同数字合并，分数增加合并后的数值。</li><li>每颗星球每回合只能合并一次。四个 2 会变成两个 4。</li><li>每次有效移动后，空位随机生成一个 2 或 4；没移动就不生成。</li><li>合成 2048 即获胜，可以继续探索更高数字。棋盘填满且无法移动或合并时结束。</li></ul></details>
+      </aside>
+    </div>
+    <dialog class="g-reset-dialog" data-planet-dialog aria-labelledby="planet-reset-heading"><h2 id="planet-reset-heading">重新开始探索？</h2><p>当前棋盘和分数将清空，最高分会保留。</p><div class="g-dialog-actions"><button type="button" class="g-button" data-planet-cancel>继续这一局</button><button type="button" class="g-button g-confirm-reset" data-planet-confirm>开始新游戏</button></div></dialog>
+    <template data-planet-template><div class="p-tile"><PlanetOrb /><strong data-planet-number></strong><span class="p-tile-name" data-planet-name></span></div></template>
+  </div>
+  <script>import '../../scripts/planet-2048';</script>
+</BaseLayout>

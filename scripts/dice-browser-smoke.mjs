@@ -70,7 +70,7 @@ try {
   await page.locator('.u-game-link').click();
   assert.equal(new URL(page.url()).pathname, base + '/games/');
   await page.screenshot({ path: path.join(screenshots, 'games-lobby-desktop.png'), fullPage: true });
-  await page.locator('.g-game-card').click();
+  await page.locator(`.g-game-card[href="${base}/games/dice/"]`).click();
   await ready(page);
   assert.equal(await page.locator('[data-balance]').textContent(), '1,000');
   assert.equal(await page.locator('.u-nav [aria-current="page"]').textContent(), '游戏');
@@ -177,6 +177,8 @@ try {
   await page.locator('[data-reset-open]').click();
   await page.locator('[data-initial-coins]').fill('555');
   await page.locator('[data-reset-form] button[type="submit"]').click();
+  // Publish only after the reset is actually queued behind the held lock.
+  await lockHolder.waitForFunction(async key => (await navigator.locks.query()).pending.some(lock => lock.name === key), STORAGE_KEY);
   await lockHolder.evaluate(({ key, raw }) => { localStorage.setItem(key, raw); window.__releaseDiceLock(); }, { key: STORAGE_KEY, raw: JSON.stringify(newer) });
   await page.waitForFunction(() => document.querySelector('[data-reset-error]').textContent.includes('已同步'));
   assert.equal(await page.locator('[data-reset-dialog]').evaluate(el => el.open), true);

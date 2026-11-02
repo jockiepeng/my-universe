@@ -1,0 +1,6 @@
+---
+import '../styles/planet-orb.css';
+interface Props { value?: number }
+const { value = 2 } = Astro.props;
+---
+<span class="p-orb" data-planet-orb data-value={value} aria-hidden="true"><span class="p-orb-ring"></span><span class="p-orb-surface"></span></span>
