@@ -14,6 +14,7 @@ const tags = [...new Set(allPosts.flatMap(post => post.data.tags))].slice(0, 8);
     <h1>写下生活，<br />也写下新的发现。</h1>
     <p>一些日常，一些思考，还有路上捡到的经验。</p>
     <a class="u-intro-link" href={href('/about/')}>认识一下这里的我 <Icon name="external" size={14} /></a>
+    <a class="u-game-link" href={href('/games/')}><span aria-hidden="true">⚄</span> 去玩个小游戏 <Icon name="external" size={14} /></a>
   </div>
 </div> : <header class="u-page-head"><h1>继续翻一翻</h1><p>第 {current} 页记录，沿着时间慢慢往前走。</p></header>}
 <div class="u-main-grid">

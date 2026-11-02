@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DiceFace from '../../components/DiceFace.astro';
+import { href } from '../../lib/posts';
+import { TOTAL_ODDS } from '../../lib/dice-game.mjs';
+import '../../styles/games.css';
+---
+<BaseLayout title="三骰猜大小" description="三颗骰子猜大小，虚拟金币下注，记录每局点数与盈亏。">
+  <div class="g-game" data-dice-game data-pagefind-ignore>
+    <header class="g-game-head"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1>三骰猜大小</h1><p>选好筹码，押下你的猜测。</p></div><button type="button" class="g-button g-reset-open" data-reset-open>设定金币 / 重新开始</button></header>
+    <noscript><p class="g-notice">请启用 JavaScript 后游玩，金币和历史会保存在当前浏览器。</p></noscript>
+    <p class="g-save-note" data-save-note>虚拟金币，仅供娱乐。进度自动保存在此浏览器。</p>
+    <div class="g-game-layout">
+      <div class="g-play-column">
+        <section class="g-table" aria-label="骰子与下注桌面">
+          <div class="g-table-top"><span>三颗骰子 · 每颗 1～6 点</span><span>第 <b data-next-round>1</b> 局</span></div>
+          <div class="g-dice-tray"><DiceFace interactive /><DiceFace interactive /><DiceFace interactive /></div>
+          <div class="g-outcome" data-outcome>等待开骰</div>
+          <p class="g-result" role="status" aria-live="polite" aria-atomic="true" data-result>先选筹码，再点击下方位置下注。</p>
+          <fieldset class="g-controls" data-bet-controls disabled>
+            <legend class="g-sr-only">下注区域</legend>
+            <div class="g-chip-picker"><label for="chip-amount">每次下注<input id="chip-amount" data-chip-amount type="number" value="50" min="1" max="1000000" step="1" inputmode="numeric" /></label><div class="g-chip-options" role="group" aria-label="快捷筹码">{[10, 50, 100, 500].map(value => <button class="g-chip" type="button" data-chip={value} aria-pressed={value === 50 ? 'true' : 'false'}>{value}</button>)}</div></div>
+            <p class="g-bet-hint">点击位置可叠加筹码，也可同时押多个位置。</p>
+            <div class="g-size-bets">{[{ spot: 'small', name: '小', range: '4～10 点' }, { spot: 'big', name: '大', range: '11～17 点' }].map(item => <button type="button" class="g-spot g-size-spot" data-spot={item.spot} data-label={item.name} aria-label={`${item.name}，${item.range}，净赢1倍，已押0金币`}><span class="g-size-name">{item.name}</span><span>{item.range}<small>净赢 1 倍 · 豹子通输</small></span><strong data-spot-amount>未下注</strong></button>)}</div>
+            <div class="g-total-label"><span>押总点数</span><small>显示净赢倍数，另退本金</small></div>
+            <div class="g-total-bets">{Object.entries(TOTAL_ODDS).map(([total, odds]) => <button type="button" class="g-spot g-total-spot" data-spot={total} data-label={`${total}点`} aria-label={`${total}点，净赢${odds}倍，已押0金币`}><b>{total}</b><small>{odds} 倍</small><strong data-spot-amount>—</strong></button>)}</div>
+            <div class="g-wallet"><div><span>我的金币</span><strong data-balance>1,000</strong></div><div><span>本局下注</span><strong data-stake>0</strong></div><div><span>下注后剩余</span><strong data-remaining>1,000</strong></div></div>
+            <div class="g-play-actions"><button type="button" class="g-clear" data-clear disabled>清空下注</button><button type="button" class="g-roll" data-roll disabled>下注并开骰</button></div>
+          </fieldset>
+        </section>
+        <section class="g-statistics" aria-labelledby="stats-heading"><h2 id="stats-heading">这一场的手气</h2><dl class="g-stats"><div><dt>已玩局数</dt><dd data-stat-rounds>0</dd></div><div><dt>盈利局数</dt><dd data-stat-wins>0</dd></div><div><dt>累计盈亏</dt><dd data-stat-net>0</dd></div></dl><div class="g-frequent"><span>最常出现的点数</span><strong data-frequent>还没有记录</strong><small data-frequent-detail>开骰后开始统计，并列点数会一起显示。</small></div><div class="g-distribution" data-distribution aria-label="总点数出现次数">{Array.from({ length: 16 }, (_, i) => <div class="g-bar-column" data-total={i + 3} aria-label={`${i + 3}点，0次`}><span class="g-bar-count">0</span><span class="g-bar-track"><span class="g-bar"></span></span><span>{i + 3}</span></div>)}</div><p class="g-distribution-note" data-size-counts>小 0 次 / 大 0 次 / 豹子 0 次</p></section>
+        <details class="g-rules"><summary>怎么玩？查看规则与赔率</summary><ul><li>每局摇三颗骰子。小为 4～10 点，大为 11～17 点；三颗相同是豹子，大小都输。</li><li>押总点数只看三颗之和，豹子也可以赢。3 点和 18 点仅记录，不设下注位。</li><li>“净赢 6 倍”表示押 10 金币，猜中净赚 60，连同本金返还 70；猜错扣除下注金币。</li><li>一局可押多个位置，分别结算。盈利局数只计整局净赚金币的回合。</li><li>筹码与初始金币均可设为 1～1,000,000 的整数；设定初始金币需重新开始，将清空全部历史。</li><li>总点数净赔率：4/17 为 50 倍，5/16 为 18 倍，6/15 为 14 倍，7/14 为 12 倍，8/13 为 8 倍，9/10/11/12 为 6 倍。</li></ul><p>历史频率只描述已经发生的结果，每次掷骰相互独立。</p></details>
+      </div>
+      <aside class="g-history" aria-labelledby="history-heading"><div class="g-history-head"><h2 id="history-heading">开骰记录</h2><span data-history-count>0 局</span></div><p class="g-empty" data-history-empty>还没有开骰。<br />第一局的点数，会留在这里。</p><ol class="g-history-list" data-history-list></ol><button type="button" class="g-button g-load-more" data-load-more hidden>查看更多记录</button></aside>
+    </div>
+    <dialog class="g-reset-dialog" data-reset-dialog aria-labelledby="reset-heading"><form data-reset-form><h2 id="reset-heading">重新开始一场</h2><p>金币恢复为下方数值，全部历史和统计清空。</p><label for="initial-coins">初始金币<input id="initial-coins" data-initial-coins type="number" value="1000" min="1" max="1000000" step="1" inputmode="numeric" required /></label><p class="g-dialog-error" data-reset-error role="alert"></p><div class="g-dialog-actions"><button type="button" class="g-button" data-reset-cancel>取消</button><button type="submit" class="g-button g-confirm-reset">清空并开始</button></div></form></dialog>
+  </div>
+  <script>import '../../scripts/dice-game';</script>
+</BaseLayout>
