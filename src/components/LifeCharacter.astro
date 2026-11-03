@@ -1,0 +1,6 @@
+---
+import { CHARACTER_SHEET, characterIndex } from '../lib/life-character.mjs';
+interface Props { stage: string; class?: string }
+const { stage, class: className = '' } = Astro.props;
+---
+<span class:list={['lc-character', className]} data-character={stage} aria-hidden="true" style={`--sprite-x:${characterIndex(stage) * 100 / 6}%;--sprite-image:url('${CHARACTER_SHEET}')`}><span class="lc-sprite"></span></span>

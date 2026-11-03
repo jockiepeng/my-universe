@@ -1,0 +1,11 @@
+# 人生角色图集 v2
+
+- 用户修订：替换第一版粗糙角色，人物应当在水平的格子地面上一步步行走。
+- 生成工具：内置 `image_gen.imagegen`，非 CLI；透明背景。
+- 项目文件：`public/images/life/characters-v2.png`，1659 × 948，七列四行，每帧 237 × 237，约 1.24 MB。
+- 每列依次为婴儿、儿童、少年、青年、成年、中年、老年；每行是一个行走／爬行帧。页面用 CSS 图集显示，海报使用同一图集中的静态帧，无远程依赖。
+- 原始文件保留在生成工具默认目录，项目仅引用仓库内副本。
+
+## 最终生成提示词
+
+Use case: stylized-concept. Asset type: production character animation SPRITE SHEET for a beautiful interactive life journey website. Create ONE carefully aligned transparent PNG sprite atlas, exactly SEVEN columns and FOUR rows, 28 equally sized cells. Wide 7:4 aspect ratio, ideally 3584x2048, square cells. No borders, no labels, no text, no scenery. Each column is the same person's age: column 1 crawling baby age 1, column 2 child age 7, column 3 teenager age 15 with small backpack, column 4 young adult age 24, column 5 mature adult age 38, column 6 middle-aged adult age 52 with slight greying, column 7 elderly adult age 72 with silver hair and walking stick. Across all columns: a coherent premium soft 3D storybook miniature style, sculpted rounded shapes, lovely expressive faces, subtle textured clothing, beautiful soft studio lighting, restrained muted teal, denim blue, dusty lavender and sand clothing palette. Person has East Asian features, dark hair growing silver with age, gender-neutral presentation. Keep the style sophisticated and charming, not crude flat stick figures, not emoji, not uncanny realism, not huge caricature heads. All characters face and walk toward the RIGHT in a three-quarter side view; show full bodies and feet, foot contact baseline at 88% of every cell, consistent scale per age, generous transparent padding, never extend outside a cell. Four ROWS are four consecutive clearly distinct walk-cycle frames for EACH age column: row 1 right foot forward contact, row 2 passing/feet together with body a little higher, row 3 left foot forward contact, row 4 opposite passing pose. Baby rows use four consecutive crawling poses instead. Preserve identical appearance, lighting, clothing, scale, camera and ground baseline across the four frames of each column; only arm/leg/crawl pose changes. Absolutely transparent background including between figures. No checkerboard baked into image. This must look like polished original game character art, usable directly as aligned sprite frames.

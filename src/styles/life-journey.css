@@ -1,0 +1,121 @@
+.l-heading h1 { font-family:"Songti SC","STSong","SimSun",serif; font-weight:500; font-size:clamp(35px,5vw,58px); line-height:1.35; letter-spacing:.06em; }
+.lj-observatory { position:relative; padding-top:23px; background:color-mix(in srgb,var(--u-paper) 97%,transparent); }
+.lj-stages { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); margin:22px 0 26px; gap:5px; }
+.lj-stage { display:flex; flex-direction:column; align-items:center; position:relative; min-width:0; opacity:.45; }
+.lj-stage[data-state="past"],.lj-stage[data-state="current"] { opacity:1; }
+.lj-stage[data-state="current"]:after { content:""; position:absolute; bottom:-10px; width:5px; height:5px; border-radius:50%; background:var(--u-warm); }
+.lj-stage strong { font-size:12px; font-weight:500; margin:6px 0; }
+.lj-stage small { font-size:10px; color:var(--u-muted); white-space:nowrap; }
+.lc-character { display:flex; align-items:flex-end; justify-content:center; width:78px; height:80px; }
+.lc-sprite { display:block; width:100%; aspect-ratio:1; background-image:var(--sprite-image); background-repeat:no-repeat; background-size:700% 400%; background-position:var(--sprite-x) var(--sprite-y,33.333333%); }
+.lj-story-line { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:70px; border-top:1px solid var(--u-line); padding-top:22px; }
+.lj-story-line h2 { margin:0 0 8px; font-size:23px; font-weight:500; font-family:"Songti SC","SimSun",serif; }
+.lj-story-line p { margin:0; color:var(--u-muted); font-size:12px; line-height:1.8; }
+.lj-story-actions { flex:none; }
+.lj-story-actions button { padding:9px 0 9px 12px; border:0; background:transparent; color:var(--u-link); font-size:11px !important; }
+.lj-plot { height:650px; position:relative; width:100%; margin:14px 0 0; overflow:hidden; }
+.lj-plot .l-canvas { width:100%; height:100%; cursor:crosshair; }
+.lj-plot:has(.l-canvas:focus-visible) { outline:2px solid var(--u-link); outline-offset:3px; }
+.lj-walker { position:absolute; width:156px; height:156px; pointer-events:none; transform:translateX(-50%); }
+.lj-walker .lc-character { position:absolute; width:100%; height:100%; display:none; }
+.lj-walker .lc-character.is-active { display:flex; }
+.lj-walker > span:last-child { position:absolute; top:-14px; left:50%; transform:translateX(-50%); font-size:11px; color:var(--u-muted); white-space:nowrap; }
+.lj-origin { position:absolute; left:22px; bottom:90px; color:var(--u-muted); font-size:11px; }
+.lj-camera-tools { display:flex; position:absolute; left:9px; top:8px; gap:7px; z-index:1; }
+.lj-camera-tools button { border:1px solid var(--u-line); border-radius:5px; background:var(--u-paper); color:var(--u-muted); padding:8px 10px; font-size:11px !important; }
+.lj-camera-tools button[aria-pressed="true"] { color:var(--u-link); border-color:var(--u-link); }
+[data-phase="overview"] .lj-camera-tools { display:none; }
+.lj-now { position:absolute; color:var(--u-warm); font-size:11px; padding:3px 6px; background:var(--u-paper); pointer-events:none; }
+[data-phase="overview"] .lj-origin,[data-phase="overview"] .lj-walker { display:none; }
+[data-phase="journey"] .lj-now,[data-phase="turn"] .lj-now { display:none; }
+.lj-map-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:4px 0 17px; }
+.lj-map-toolbar > p { margin:0; font-size:13px; color:var(--u-muted); }
+.lj-map-toolbar button { border:1px solid var(--u-line); border-radius:5px; background:var(--u-bg); color:var(--u-link); font-size:12px !important; padding:9px 12px; }
+.lj-map-toolbar button span { font-size:16px; margin-left:6px; }
+.lj-stats { border-top:1px solid var(--u-line); margin-top:24px; padding-top:20px; }
+.lj-stats strong { font-size:clamp(24px,3.4vw,38px); }
+.lj-observatory .l-progress { margin-bottom:15px; }
+.lj-future { display:grid; grid-template-columns:1fr 1.1fr; gap:45px; align-items:center; padding:70px 15px 20px; }
+.lj-future-intro h2 { font-family:"Songti SC","SimSun",serif; font-size:33px; font-weight:500; line-height:1.6; margin:20px 0 13px; }
+.lj-future-intro p { color:var(--u-muted); font-size:13px; line-height:1.9; }
+.lj-future-seed { display:block; width:32px; height:34px; border-left:2px solid var(--u-link); border-radius:0 0 0 50%; transform:rotate(-12deg); position:relative; margin-left:10px; }
+.lj-future-seed:before,.lj-future-seed:after { content:""; position:absolute; width:19px; height:10px; border-radius:90% 0 90% 0; background:var(--u-star); top:2px; left:-19px; }
+.lj-future-seed:after { transform:rotate(70deg); left:0; top:-6px; background:var(--u-warm); }
+.lj-wish-ideas { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+.lj-wish-ideas button { padding:7px 10px; border:1px solid var(--u-line); border-radius:20px; color:var(--u-muted); background:transparent; font-size:11px !important; }
+.lj-wish-ideas button[aria-pressed="true"] { color:var(--u-link); border-color:var(--u-link); }
+.lj-wish-editor > label { display:block; font-size:12px; margin-bottom:10px; color:var(--u-muted); }
+.lj-wish-editor textarea { resize:vertical; min-height:108px; width:100%; max-width:100%; padding:15px; background:var(--u-paper); color:var(--u-text); border:1px solid var(--u-line); border-radius:6px; font:inherit; font-size:14px; line-height:1.9; }
+.lj-wish-editor textarea:focus-visible { outline:2px solid var(--u-link); outline-offset:3px; }
+.lj-wish-help { display:flex; gap:12px; justify-content:space-between; font-size:10px; color:var(--u-muted); line-height:1.8; margin:7px 0 20px; }
+.lj-wish-help > span:last-child { white-space:nowrap; }
+.lj-share-open { width:100%; }
+html:has(.lj-fullscreen[open],.lj-share-dialog[open]) { overflow:hidden; }
+.lj-fullscreen,.lj-share-dialog { color:var(--u-text); background:var(--u-paper); border:1px solid var(--u-line); }
+.lj-fullscreen::backdrop,.lj-share-dialog::backdrop { background:#081322c9; }
+.lj-fullscreen { position:fixed; inset:0; width:100%; max-width:none; height:100dvh; max-height:none; margin:0; padding:max(18px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)); border:0; overflow:hidden; }
+.lj-fullscreen[open] { display:flex; flex-direction:column; }
+.lj-fullscreen-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.lj-fullscreen-top h2 { font-family:"Songti SC","SimSun",serif; font-size:25px; font-weight:500; margin:0; }
+.lj-fullscreen button,.lj-share-dialog button { cursor:pointer; font:inherit; }
+.lj-fullscreen-top button { flex:none; border:1px solid var(--u-line); background:transparent; color:var(--u-text); border-radius:5px; padding:8px 12px; font-size:12px; }
+.lj-fullscreen-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0; }
+.lj-fullscreen-bar p { font-size:12px; color:var(--u-muted); margin:0; line-height:1.7; }
+.lj-fullscreen-plot { position:relative; flex:1; min-height:0; width:100%; overflow:hidden; }
+.lj-fullscreen-plot canvas { display:block; width:100%; height:100%; outline:none; }
+.lj-fullscreen-plot:has(canvas:focus-visible) { outline:2px solid var(--u-link); outline-offset:2px; }
+.lj-fullscreen .l-detail { flex:none; margin:8px 0; min-height:35px; padding-top:8px; }
+.lj-fullscreen .l-query { flex:none; }
+.lj-share-dialog { width:min(630px,calc(100% - 24px)); max-height:calc(100dvh - 32px); border-radius:10px; padding:24px; }
+.lj-share-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:15px; }
+.lj-share-heading h2 { font-size:18px; font-weight:500; line-height:1.7; margin:0; }
+.lj-share-heading button { border:0; background:transparent; color:var(--u-muted); font-size:28px; line-height:1; padding:0 4px; }
+.lj-share-note,.lj-birth-option,.lj-share-dialog figcaption,.lj-share-dialog [role="status"] { color:var(--u-muted); font-size:11px; line-height:1.8; }
+.lj-birth-option { display:flex; align-items:center; gap:7px; margin:15px 0; }
+.lj-share-dialog figure { margin:15px 0; }
+.lj-share-dialog img { display:block; width:100%; height:auto; border:1px solid var(--u-line); }
+.lj-share-dialog img:not([src]) { display:none; }
+.lj-share-dialog figcaption { margin-top:10px; overflow-wrap:anywhere; }
+.lj-share-actions { display:flex; gap:10px; position:sticky; bottom:-24px; padding:14px 0 24px; background:var(--u-paper); }
+.lj-share-actions button { flex:1; padding:11px; border:1px solid var(--u-link); border-radius:5px; color:var(--u-paper); background:var(--u-link); font-size:13px; }
+.lj-share-actions button:disabled { opacity:.45; cursor:default; }
+@media(max-width:680px) {
+  .lj-observatory { padding-inline:12px; }
+  .lc-character { width:38px; height:54px; }
+  .lj-walker { width:100px; height:100px; }
+  .lj-stage strong { font-size:10px; margin:3px 0; }
+  .lj-stage small { font-size:8px; }
+  .lj-stages { gap:0; margin:18px -4px 25px; }
+  .lj-story-line { align-items:flex-start; gap:9px; }
+  .lj-story-line h2 { font-size:20px; }
+  .lj-story-line p { font-size:11px; }
+  .lj-story-actions { display:flex; flex-direction:column; }
+  .lj-story-actions button { padding:4px; font-size:10px !important; }
+  .lj-plot { height:500px; }
+  .lj-origin { bottom:60px; font-size:10px; }
+  .lj-map-toolbar { flex-wrap:wrap; gap:10px; }
+  .lj-map-toolbar > p { font-size:12px; }
+  .lj-map-toolbar button { font-size:11px !important; padding:8px; }
+  .lj-observatory .l-legend { gap:12px; font-size:10px; }
+  .lj-future { grid-template-columns:1fr; gap:28px; padding:46px 0 10px; }
+  .lj-future-intro h2 { font-size:29px; }
+  .lj-stats { gap:8px; }
+  .lj-stats strong { font-size:clamp(20px,5.7vw,32px); }
+  .lj-fullscreen { padding:14px 14px max(12px,env(safe-area-inset-bottom)); }
+  .lj-fullscreen-top h2 { font-size:19px; }
+  .lj-fullscreen-bar p { font-size:10px; max-width:65%; }
+  .lj-fullscreen .l-detail { font-size:10px; min-height:32px; }
+  .lj-share-dialog { padding:17px; }
+  .lj-share-heading h2 { font-size:16px; }
+  .lj-share-actions { bottom:-17px; padding-bottom:17px; }
+}
+@media(max-height:480px) {
+  .lj-fullscreen { padding:8px 14px; }
+  .lj-fullscreen-top h2 { font-size:17px; }
+  .lj-fullscreen-top button { padding:5px 9px; }
+  .lj-fullscreen-bar { padding:4px 0; }
+  .lj-fullscreen .l-detail { min-height:24px; margin:4px 0; }
+  .lj-fullscreen .l-query button,.lj-fullscreen .l-query input { height:28px; padding:4px 7px; }
+}
+@media(prefers-reduced-motion:reduce) { .is-walking * { animation:none !important; } }
+html[data-motion="off"] .is-walking * { animation:none !important; }

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { DEFAULT_WISH } from '../../lib/life-journey.mjs';
+import { href } from '../../lib/posts';
+import '../../styles/life-replay.css';
+---
+<BaseLayout title="时光回放 · 人生格子" description="让走过的日子逐格亮起。在完整的人生格子里，看见过去，也给未来留一个愿望。">
+  <section class="lr-root" data-life-replay-page data-example="true" data-phase="overview" data-animating="false">
+    <a class="lr-back" href={href('/tools/')}>‹ 返回工具</a>
+    <header class="lr-heading"><p>人生格子 · 时光回放</p><h1>时间，原来有形状。</h1><p>看见已经走过的日子，<br class="lr-mobile" />也看见尚未写下的故事。</p></header>
+    <form class="lr-form" data-life-form>
+      <label>出生日期<input name="birth" type="date" min="0001-01-01" required aria-describedby="replay-privacy" /></label>
+      <label>预计寿命<span class="lr-years"><input name="lifespan" type="number" min="1" max="120" step="1" value="80" required /><span>岁</span></span></label>
+      <button class="lr-primary" type="submit" data-life-submit disabled>回放我的人生</button>
+    </form>
+    <p class="lr-note" id="replay-privacy">首次填写后回放走过的人生，随时可以暂停。日期与寄语不保存、不上传。</p>
+    <p class="lr-error" data-life-error role="alert" hidden></p>
+    <noscript><p class="lr-error">请启用 JavaScript 查看回放；出生日期不会被提交。</p></noscript>
+
+    <section class="lr-stage" data-life-result hidden aria-label="人生回放">
+      <div class="lr-stage-top"><span data-life-context></span><div class="lr-switch" role="group" aria-label="格子单位"><button type="button" data-life-unit="day" aria-pressed="true">日</button><button type="button" data-life-unit="week" aria-pressed="false">周</button></div></div>
+      <div class="lr-story"><p data-replay-age></p><h2 data-life-story-title></h2><p data-replay-counter></p></div>
+      <div class="lr-plot" data-life-viewport><canvas data-life-canvas tabindex="0" role="img" aria-label="完整人生格子" aria-describedby="replay-detail">全部日期也可以使用下方格号查询。</canvas></div>
+      <p class="lr-story-copy" data-life-story-copy></p>
+      <div class="lr-controls"><div><button type="button" data-replay-prev>‹ 上一幕</button><button type="button" data-replay-next>下一幕 ›</button></div><span data-replay-scene></span><div><button type="button" data-life-pause hidden>暂停</button><button type="button" data-life-skip hidden>跳到今天</button><button class="lr-replay" type="button" data-life-replay>重新回放 ↻</button></div></div>
+      <div class="lr-map-bar"><span data-life-map-title></span><button type="button" data-life-fullscreen-open>全屏看一生 ⛶</button></div>
+      <div class="lr-legend"><span><i class="lr-past"></i>已走过</span><span><i class="lr-today"></i><span data-life-current-label>今天</span></span><span><i class="lr-future-dot"></i>等待填写</span></div>
+    </section>
+
+    <section class="lr-stats" aria-label="人生时间统计" aria-live="polite"><div><span>已走过 / 天</span><strong data-life-elapsed>—</strong></div><div><span>已走过人生</span><strong data-life-percent>—</strong></div><div><span>按设定尚有 / 天</span><strong data-life-remaining>—</strong></div></section>
+    <div class="lr-progress" role="progressbar" aria-label="按日计算的人生进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-life-progress><span></span></div>
+    <div class="lr-summary"><span>设定一生共 <strong data-life-total>—</strong> <span data-life-total-unit>天</span></span><span data-life-day-summary></span></div>
+    <details class="lr-details"><summary>查看每一格的日期与计算方式</summary><p id="replay-detail" data-life-detail aria-live="polite"></p><form class="lr-query" data-life-query-form><label for="replay-query">查看第</label><input id="replay-query" data-life-query type="number" min="1" step="1" required /><span>格</span><button type="submit">查看这一格</button><button type="button" data-life-today>回到今天</button></form><p data-life-count-note></p><p>预计寿命由你设定，并非预测。格子图聚焦后可用方向键和 Home / End 查询。</p></details>
+
+    <section class="lr-future" data-life-future hidden aria-labelledby="replay-future-title"><p data-life-message></p><h2 id="replay-future-title">剩下的格子，<br />还等着你填写。</h2><p>接下来的日子，想把时间留给什么？</p>
+      <div class="lr-ideas" role="group" aria-label="未来愿望灵感"><button type="button" data-life-idea="去没去过的地方，看看更大的世界。">去远方</button><button type="button" data-life-idea="把更多时间，留给我在意的人。">多陪伴</button><button type="button" data-life-idea="学会一直想学的事，让好奇心继续生长。">学点新东西</button><button type="button" data-life-idea="好好照顾身体，认真过每一天。">照顾自己</button></div>
+      <label class="lr-wish-label" for="replay-wish">写给未来的自己</label><textarea id="replay-wish" data-life-wish rows="3" placeholder={DEFAULT_WISH}></textarea><div class="lr-wish-help"><span>留空会使用提示中的寄语。</span><span data-life-wish-count>0 / 80</span></div><button class="lr-primary" type="button" data-life-share-open>把这一刻，存成一张图</button>
+    </section>
+
+    <dialog class="lr-fullscreen" data-life-fullscreen aria-labelledby="replay-fullscreen-title"><div class="lr-dialog-top"><h2 id="replay-fullscreen-title">完整的人生，尽在眼前。</h2><button type="button" data-life-fullscreen-close autofocus>退出 ×</button></div><div class="lr-full-bar"><p data-life-fullscreen-summary></p><div class="lr-switch" role="group" aria-label="全屏格子单位"><button type="button" data-life-fs-unit="day" aria-pressed="true">日</button><button type="button" data-life-fs-unit="week" aria-pressed="false">周</button></div></div><div class="lr-full-plot" data-life-fullscreen-plot><canvas data-life-fullscreen-canvas tabindex="0" role="img" aria-label="完整人生格子图，方向键查询日期" aria-describedby="replay-full-detail"></canvas></div><p id="replay-full-detail" data-life-fullscreen-detail aria-live="polite"></p><form class="lr-query" data-life-fullscreen-query-form><label for="replay-full-query">查看第</label><input id="replay-full-query" data-life-fullscreen-query type="number" min="1" step="1" required /><span>格</span><button type="submit">查看这一格</button><button type="button" data-life-fullscreen-today>今天</button></form></dialog>
+    <dialog class="lr-share" data-life-share-dialog aria-labelledby="replay-share-title"><div class="lr-dialog-top"><h2 id="replay-share-title">走过的故事，未来的期待。</h2><button type="button" data-life-share-close autofocus aria-label="关闭分享预览">×</button></div><p>完整格子与寄语一起保存。图片不会上传。</p><label class="lr-birth-option"><input type="checkbox" data-life-include-birth />在图片中显示出生日期</label><figure><a data-life-image-link target="_blank" rel="noopener" aria-label="打开完整分享图片"><img data-life-poster alt="人生格子分享图预览" /></a><figcaption data-life-poster-summary></figcaption></figure><p data-life-share-status role="status"></p><div class="lr-share-actions"><button class="lr-primary" type="button" data-life-download disabled>保存图片</button><button class="lr-primary" type="button" data-life-native-share hidden disabled>分享图片</button></div></dialog>
+  </section>
+</BaseLayout>
+<script>import '../../scripts/life-replay';</script>

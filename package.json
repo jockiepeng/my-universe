@@ -20,6 +20,8 @@
     "test:music": "node scripts/music-browser-smoke.mjs",
     "test:visitors": "node scripts/visitor-info-browser-smoke.mjs",
     "test:metadata": "node scripts/post-metadata-browser-smoke.mjs",
+    "test:life": "node scripts/life-grid-browser-smoke.mjs",
+    "test:life-replay": "node scripts/life-replay-browser-smoke.mjs",
     "verify": "npm test && npm run check && npm run build && node scripts/check-build.mjs"
   },
   "devDependencies": {

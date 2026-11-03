@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { href } from '../../lib/posts';
+import '../../styles/life-grid.css';
+---
+<BaseLayout title="工具" description="一些把想法变得可见的小工具。从一面人生格子，重新看看时间。">
+  <header class="u-page-head"><h1>换个角度，看看生活。</h1><p>一些小工具，让抽象的事情变得具体。</p></header>
+  <section class="l-tool-card" aria-labelledby="life-tools-title">
+    <div class="l-tool-art" aria-hidden="true">{Array.from({ length: 240 }, (_, i) => <span class:list={{ used: i < 87, now: i === 87 }} />)}</div>
+    <div class="l-tool-copy"><h2 id="life-tools-title">人生格子</h2><p>如果一格就是一天，你的一生会是什么样子？<br />两种方式，看看走过的时间，也看看未来。</p><div class="life-version-links"><a href={href('/tools/life/')}><strong>角色旅程</strong><small>跟随不同年龄的自己，走过时间铺路石</small></a><a href={href('/tools/life-replay/')}><strong>时光回放</strong><small>让日子逐格亮起，看见已经走过的人生</small></a></div></div>
+  </section>
+</BaseLayout>
+<style>
+  .life-version-links { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px; }
+  .life-version-links a { display:flex; flex-direction:column; gap:8px; padding:15px; border:1px solid var(--u-line); border-radius:8px; text-decoration:none; }
+  .life-version-links a:hover { border-color:var(--u-link); }
+  .life-version-links strong { font-size:14px; font-weight:600; }
+  .life-version-links small { font-size:11px; line-height:1.8; color:var(--u-muted); }
+  .life-version-links a:last-child { background:#101417; border-color:#34443f; color:#a6e3d4; }
+  .life-version-links a:last-child small { color:#95aaa5; }
+  @media(max-width:480px) { .life-version-links { grid-template-columns:1fr; } }
+</style>
