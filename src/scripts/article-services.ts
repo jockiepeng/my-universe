@@ -2,30 +2,6 @@ import { canCountView } from '../lib/services.mjs';
 
 const productionOrigin = document.body.dataset.productionOrigin || '';
 const production = canCountView(import.meta.env.PROD, location.origin, productionOrigin);
-const views = document.querySelector<HTMLElement>('[data-page-views]');
-
-if (views && production) {
-  const value = document.querySelector<HTMLElement>('#busuanzi_value_page_pv');
-  const container = document.querySelector<HTMLElement>('#busuanzi_container_page_pv');
-  const fallback = document.querySelector<HTMLElement>('[data-views-fallback]');
-  let timeout: ReturnType<typeof setTimeout>;
-  const observer = new MutationObserver(() => {
-    if (!value || !/^\d[\d,]*$/.test(value.textContent?.trim() || '')) return;
-    if (fallback) fallback.hidden = true;
-    if (container) container.style.display = 'inline';
-    views.title = '页面浏览次数，重复访问可能再次计数';
-    observer.disconnect(); clearTimeout(timeout);
-  });
-  if (value) observer.observe(value, { childList: true, subtree: true, characterData: true });
-  const script = document.createElement('script');
-  script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-  script.async = true;
-  script.onerror = () => { views.title = '阅读统计暂不可用'; observer.disconnect(); clearTimeout(timeout); };
-  timeout = setTimeout(() => { views.title = '阅读统计暂不可用'; }, 12000);
-  document.head.append(script);
-} else if (views) {
-  views.title = '本地预览不记录阅读量，正式站点显示真实浏览次数';
-}
 
 const comments = document.querySelector<HTMLElement>('[data-giscus]');
 if (comments) {
