@@ -3,6 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../site.config';
 ---
 <BaseLayout title="关于我">
-  <header class="u-page-head"><h1>你好，欢迎来坐坐。</h1><p>这里是慢慢生长的{siteConfig.title}。</p></header>
-  <div class="u-about"><p>我想在这里留下日常、思考和摸索的过程。有时是一篇认真整理的经验，有时只是散步回来想写下的几句话。</p><p>内容不限定主题，也没有必须保持的更新节奏。希望过一段时间回头看时，还能记得当时在关心什么、为什么出发。</p><h2>这里会写些什么</h2><p>日常里的小事，尚未成形的感悟，解决问题的经验，以及让生活更顺手的工具。</p><p class="u-about-note">这是一段示例介绍，之后会换成自己的故事。</p>{siteConfig.contactLinks.length > 0 && <section><h2>找到我</h2><div class="u-contact-links">{siteConfig.contactLinks.map(link => <a href={link.href} rel="me noopener noreferrer" target="_blank">{link.label}</a>)}</div></section>}</div>
+  <header class="u-page-head"><h1>关于我</h1><p>你好，欢迎来到我的个人博客。</p></header>
+  <div class="u-about">
+    <p>曾经是一名程序员，喜欢技术、投资、历史、阅读和旅行。对世界充满好奇，喜欢追问事物背后的逻辑，也在不断学习如何独立思考。</p>
+    <p>我相信人生没有标准答案，也不应该只有工作和赚钱。我向往自由，希望拥有更多选择的权利，去探索世界、体验生活，寻找属于自己的人生方式。</p>
+    <p>我并不总是自律，也会迷茫、拖延和犯错。但我相信，成长不只是懂得更多道理，更重要的是将认知付诸行动，让生活真正发生改变。</p>
+    <p>建立这个博客，是为了记录所学、所思、所见，也为自己的人生留下一些痕迹。</p>
+    <p><strong>保持好奇，独立思考，认真生活。</strong></p>
+    {siteConfig.contactLinks.length > 0 && <section><h2>找到我</h2><div class="u-contact-links">{siteConfig.contactLinks.map(link => <a href={link.href} rel="me noopener noreferrer" target="_blank">{link.label}</a>)}</div></section>}
+  </div>
 </BaseLayout>
