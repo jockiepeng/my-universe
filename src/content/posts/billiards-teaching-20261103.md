@@ -6,7 +6,7 @@ category: 生活
 tags: [桌球, 运动, 生活感悟]
 kind: photo
 summary: 一次三小时的桌球体验，让我体会到耐心和鼓励的力量，也发现教别人打球的过程，帮自己重新理解了怎么打球。
-draft: true
+draft: false
 images:
   - src: ./billiards-teaching-20261103/01.png
     alt: 暖色灯光下，一名男子在桌球台旁指导一名女子击球，图上写着“本来是教别人打球，没想到自己才是学生”
