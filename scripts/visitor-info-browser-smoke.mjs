@@ -90,6 +90,10 @@ try {
   assert.equal(await page.locator('script[src*="busuanzi.pure"]').count(), 1);
   assert.equal(await page.locator('.u-header-shell [data-visitor-location]').count(), 1, '定位应位于导航区域');
   assert.equal(await page.locator('.u-header-shell [data-site-views]').count(), 1, '浏览量应位于导航区域');
+  const desktopNav = await page.locator('.u-nav').boundingBox();
+  const desktopInfo = await page.locator('.u-visitor-info').boundingBox();
+  assert.ok(Math.abs(desktopNav.y + desktopNav.height / 2 - desktopInfo.y - desktopInfo.height / 2) < 3, '导航和访客信息必须在同一行');
+  assert.ok(desktopInfo.x > desktopNav.x + desktopNav.width, '访客信息位于导航右侧');
   await mkdir(screenshotDir, { recursive: true });
   await page.screenshot({ path: path.join(screenshotDir, 'visitor-info-desktop.png') });
   for (const width of [390, 320]) {
@@ -100,8 +104,25 @@ try {
     const header = await page.locator('.u-header-shell').boundingBox();
     const main = await page.locator('#main-content').boundingBox();
     assert.ok(main.y >= header.y + header.height, '增加导航信息后不能遮挡正文');
+    assert.ok(header.height <= 66, '手机固定导航同样保持单行');
+    await page.locator('[data-header-menu-toggle]').click();
+    assert.equal(await page.locator('.u-nav').isVisible(), true);
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.u-nav').isVisible(), false);
     await page.screenshot({ path: path.join(screenshotDir, `visitor-info-mobile-${width}.png`) });
   }
+  await page.setViewportSize({ width: 390, height: 320 });
+  await page.locator('[data-header-menu-toggle]').click();
+  await page.locator('[data-clock-toggle]').click();
+  const calendarBounds = await page.locator('#calendar-panel').boundingBox();
+  assert.ok(calendarBounds.y >= 0 && calendarBounds.y + calendarBounds.height <= 320, '横屏日历应完整留在视口内');
+  await page.keyboard.press('Escape');
+  await page.locator('[data-header-menu-toggle]').click();
+  await page.locator('[data-scene-toggle]').click();
+  const sceneBounds = await page.locator('#scene-picker').boundingBox();
+  assert.ok(sceneBounds.y >= 0 && sceneBounds.y + sceneBounds.height <= 320, '横屏场景菜单应完整留在视口内');
+  await page.keyboard.press('Escape');
+  await page.setViewportSize({ width: 320, height: 850 });
   await page.evaluate(() => { document.documentElement.dataset.theme = 'dark'; });
   await page.screenshot({ path: path.join(screenshotDir, 'visitor-info-dark.png') });
   checks.push('正式首页定位与全站 PV、桌面/手机/深色显示、每页单次请求');
@@ -157,12 +178,15 @@ try {
   assert.deepEqual(errors, []);
   await context.close();
 
-  const noJs = await browser.newContext({ javaScriptEnabled: false });
+  const noJs = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 850 } });
   await noJs.route(`${origin}/**`, async route => route.fulfill(await localResponse(route.request().url())));
   const staticPage = await noJs.newPage();
   await staticPage.goto(home);
   assert.match(await staticPage.locator('[data-visitor-location]').innerText(), /需要 JavaScript/);
   assert.match(await staticPage.locator('[data-site-views]').innerText(), /—/);
+  const staticHeader = await staticPage.locator('.u-header-shell').boundingBox();
+  const staticMain = await staticPage.locator('#main-content').boundingBox();
+  assert.ok(staticMain.y >= staticHeader.y + staticHeader.height, '无脚本导航不能遮挡正文');
   await noJs.close();
   checks.push('无脚本显示真实占位和提示');
   console.log(JSON.stringify({ status: 'pass', checks, screenshotDir }, null, 2));

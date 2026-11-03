@@ -557,3 +557,32 @@ html[data-scene="aurora"] .universe {
 html:is([data-entry="pending"],[data-entry="open"]) .u-home-scene { color-scheme:dark; }
 html:is([data-entry="pending"],[data-entry="open"]) .universe[data-home] .u-scene-shade { background:linear-gradient(90deg,#080f2766,#080f2711 65%,transparent); }
 @media(max-width:580px) { .universe .u-home-scene .u-scene-shade { background:linear-gradient(90deg,light-dark(#edf2fa99,#080f2799),light-dark(#edf2fa44,#080f2744)); } }
+
+/* One navigation row; visitor information stays at its right edge. */
+:root { --u-header-height:84px; }
+.u-header-shell .u-header { display:flex; flex-wrap:nowrap; width:calc(100% - 48px); max-width:1480px; gap:16px; min-height:83px; padding:0; }
+.u-header-controls { display:contents; }
+.u-header-menu-toggle { display:none; }
+.u-header-shell .u-nav { gap:18px; }
+.u-header-shell .u-calendar-control { margin-left:0; }
+@media (max-width:1000px) {
+  :root { --u-header-height:65px; }
+  .u-header-shell .u-header { min-height:64px; gap:12px; }
+  .u-header-shell .u-brand { font-size:15px; flex-shrink:0; }
+  .js .u-header-menu-toggle { display:inline-flex; order:1; flex-shrink:0; }
+  .js .u-header-controls { display:none; position:absolute; top:100%; inset-inline:0; padding:16px; background:var(--u-bg); border:1px solid var(--u-line); border-radius:0 0 8px 8px; box-shadow:0 10px 25px #0002; }
+  .js .u-header-controls[data-open] { display:grid; grid-template-columns:1fr auto; gap:14px; }
+  .u-header-controls .u-nav { grid-column:1 / -1; grid-row:1; margin:0; gap:18px; padding:0; width:auto; }
+  .u-header-controls .u-calendar-control { grid-column:1; grid-row:2; margin:0; justify-self:start; position:static; }
+  .u-header-controls .u-actions { grid-column:2; grid-row:2; margin:0; }
+  .u-header-controls :is(.u-calendar-widget,.u-scene-picker) { position:fixed; top:calc(var(--u-header-height) + 8px); right:24px; width:min(310px,calc(100vw - 48px)); max-height:calc(100dvh - var(--u-header-height) - 24px); overflow-y:auto; z-index:6; }
+  html:not(.js) .u-header-shell .u-header { flex-wrap:wrap; padding-block:12px; }
+  html:not(.js) .u-header-shell { position:relative; inset:auto; }
+  html:not(.js) .u-page { padding-top:0; }
+}
+@media (max-width:580px) {
+  .u-header-shell .u-header { width:calc(100% - 32px); gap:8px; }
+  .u-header-shell .u-brand-name { display:none; }
+  .u-header-shell .u-brand { gap:0; }
+  .u-header-controls .u-nav { gap:15px; }
+}

@@ -39,6 +39,10 @@ async function skipEntry(page) {
   await page.waitForFunction(() => !document.querySelector('[data-entry-gate]') || document.documentElement.dataset.entryInitialized === 'true');
   if (await page.locator('html').getAttribute('data-entry') === 'open') await page.locator('[data-entry-skip]').click();
 }
+async function openHeaderControls(page) {
+  const toggle = page.locator('[data-header-menu-toggle]');
+  if (await toggle.isVisible() && await toggle.getAttribute('aria-expanded') !== 'true') await toggle.click();
+}
 try {
   const openingContext = await browser.newContext({ viewport: { width: 1360, height: 1000 } });
   const openingPage = await openingContext.newPage();
@@ -88,6 +92,7 @@ try {
   await openingPage.emulateMedia({ reducedMotion: 'reduce' });
   for (const width of [390, 320]) {
     await openingPage.setViewportSize({ width, height: 760 });
+    await openHeaderControls(openingPage);
     await openingPage.locator('[data-scene-toggle]').click(); await openingPage.locator('[data-intro-replay]').click();
     await openingPage.waitForFunction(() => document.querySelector('[data-entry-gate]').dataset.state === 'ready');
     const entryButton = await openingPage.locator('[data-entry-enter]').boundingBox();
@@ -290,6 +295,7 @@ try {
   await page.goto(url);
   await skipEntry(page);
   await page.locator('[data-daily-quote]').screenshot({ path: path.join(screenshots, 'home-thought-mobile.png') });
+  await openHeaderControls(page);
   await page.locator('[data-clock-toggle]').click();
   await page.locator('[data-live-clock]').waitFor({ state: 'visible' });
   assert.notEqual(await page.locator('.u-calendar-details').getAttribute('open'), null);
@@ -300,12 +306,14 @@ try {
   assert.equal(await page.locator('.u-calendar-grid').isVisible(), true);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#calendar-panel').isVisible(), false);
+  await openHeaderControls(page);
   await page.locator('[data-clock-toggle]').click();
   await page.screenshot({ path: path.join(screenshots, 'home-calendar-mobile.png'), fullPage: false });
   checks.push('手机导航紧凑显示日期时间，月历与倒计时弹层支持 Escape');
   await page.setViewportSize({ width: 320, height: 760 });
   await page.goto(url);
   await skipEntry(page);
+  await openHeaderControls(page);
   await page.locator('[data-clock-toggle]').click();
   await page.locator('[data-live-clock]').waitFor({ state: 'visible' });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), '320px 首页倒计时不能造成横向溢出');
@@ -319,6 +327,7 @@ try {
   await page.screenshot({ path: path.join(screenshots, 'article-mobile.png'), fullPage: false });
   await page.setViewportSize({ width: 320, height: 760 });
   await checkPageChrome(page);
+  await openHeaderControls(page);
   await page.locator('[data-scene-toggle]').click();
   const bounds = await page.locator('#scene-picker').boundingBox();
   assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= 320);

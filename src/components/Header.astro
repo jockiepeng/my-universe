@@ -13,7 +13,9 @@ const nav = [{ path: '/', label: '首页' }, { path: '/archive/', label: '归档
 <header class="u-header-shell" data-pagefind-ignore>
  <div class="u-header-container">
   <div class="u-header u-wrap">
-  <a class="u-brand" href={href('/')}><span class="u-mark" aria-hidden="true"></span>{siteConfig.title}</a>
+  <a class="u-brand" href={href('/')} aria-label={siteConfig.title}><span class="u-mark" aria-hidden="true"></span><span class="u-brand-name">{siteConfig.title}</span></a>
+  <button class="u-icon u-header-menu-toggle" type="button" data-header-menu-toggle data-enhanced aria-label="展开导航与操作" aria-expanded="false" aria-controls="header-controls"><Icon name="menu" /></button>
+  <div class="u-header-controls" id="header-controls" data-header-controls>
   <CalendarClock />
   <nav class="u-nav" aria-label="主导航">
     {nav.map(item => <a href={href(item.path)} aria-current={pathname === href(item.path) || (item.path === '/games/' && pathname.startsWith(href('/games/'))) ? 'page' : undefined}>{item.label}</a>)}
@@ -35,6 +37,10 @@ const nav = [{ path: '/', label: '首页' }, { path: '/archive/', label: '归档
     <button class="u-icon" type="button" data-theme-toggle aria-label="切换深浅色主题"><Icon name="theme" /></button>
   </div>
   </div>
-  <div class="u-header-info u-wrap"><VisitorInfo /></div>
+  <VisitorInfo />
+  </div>
  </div>
 </header>
+<script>
+  import '../scripts/header-menu';
+</script>

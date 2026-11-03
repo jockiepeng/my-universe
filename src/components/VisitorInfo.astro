@@ -14,11 +14,12 @@ import Icon from './Icon.astro';
   import '../scripts/visitor-info';
 </script>
 <style>
-  .u-visitor-info { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:4px 24px; margin:0; padding:0 0 9px; color:var(--u-muted); font-size:11px; line-height:1.8; min-width:0; }
+  .u-visitor-info { display:flex; justify-content:flex-end; align-items:center; flex-wrap:nowrap; gap:14px; margin:0; padding:0; order:4; max-width:34%; color:var(--u-muted); font-size:11px; line-height:1.8; min-width:0; }
   p { display:flex; align-items:center; gap:6px; margin:0; min-width:0; max-width:100%; }
   p :global(svg) { flex-shrink:0; }
-  [data-visitor-location] { overflow-wrap:anywhere; }
-  [data-site-views] { font-variant-numeric:tabular-nums; }
+  [data-visitor-location] { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+  [data-site-views] { font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap; }
   [data-site-views] > span:last-child { white-space:nowrap; }
-  @media (max-width:580px) { .u-visitor-info { justify-content:space-between; gap:4px 14px; font-size:10px; } }
+  @media (max-width:1000px) { .u-visitor-info { margin-left:auto; max-width:60%; } }
+  @media (max-width:580px) { .u-visitor-info { max-width:calc(100% - 76px); gap:8px; font-size:10px; } p { gap:4px; } }
 </style>
