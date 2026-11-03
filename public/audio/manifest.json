@@ -1,0 +1,38 @@
+[
+  {
+    "id": "moonlight",
+    "title": "Moonlight",
+    "artist": "Scott Buckley",
+    "file": "/audio/moonlight.mp3",
+    "bytes": 10177523,
+    "sha256": "7feb8c703983dbdfc97018f004cfebad8f03b86f2382c58c0ad24e375d4c17f5",
+    "source": "https://www.scottbuckley.com.au/library/moonlight/",
+    "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/07/Moonlight.mp3",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "downloadedOn": "2026-11-03"
+  },
+  {
+    "id": "hiraeth",
+    "title": "Hiraeth",
+    "artist": "Scott Buckley",
+    "file": "/audio/hiraeth.mp3",
+    "bytes": 13851302,
+    "sha256": "f790c7d53b8d802981ff7cdd8c59e22cdfe103ea66aba296c6cf1a65fe7fcf01",
+    "source": "https://www.scottbuckley.com.au/library/hiraeth/",
+    "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/06/sb_hiraeth.mp3",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "downloadedOn": "2026-11-03"
+  },
+  {
+    "id": "dream-culture",
+    "title": "Dream Culture",
+    "artist": "Kevin MacLeod (incompetech.com)",
+    "file": "/audio/dream-culture.mp3",
+    "bytes": 8576659,
+    "sha256": "f12cbb52bd4b92bd6cf8a343645567c119627e9cbf98108a3eb6ac2cc275ee46",
+    "source": "https://www.incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046",
+    "download": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dream%20Culture.mp3",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "downloadedOn": "2026-11-03"
+  }
+]

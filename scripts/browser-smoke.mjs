@@ -56,10 +56,14 @@ try {
   assert.equal(await openingPage.locator('[data-entry-enter]').evaluate(el => el === document.activeElement), true);
   await openingPage.keyboard.press('Tab');
   assert.equal(await openingPage.locator('[data-entry-skip]').evaluate(el => el === document.activeElement), true);
-  await openingPage.locator('[data-entry-enter]').click();
+  await openingPage.keyboard.press('Tab');
+  await openingPage.keyboard.press('Enter');
   assert.equal(await openingPage.locator('html').getAttribute('data-entry'), null);
   assert.equal(await openingPage.locator('.u-page').evaluate(el => el.inert), false);
   assert.equal(await openingPage.locator('#main-content').evaluate(el => el === document.activeElement), true);
+  assert.equal(await openingPage.locator('#main-content').evaluate(el => getComputedStyle(el).outlineStyle), 'none', '进入博客后正文不应出现整块焦点边框');
+  await openingPage.keyboard.press('Tab');
+  assert.equal(await openingPage.locator('.u-intro-link').evaluate(el => el === document.activeElement && getComputedStyle(el).outlineStyle !== 'none'), true, '正文内链接仍应显示键盘焦点');
   await openingPage.reload();
   await openingPage.waitForFunction(() => document.documentElement.dataset.entryInitialized === 'true');
   assert.equal(await openingPage.locator('[data-entry-gate]').isVisible(), false, '同一会话当天刷新不重复开场');
@@ -79,6 +83,7 @@ try {
     await openingPage.waitForTimeout(800);
     await openingPage.screenshot({ path: path.join(screenshots, `entry-${style}.png`) });
     await openingPage.locator('[data-entry-enter]').click();
+    assert.equal(await openingPage.locator('#main-content').evaluate(el => getComputedStyle(el).outlineStyle), 'none', '重播开场后点击进入不应显示正文焦点框');
   }
   await openingPage.emulateMedia({ reducedMotion: 'reduce' });
   for (const width of [390, 320]) {
@@ -90,6 +95,7 @@ try {
     assert.ok(await openingPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await openingPage.screenshot({ path: path.join(screenshots, `entry-mobile-${width}.png`) });
     await openingPage.locator('[data-entry-enter]').click();
+    assert.equal(await openingPage.locator('#main-content').evaluate(el => getComputedStyle(el).outlineStyle), 'none', '手机进入博客后不应显示正文焦点框');
   }
   assert.deepEqual(openingErrors, []);
   await openingContext.close();
@@ -275,7 +281,8 @@ try {
   await page.locator('.u-search-result').first().waitFor();
   assert.match(await page.locator('.u-search-result').first().getAttribute('href'), new RegExp(`${base}/posts/`));
   assert.match(await page.locator('.u-search-result').first().innerText(), /工具/);
-  await page.locator('#search-input').fill('DRAFT_ONLY_SENTINEL_7bf1');
+  // Exact phrase avoids matching the word "draft" in published frontmatter examples.
+  await page.locator('#search-input').fill('"DRAFT_ONLY_SENTINEL_7bf1"');
   await page.getByText('还没找到相关记录，试试换个关键词。', { exact: true }).waitFor();
   await page.keyboard.press('Escape');
   checks.push('中文全文搜索与草稿排除');

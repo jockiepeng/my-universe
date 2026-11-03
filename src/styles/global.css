@@ -27,6 +27,8 @@ html[data-scene="ocean"] .universe:before { background:linear-gradient(165deg,co
 .universe button { cursor:var(--cursor-interaction,pointer); }
 .universe a { color:inherit; text-decoration:none; cursor:var(--cursor-interaction,pointer); }
 .universe button:focus-visible, .universe a:focus-visible { outline:2px solid var(--u-link); outline-offset:5px; }
+/* The reading landmark receives focus after the opening; only controls need a focus ring. */
+#main-content:focus { outline:none; }
 .u-wrap { width:calc(100% - 88px); max-width:1060px; margin-inline:auto; }
 .u-header { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:83px; border-bottom:1px solid var(--u-line); position:relative; z-index:2; }
 .u-brand { display:flex; align-items:center; gap:10px; font-size:17px; font-weight:600; white-space:nowrap; }

@@ -17,6 +17,7 @@
     "test:scene": "node scripts/scene-consistency-smoke.mjs",
     "test:2048": "node scripts/planet-2048-browser-smoke.mjs",
     "test:arcade": "node scripts/arcade-browser-smoke.mjs",
+    "test:music": "node scripts/music-browser-smoke.mjs",
     "verify": "npm test && npm run check && npm run build && node scripts/check-build.mjs"
   },
   "devDependencies": {

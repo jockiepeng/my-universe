@@ -6,6 +6,7 @@ import BackToTop from '../components/BackToTop.astro';
 import HomeScene from '../components/HomeScene.astro';
 import EntryGate from '../components/EntryGate.astro';
 import EntryBootstrap from '../components/EntryBootstrap.astro';
+import MusicPlayer from '../components/MusicPlayer.astro';
 import { siteConfig } from '../site.config';
 import { href } from '../lib/posts';
 import { dailyMotionPairs } from '../lib/motion.mjs';
@@ -72,6 +73,7 @@ const showEntry = home && Astro.url.pathname === href('/');
       </div>
     </div>
     <Footer />
+    <MusicPlayer />
     {article && <BackToTop />}
     <SearchDialog />
     <script>

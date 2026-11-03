@@ -7,3 +7,11 @@ dist/
 !.env.example
 .superpowers/
 *.log
+
+# Keep personal drafts and their assets local; share writing instructions and templates.
+/drafts/*
+!/drafts/README.md
+!/drafts/贴图模板.md
+
+# Early design prototypes are local references, not website source.
+/output/prototypes/

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "moonlight",
+    "title": "Moonlight",
+    "artist": "Scott Buckley",
+    "file": "/audio/moonlight.mp3",
+    "source": "https://www.scottbuckley.com.au/library/moonlight/",
+    "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/07/Moonlight.mp3"
+  },
+  {
+    "id": "hiraeth",
+    "title": "Hiraeth",
+    "artist": "Scott Buckley",
+    "file": "/audio/hiraeth.mp3",
+    "source": "https://www.scottbuckley.com.au/library/hiraeth/",
+    "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/06/sb_hiraeth.mp3"
+  },
+  {
+    "id": "dream-culture",
+    "title": "Dream Culture",
+    "artist": "Kevin MacLeod (incompetech.com)",
+    "file": "/audio/dream-culture.mp3",
+    "source": "https://www.incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046",
+    "download": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dream%20Culture.mp3"
+  }
+]

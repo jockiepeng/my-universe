@@ -1,0 +1,38 @@
+.u-music { position:fixed; left:max(16px,env(safe-area-inset-left,0px)); bottom:max(18px,env(safe-area-inset-bottom,0px)); z-index:25; color:var(--u-text); font-size:13px; }
+html:is([data-entry="pending"],[data-entry="open"]) .u-music { visibility:hidden; }
+.u-music-summary { display:flex; align-items:center; gap:9px; width:max-content; max-width:calc(100vw - 88px); min-height:42px; padding:9px 14px; list-style:none; cursor:pointer; border:1px solid var(--u-line); border-radius:24px; background:var(--u-paper); box-shadow:0 3px 18px #0001; }
+.u-music-summary::-webkit-details-marker { display:none; }
+.u-music-summary:focus-visible { outline:2px solid var(--u-link); outline-offset:4px; }
+.u-music-note { color:var(--u-link); flex:none; }
+.u-music-mini { font-size:11px; color:var(--u-muted); }
+.u-music[data-state="playing"] .u-music-mini { color:var(--u-link); }
+.u-music-panel { position:absolute; left:0; bottom:calc(100% + 10px); width:min(320px,calc(100vw - 32px)); max-height:calc(100dvh - 110px); overflow-y:auto; overscroll-behavior:contain; border:1px solid var(--u-line); border-radius:12px; padding:19px; background:var(--u-paper); box-shadow:0 12px 44px #0002; }
+.u-music-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.u-music-heading h2 { font-size:12px; font-weight:400; color:var(--u-muted); margin:0; }
+.u-music button { color:var(--u-text); background:transparent; border:1px solid var(--u-line); border-radius:7px; padding:7px; }
+.u-music button:hover { background:var(--u-soft); }
+.u-music button:disabled { opacity:.5; cursor:default; }
+.u-music .u-music-close { font-size:22px; border:0; padding:0; width:30px; height:30px; line-height:1; color:var(--u-muted); }
+.u-music-title { font-size:23px; font-weight:550; line-height:1.4; margin:14px 0 7px; }
+.u-music-status { font-size:11px; line-height:1.8; color:var(--u-muted); margin:0; min-height:40px; }
+.u-music-controls { display:flex; justify-content:center; align-items:center; gap:15px; margin:10px 0 17px; }
+.u-music-controls button { display:flex; align-items:center; justify-content:center; min-width:42px; height:40px; }
+.u-music-controls .u-music-play { min-width:94px; color:var(--u-link); background:var(--u-soft); border-color:var(--u-link); }
+.u-music-progress { display:flex; align-items:center; gap:8px; font-size:10px; color:var(--u-muted); font-variant-numeric:tabular-nums; }
+.u-music-progress > span { min-width:30px; }
+.u-music-progress > span:last-child { text-align:right; }
+.u-music-seek { min-width:0; flex:1; display:flex; }
+.u-music input[type="range"] { width:100%; min-width:0; margin:0; height:28px; accent-color:var(--u-link); cursor:pointer; }
+.u-music input:focus-visible { outline:2px solid var(--u-link); outline-offset:3px; }
+.u-music-volume { display:flex; align-items:center; gap:12px; font-size:11px; color:var(--u-muted); margin:7px 0 16px; }
+.u-music-volume input { flex:1; }
+.u-music-volume output { min-width:29px; text-align:right; font-variant-numeric:tabular-nums; }
+.u-music-playlist { list-style:none; margin:0; padding:0; border-top:1px solid var(--u-line); }
+.u-music-playlist li { margin:0; padding:0; }
+.u-music-playlist button { width:100%; display:flex; justify-content:space-between; align-items:center; gap:8px; min-height:42px; border:0; border-radius:0; border-bottom:1px solid var(--u-line); text-align:left; }
+.u-music-playlist button[aria-pressed="true"] { color:var(--u-link); background:var(--u-soft); }
+.u-music-playlist small { color:var(--u-muted); font-size:10px; white-space:nowrap; }
+.u-music-credit { margin:14px 0 0; font-size:10px; line-height:1.85; color:var(--u-muted); overflow-wrap:anywhere; }
+.u-music-credit a { text-decoration:underline; text-underline-offset:3px; }
+.u-music-sr { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media (max-width:380px) { .u-music { left:12px; bottom:max(14px,env(safe-area-inset-bottom,0px)); } .u-music-panel { width:calc(100vw - 24px); padding:16px; } }
