@@ -1,8 +1,10 @@
 ---
 title: 本来是教别人打球，没想到自己才是学生
 slug: billiards-teaching-20261103
-date: 2026-11-03
-category: 生活
+date: 2026-11-03T00:00:00+08:00
+updated: 2026-11-03T00:00:00+08:00
+datePrecision: day
+category: 生活/运动
 tags: [桌球, 运动, 生活感悟]
 kind: photo
 summary: 一次三小时的桌球体验，让我体会到耐心和鼓励的力量，也发现教别人打球的过程，帮自己重新理解了怎么打球。

@@ -1,6 +1,5 @@
 ---
 import DailyQuote from './DailyQuote.astro';
-import VisitorInfo from './VisitorInfo.astro';
 import PostList from './PostList.astro';
 import Pagination from './Pagination.astro';
 import Icon from './Icon.astro';
@@ -22,7 +21,6 @@ const rootTopics = topicTree(allPosts);
     <a class="u-game-link" href={href('/games/')}><span aria-hidden="true">⚄</span> 去玩个小游戏 <Icon name="external" size={14} /></a>
   </div>
 </div> : <header class="u-page-head"><h1>继续翻一翻</h1><p>第 {current} 页记录，沿着时间慢慢往前走。</p></header>}
-{current === 1 && <VisitorInfo />}
 <div class="u-home-layout" data-post-filter-scope data-filter-home>
   <aside class="u-topic-sidebar" aria-label="一级分类">
     <TopicTree posts={allPosts} inline rootsOnly />

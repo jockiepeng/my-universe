@@ -11,6 +11,7 @@ test('hierarchical categories have stable nested URLs and reject unknown paths',
   assert.equal(content.categorySlug('技术/Go'), 'technology/go');
   assert.equal(content.categorySlug('技术/数据库'), 'technology/databases');
   assert.equal(content.categorySlug('生活/人际关系'), 'life/relationships');
+  assert.equal(content.categorySlug('生活/运动'), 'life/sports');
   assert.throws(() => content.categorySlug('随想'), /未知分类/);
   assert.deepEqual(content.categoryBreadcrumbs('技术/AI').map(item => item.path), ['技术', '技术/AI']);
 });

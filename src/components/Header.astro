@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import CalendarClock from './CalendarClock.astro';
+import VisitorInfo from './VisitorInfo.astro';
 import { href } from '../lib/posts';
 import { siteConfig } from '../site.config';
 import { scenePresets, openingPresets } from '../lib/motion.mjs';
@@ -34,5 +35,6 @@ const nav = [{ path: '/', label: '首页' }, { path: '/archive/', label: '归档
     <button class="u-icon" type="button" data-theme-toggle aria-label="切换深浅色主题"><Icon name="theme" /></button>
   </div>
   </div>
+  <div class="u-header-info u-wrap"><VisitorInfo /></div>
  </div>
 </header>

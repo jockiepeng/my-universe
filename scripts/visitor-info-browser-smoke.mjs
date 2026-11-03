@@ -88,6 +88,8 @@ try {
   assert.equal(await page.locator('[data-site-views] [data-views-fallback]').isVisible(), false);
   assert.equal(requests.filter(url => url.includes('/busuanzi?')).length, 1, '每页只计数一次');
   assert.equal(await page.locator('script[src*="busuanzi.pure"]').count(), 1);
+  assert.equal(await page.locator('.u-header-shell [data-visitor-location]').count(), 1, '定位应位于导航区域');
+  assert.equal(await page.locator('.u-header-shell [data-site-views]').count(), 1, '浏览量应位于导航区域');
   await mkdir(screenshotDir, { recursive: true });
   await page.screenshot({ path: path.join(screenshotDir, 'visitor-info-desktop.png') });
   for (const width of [390, 320]) {
@@ -95,6 +97,9 @@ try {
     assert.equal(await location.isVisible(), true, '手机应显示归属地');
     assert.equal(await views.isVisible(), true, '手机应显示累计浏览量');
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    const header = await page.locator('.u-header-shell').boundingBox();
+    const main = await page.locator('#main-content').boundingBox();
+    assert.ok(main.y >= header.y + header.height, '增加导航信息后不能遮挡正文');
     await page.screenshot({ path: path.join(screenshotDir, `visitor-info-mobile-${width}.png`) });
   }
   await page.evaluate(() => { document.documentElement.dataset.theme = 'dark'; });
@@ -110,13 +115,13 @@ try {
       await page.waitForFunction(() => document.querySelector('#busuanzi_value_page_pv')?.textContent === '42');
       assert.equal(await page.locator('[data-page-views] [data-views-fallback]').isVisible(), false);
     }
-    assert.equal(await views.count(), 0, '只在首页展示全站统计');
-    assert.equal(await location.count(), 0, '非首页不显示或查询归属地');
+    assert.equal(await views.count(), 1, '所有页面导航均展示全站统计');
+    assert.equal(await location.count(), 1, '所有页面导航均展示归属地');
     assert.equal(await page.locator('script[src*="busuanzi.pure"]').count(), 1);
   }
   assert.equal(requests.filter(url => url.includes('/busuanzi?')).length, 3);
-  assert.equal(requests.filter(url => url.includes('ipapi.co')).length, 0);
-  checks.push('文章/关于/游戏均单次计数，文章 PV 保持正常且非首页不查定位');
+  assert.equal(requests.filter(url => url.includes('ipapi.co')).length, 3);
+  checks.push('文章/关于/游戏导航均显示定位和浏览量，每页仅请求一次且文章 PV 保持正常');
 
   await page.clock.install();
   for (const mode of ['limited', 'invalid', 'network', 'timeout']) {

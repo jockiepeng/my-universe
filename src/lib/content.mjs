@@ -25,3 +25,8 @@ export function readingMinutes(markdown = '') {
 export const formatDate = date => new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Shanghai',
 }).format(date);
+
+export const formatDateTime = date => new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit',
+  hourCycle: 'h23', timeZone: 'Asia/Shanghai',
+}).format(date);

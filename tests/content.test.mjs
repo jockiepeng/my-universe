@@ -1,6 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { publishedPosts, summarize, readingMinutes, categorySlug } from '../src/lib/content.mjs';
+import { publishedPosts, summarize, readingMinutes, categorySlug, formatDateTime } from '../src/lib/content.mjs';
+
+test('Shanghai article timestamps include seconds and use 00 at midnight', () => {
+  assert.match(formatDateTime(new Date('2026-11-03T11:17:04+08:00')), /2026.*11.*3.*11:17:04/);
+  assert.match(formatDateTime(new Date('2026-11-03T00:00:00+08:00')), /00:00:00/);
+});
+
+test('creation timestamps sort to the second and editing old posts never promotes them', () => {
+  const entries = [
+    { id: 'a-old', data: { date: new Date('2026-11-03T11:00:01+08:00'), updated: new Date('2026-11-04T20:00:00+08:00') } },
+    { id: 'z-new', data: { date: new Date('2026-11-03T11:00:02+08:00'), updated: new Date('2026-11-03T11:00:02+08:00') } },
+  ];
+  assert.deepEqual(publishedPosts(entries).map(entry => entry.id), ['z-new', 'a-old']);
+});
 
 test('production excludes drafts and sorts newest first without changing input', () => {
   const entries = [

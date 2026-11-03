@@ -7,7 +7,7 @@ import PhotoPost from '../../components/PhotoPost.astro';
 import Comments from '../../components/Comments.astro';
 import Icon from '../../components/Icon.astro';
 import { getPosts, href, postHref, type Post } from '../../lib/posts';
-import { summarize, formatDate } from '../../lib/content.mjs';
+import { summarize } from '../../lib/content.mjs';
 export async function getStaticPaths() {
   return (await getPosts()).map(post => ({ params: { slug: post.data.slug }, props: { post } }));
 }
@@ -27,7 +27,7 @@ const comments = post.data.comments ?? post.data.kind === 'post';
   <a class="u-back" href={href('/')}><Icon name="left" size={14} />返回首页</a>
   <div class:list={['u-article-layout', { 'u-no-toc': toc.length === 0 }]}>
     <article class="u-article" data-pagefind-body>
-      <header class="u-article-head"><h1 data-pagefind-meta="title">{post.data.title}</h1><ArticleMeta post={post} showViews={!post.data.draft} />{post.data.updated && <p class="u-updated" data-pagefind-ignore>更新于 {formatDate(post.data.updated)}</p>}</header>
+      <header class="u-article-head"><h1 data-pagefind-meta="title">{post.data.title}</h1><ArticleMeta post={post} showViews={!post.data.draft} /></header>
       <div class="u-article-content">
         {isPhoto ? <PhotoPost post={post} /> : <>
           {post.data.cover && <Image src={post.data.cover} alt={post.data.coverAlt || post.data.title} width={1000} class="u-article-cover" />}

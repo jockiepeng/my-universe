@@ -1,12 +1,15 @@
 ---
-import { formatDate, readingMinutes, categoryBreadcrumbs } from '../lib/content.mjs';
+import { formatDateTime, readingMinutes, categoryBreadcrumbs } from '../lib/content.mjs';
 import { href, type Post } from '../lib/posts';
 import PageViews from './PageViews.astro';
 interface Props { post: Post; showViews?: boolean }
 const { post, showViews = false } = Astro.props;
+const updated = post.data.updated || post.data.date;
+const dateTitle = post.data.datePrecision === 'day' ? '历史记录仅精确到日期，00:00:00 不代表实际创建时刻' : '北京时间';
 ---
 <div class="u-meta" data-pagefind-ignore>
-  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+  <span class="u-post-time">创建于 <time data-post-created datetime={post.data.date.toISOString()} title={dateTitle}>{formatDateTime(post.data.date)}</time></span>
+  <span class="u-post-time">最近编辑 <time data-post-updated datetime={updated.toISOString()} title={updated.getTime() === post.data.date.getTime() ? dateTitle : '北京时间'}>{formatDateTime(updated)}</time></span>
   <span class="u-category" aria-label="文章分类">{categoryBreadcrumbs(post.data.category).map((topic, index) => <>{index > 0 && <span class="u-category-separator" aria-hidden="true">/</span>}<a href={href(`/categories/${topic.slug}/`)}>{topic.label}</a></>)}</span>
   <span>{post.data.kind === 'photo' ? `贴图 · ${post.data.images.length} 张` : `约 ${readingMinutes(post.body)} 分钟`}</span>
   {showViews && <PageViews />}

@@ -9,6 +9,7 @@ export const topics = [
   { path: '技术/数据库', label: '数据库', slug: 'technology/databases', description: '数据存储、查询与数据库实践。' },
   { path: '生活', label: '生活', slug: 'life', description: '生活经验与值得记录的日常。' },
   { path: '生活/人际关系', label: '人际关系', slug: 'life/relationships', description: '与人相处、沟通和建立信任。' },
+  { path: '生活/运动', label: '运动', slug: 'life/sports', description: '运动体验、练习与从中获得的生活感悟。' },
 ];
 
 export const categories = topics.map(topic => topic.path);

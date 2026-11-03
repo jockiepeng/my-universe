@@ -94,6 +94,10 @@ html[data-scene="ocean"] .universe:before { background:linear-gradient(165deg,co
 .u-post { padding:25px 0; border-bottom:1px solid var(--u-line); }
 .u-meta { display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:11px; line-height:1.7; color:var(--u-muted); }
 .u-meta .u-category { color:var(--u-link); }
+.u-post-time { display:inline-flex; flex-wrap:wrap; gap:0 5px; font-variant-numeric:tabular-nums; }
+.u-post-time time { white-space:nowrap; }
+.u-archive-clock { display:block; font-size:10px; font-variant-numeric:tabular-nums; }
+.u-archive-updated { display:block; margin-top:6px; color:var(--u-muted); font-size:11px; line-height:1.8; }
 .u-views { white-space:nowrap; font-variant-numeric:tabular-nums; }
 .u-post h3 { margin:9px 0 10px; font-size:19px; font-weight:550; line-height:1.65; }
 .u-post h3 a:hover { color:var(--u-link); }
@@ -350,7 +354,7 @@ html.u-paused .u-star-layer, html.u-paused .u-beach-wave, html[data-motion="off"
 }
 
 /* Fixed header; footer stays in normal document flow. */
-:root { --u-header-height:84px; scroll-padding-top:calc(var(--u-header-height) + 20px); scroll-padding-bottom:24px; }
+:root { --u-header-height:118px; scroll-padding-top:calc(var(--u-header-height) + 20px); scroll-padding-bottom:24px; }
 .u-page { container-type:inline-size; container-name:universe; padding-top:var(--u-header-height); padding-bottom:24px; }
 .u-header-shell { position:fixed; inset:0 0 auto; z-index:20; background:var(--u-bg); border-bottom:1px solid var(--u-line); padding-top:env(safe-area-inset-top,0px); }
 .u-header-container { container-type:inline-size; container-name:universe; }
@@ -381,7 +385,7 @@ html.u-paused .u-star-layer, html.u-paused .u-beach-wave, html[data-motion="off"
 }
 @media (max-width:760px) { .u-footer-shell .u-wrap { width:calc(100% - 52px); } }
 @media (max-width:580px) {
-  :root { --u-header-height:132px; }
+  :root { --u-header-height:166px; }
   .u-footer-shell .u-wrap { width:calc(100% - 40px); }
   .u-footer { font-size:10px; line-height:1.8; }
   .u-footer-tools { width:100%; justify-content:space-between; gap:8px 14px; }

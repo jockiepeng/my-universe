@@ -16,7 +16,10 @@ for (const file of documents) {
   const contents = await readFile(file, 'utf8');
   assert.ok(!contents.includes('DRAFT_ONLY_SENTINEL_7bf1'), `草稿泄露：${file}`);
   if (!file.endsWith('.html')) continue;
-  assert.equal(contents.includes('id="busuanzi_container_site_pv"'), file === path.join(output, 'index.html'), `累计浏览仅在首页展示：${file}`);
+  if (contents.includes('class="u-header-shell"')) {
+    assert.equal((contents.match(/id="busuanzi_container_site_pv"/g) || []).length, 1, `导航栏应且仅应包含一个全站计数：${file}`);
+    assert.ok(contents.indexOf('id="busuanzi_container_site_pv"') < contents.indexOf('</header>'), `全站计数应位于导航栏：${file}`);
+  }
   for (const [, raw] of contents.matchAll(/(?:href|src)="([^"]+)"/g)) {
     if (!raw.startsWith('/') || raw.startsWith('//')) continue;
     const url = new URL(raw.replaceAll('&amp;', '&'), 'https://check.invalid');

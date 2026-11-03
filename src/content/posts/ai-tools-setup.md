@@ -1,7 +1,9 @@
 ---
 title: "AI探索：先搭工具箱，再让 AI 帮我做一个博客"
 summary: "记录一次 AI 编程探索：先准备云服务器、Codex、Superpowers、VS Code Remote SSH、GitHub 和 GitHub Pages，再用自然语言跑通个人博客从创建到上线的小闭环。"
-date: 2026-06-07
+date: 2026-06-07T00:00:00+08:00
+updated: 2026-06-07T00:00:00+08:00
+datePrecision: day
 category: 技术/AI
 tags: ["AI 编程", "Codex", "Superpowers", "个人博客"]
 draft: false

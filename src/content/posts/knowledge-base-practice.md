@@ -1,7 +1,9 @@
 ---
 title: "知识库实践：把资料变成 AI 可调用的知识底座"
 summary: "一次本地知识库工作流实践：通过知识分类、置信度、Skill、工作流和 CLI 工程化，把分散资料沉淀为 AI 可调用、可验证、可持续演进的知识底座。"
-date: 2026-06-06
+date: 2026-06-06T00:00:00+08:00
+updated: 2026-06-06T00:00:00+08:00
+datePrecision: day
 category: 技术/AI
 tags: ["知识库", "AI 工作流", "Skill", "工程化"]
 draft: false

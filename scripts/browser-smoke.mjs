@@ -440,7 +440,7 @@ try {
   assert.match(await live.locator('[data-page-views]').getAttribute('title'), /暂不可用/);
   releaseLate();
   await live.waitForFunction(() => document.querySelector('#busuanzi_value_page_pv')?.textContent === '42');
-  assert.equal(await live.locator('[data-views-fallback]').isVisible(), false, '迟到成功也必须隐藏占位，避免显示 —42');
+  assert.equal(await live.locator('[data-page-views] [data-views-fallback]').isVisible(), false, '迟到成功也必须隐藏占位，避免显示 —42');
   assert.doesNotMatch(await live.locator('[data-page-views]').getAttribute('title'), /暂不可用/);
   await production.close(); checks.push('正式文章计数请求保留独立文章路径，显示服务返回数字');
   checks.push('统计超时后的迟到成功不会与占位混合');

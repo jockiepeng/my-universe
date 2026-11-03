@@ -19,6 +19,7 @@
     "test:arcade": "node scripts/arcade-browser-smoke.mjs",
     "test:music": "node scripts/music-browser-smoke.mjs",
     "test:visitors": "node scripts/visitor-info-browser-smoke.mjs",
+    "test:metadata": "node scripts/post-metadata-browser-smoke.mjs",
     "verify": "npm test && npm run check && npm run build && node scripts/check-build.mjs"
   },
   "devDependencies": {
