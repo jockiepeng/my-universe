@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FortuneTube from '../../components/FortuneTube.astro';
+import { collections } from '../../lib/fortune.mjs';
+import { href } from '../../lib/posts';
+import '../../styles/fortune.css';
+---
+<BaseLayout title="求一支签" description="静下片刻，求一支签。观音一百签、车公九十六签，展开签纸，即可阅读签诗与白话解读。">
+  <div class="f-page" data-fortune data-collection="guanyin" data-phase="idle">
+    <header class="f-heading" data-pagefind-body data-pagefind-meta="type:功能">
+      <a class="f-back" href={href('/tools/')}>‹ 回到工具</a>
+      <div class="f-heading-row"><div><h1 data-pagefind-meta="title">静心，求一支签。</h1><p>把心事放一放，给自己片刻安静。</p></div><p class="f-heading-aside">观音一百签 · 车公九十六签<br />展一纸签诗，读一段心意</p></div>
+      <span class="u-sr-only">传统求签 抽签 观音签 车公签 竹筒 签诗</span>
+    </header>
+
+    <div class="f-collection-picker" role="group" aria-label="选择签筒" data-enhanced>
+      {collections.map(collection => <button type="button" class="f-collection" data-collection-choice={collection.id} aria-pressed={collection.id === 'guanyin' ? 'true' : 'false'}>
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+          {collection.id === 'guanyin' ? <><path d="M16 25C5 20 10 10 16 6C22 10 27 20 16 25Z"/><path d="M16 25C7 28 2 21 3 15C10 14 16 18 16 25ZM16 25C25 28 30 21 29 15C22 14 16 18 16 25Z"/></> : <><circle cx="16" cy="16" r="12"/><path d="M16 16Q5 10 16 5V16Q22 5 27 16H16Q27 22 16 27V16Q10 27 5 16Z"/><circle cx="16" cy="16" r="2"/></>}
+        </svg>
+        <span><strong>{collection.name}</strong><small>{collection.count} 支签</small></span>
+      </button>)}
+    </div>
+
+    <section class="f-sanctuary" aria-label="求签" data-enhanced>
+      <div class="f-ritual">
+        <ol class="f-steps" aria-label="求签步骤"><li data-step="idle" aria-current="step">静心</li><li data-step="shaking">摇签</li><li data-step="revealed">阅签</li></ol>
+        <div class="f-stage">
+          <div class="f-moon" aria-hidden="true"></div>
+          <span class="f-side-script" aria-hidden="true">一念之间</span>
+          <FortuneTube />
+          <span class="f-side-script f-side-script-right" aria-hidden="true">留一刻静</span>
+          <div class="f-stage-caption"><span data-tube-name>观音签</span><span data-tube-count>一百支竹签</span></div>
+        </div>
+        <div class="f-controls">
+          <p class="f-status" data-fortune-status role="status" aria-live="polite">在心里想一件事，轻轻求一支签。</p>
+          <button class="f-primary" type="button" data-draw>求一支签<span aria-hidden="true">↗</span></button>
+          <button class="f-primary" type="button" data-reveal hidden>展开签纸<span aria-hidden="true">↗</span></button>
+          <button class="f-secondary" type="button" data-again hidden>再求一签</button>
+          <button class="f-skip" type="button" data-skip hidden>跳过动画</button>
+        </div>
+      </div>
+
+      <div class="f-reading" aria-label="签纸">
+        <div class="f-paper-rest" data-paper-rest>
+          <div class="f-folded-paper" aria-hidden="true"><span>籤</span><i></i></div>
+          <h2>签未启，心先静。</h2>
+          <p data-paper-hint>选一只签筒，<br />让一支竹签回应此刻的心事。</p>
+          <span class="f-paper-rest-line" aria-hidden="true"></span>
+        </div>
+        <article class="f-paper" data-fortune-paper hidden tabindex="-1" aria-labelledby="fortune-result-title">
+          <div class="f-paper-inner">
+            <p class="f-paper-kind" data-result-kind>观音签</p>
+            <div class="f-paper-rule" aria-hidden="true"></div>
+            <h2 id="fortune-result-title"><span>第</span><strong data-result-number></strong><span>签</span></h2>
+            <p class="f-paper-grade" data-result-grade aria-label="传统签级"></p>
+            <div class="f-poem" data-result-poem role="group" aria-label="签诗"></div>
+            <section class="f-interpretation" aria-labelledby="fortune-meaning-title">
+              <h3 id="fortune-meaning-title">签意 <span>本站白话解读</span></h3>
+              <p data-result-interpretation></p>
+            </section>
+            <p class="f-paper-date" data-result-date></p>
+            <p class="f-source-note">传统通行本 · 各庙签文及分级或有不同</p>
+            <a class="f-source-link" data-source-link href="https://www.zhouyi.cc/lingqian/guanyin/" target="_blank" rel="noopener noreferrer">签诗出处：易安居整理页 <span aria-hidden="true">↗</span><span class="u-sr-only">（新窗口）</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <noscript><div class="f-nojs"><p>互动求签需要启用 JavaScript。也可以直接查阅传统签诗。</p><a href="https://www.zhouyi.cc/lingqian/guanyin/">查阅观音签通行本</a><a href="https://www.zhouyi.cc/lingqian/chegong/">查阅车公签通行本</a></div></noscript>
+
+    <section class="f-history" data-enhanced hidden data-fortune-history aria-labelledby="fortune-history-title">
+      <div class="f-history-head"><h2 id="fortune-history-title">曾求过的签</h2><span>最近 20 次 · 仅存本机</span></div>
+      <div class="f-history-list" data-history-list></div>
+    </section>
+    <footer class="f-notes"><p>签诗采用传统通行本，按易安居的<a href="https://www.zhouyi.cc/lingqian/guanyin/" target="_blank" rel="noopener noreferrer">观音签</a>与<a href="https://www.zhouyi.cc/lingqian/chegong/" target="_blank" rel="noopener noreferrer">车公签</a>整理页核对。签筒、求签仪式与白话解读为本站制作。</p><p>一签一念，作为民俗体验，给自己一点思考的余地。签级沿用传统，解读供自省，不作未来的定论。</p><p class="f-storage-note" data-storage-note role="status" hidden></p></footer>
+  </div>
+</BaseLayout>
+<script>
+  import '../../scripts/fortune';
+</script>

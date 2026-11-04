@@ -19,6 +19,7 @@ const rootTopics = topicTree(allPosts);
     <p>一些日常，一些思考，还有路上捡到的经验。</p>
     <a class="u-intro-link" href={href('/about/')}>认识一下这里的我 <Icon name="external" size={14} /></a>
     <a class="u-game-link" href={href('/games/')}><span aria-hidden="true">⚄</span> 去玩个小游戏 <Icon name="external" size={14} /></a>
+    <a class="f-home-link" href={href('/tools/fortune/')}><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 8l1 10h8l1-10M5 8q5 3 10 0M7 8L5 2m5 7V1m3 8 2-6M7 14h6" /></svg> 求一支签 <Icon name="external" size={14} /></a>
   </div>
 </div> : <header class="u-page-head"><h1>继续翻一翻</h1><p>第 {current} 页记录，沿着时间慢慢往前走。</p></header>}
 <div class="u-home-layout" data-post-filter-scope data-filter-home>
@@ -44,3 +45,9 @@ const rootTopics = topicTree(allPosts);
 <script>
   import '../scripts/post-filters';
 </script>
+<style>
+  .u-home-hero .f-home-link { display:inline-flex; align-items:center; gap:8px; margin:18px 0 0 18px; padding:10px 15px; border:1px solid var(--u-line); border-radius:7px; color:var(--u-text); background:color-mix(in srgb,var(--u-paper) 70%,transparent); font-size:13px; }
+  .f-home-link svg { width:17px; height:17px; }
+  .u-home-hero .f-home-link:hover { background:var(--u-paper); }
+  @media(max-width:600px) { .u-home-hero .f-home-link { display:flex; width:max-content; margin:12px 0 0; } }
+</style>

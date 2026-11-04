@@ -2,12 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { href } from '../../lib/posts';
 import '../../styles/life-grid.css';
+import FortuneTube from '../../components/FortuneTube.astro';
+import '../../styles/fortune.css';
 ---
-<BaseLayout title="工具" description="一些把想法变得可见的小工具。从一面人生格子，重新看看时间。">
+<BaseLayout title="工具" description="一些换个角度看生活的小工具。走过人生格子，或静心求一支签。">
   <header class="u-page-head"><h1>换个角度，看看生活。</h1><p>一些小工具，让抽象的事情变得具体。</p></header>
   <section class="l-tool-card" aria-labelledby="life-tools-title">
     <div class="l-tool-art" aria-hidden="true">{Array.from({ length: 240 }, (_, i) => <span class:list={{ used: i < 87, now: i === 87 }} />)}</div>
     <div class="l-tool-copy"><h2 id="life-tools-title">人生格子</h2><p>如果一格就是一天，你的一生会是什么样子？<br />两种方式，看看走过的时间，也看看未来。</p><div class="life-version-links"><a href={href('/tools/life/')}><strong>角色旅程</strong><small>跟随不同年龄的自己，走过时间铺路石</small></a><a href={href('/tools/life-replay/')}><strong>时光回放</strong><small>让日子逐格亮起，看见已经走过的人生</small></a></div></div>
+  </section>
+  <section class="f-entry-card" aria-labelledby="fortune-tools-title">
+    <div class="f-entry-art"><FortuneTube id="fortune-preview" /></div>
+    <div><h2 id="fortune-tools-title">静心，求一支签。</h2><p>观音一百签，车公九十六签。<br />轻摇竹筒，给自己片刻安静。</p><a href={href('/tools/fortune/')}>去求一支签 ↗</a></div>
   </section>
 </BaseLayout>
 <style>

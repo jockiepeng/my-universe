@@ -1,0 +1,59 @@
+---
+interface Props { id?: string }
+const { id = 'fortune-tube' } = Astro.props;
+const paint = (name: string) => `url(#${id}-${name})`;
+---
+<svg class="f-tube-art" viewBox="0 0 420 480" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id={`${id}-bamboo`} x1="131" y1="250" x2="288" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="var(--f-wood-dark)" /><stop offset=".2" stop-color="var(--f-wood)" /><stop offset=".48" stop-color="var(--f-wood-light)" /><stop offset=".8" stop-color="var(--f-wood)" /><stop offset="1" stop-color="var(--f-wood-dark)" />
+    </linearGradient>
+    <linearGradient id={`${id}-stick`} x1="0" x2="1"><stop stop-color="#9f783c"/><stop offset=".3" stop-color="#f0d99f"/><stop offset=".7" stop-color="#d8b66d"/><stop offset="1" stop-color="#ae8546"/></linearGradient>
+    <linearGradient id={`${id}-brass`}><stop stop-color="#6d502e"/><stop offset=".22" stop-color="#b28c50"/><stop offset=".48" stop-color="#e8cc88"/><stop offset=".77" stop-color="#a78044"/><stop offset="1" stop-color="#72512d"/></linearGradient>
+    <linearGradient id={`${id}-label`} x1="0" x2="1"><stop stop-color="#d3bd82"/><stop offset=".5" stop-color="#f5e4b6"/><stop offset="1" stop-color="#d8be88"/></linearGradient>
+    <radialGradient id={`${id}-shadow`}><stop stop-color="#071410" stop-opacity=".34"/><stop offset="1" stop-color="#071410" stop-opacity="0"/></radialGradient>
+    <pattern id={`${id}-grain`} width="18" height="120" patternUnits="userSpaceOnUse"><path d="M3 0Q8 38 4 72T4 120M11 0Q7 58 13 120" stroke="#fff2bd" stroke-opacity=".13" stroke-width=".7"/></pattern>
+  </defs>
+  <ellipse class="f-ground-shadow" cx="210" cy="439" rx="133" ry="27" fill={paint('shadow')} />
+  <g class="f-tube-object">
+    <ellipse cx="210" cy="232" rx="80" ry="23" fill={paint('brass')} />
+    <ellipse cx="210" cy="232" rx="71" ry="17" fill="#252d20" />
+    <g class="f-loose-sticks">
+      {Array.from({ length: 17 }, (_, i) => {
+        const x = 145 + i * 7.4;
+        const y = 113 + (i * 37 % 64);
+        return <g class="f-small-stick" style={`--stick-delay:${i * -43}ms`} transform={`rotate(${(i - 8) * 2.35} ${x + 5} 295)`}>
+          <rect x={x} y={y} width="10" height={310 - y} rx="3" fill={paint('stick')} stroke="#8b693b" stroke-width=".6" />
+          <path d={`M${x + 1} ${y + 26}h8`} stroke="#8f3b31" stroke-width="5" />
+          <path d={`M${x + 3} ${y + 40}v39`} stroke="#735b36" stroke-width=".8" opacity=".7" />
+        </g>;
+      })}
+    </g>
+    <g class="f-chosen-stick">
+      <rect x="199" y="140" width="22" height="252" rx="6" fill={paint('stick')} stroke="#9d7840" />
+      <rect x="200" y="155" width="20" height="17" rx="1" fill="#873e33" />
+      <text x="210" y="188" text-anchor="start" writing-mode="tb" fill="#473c2c" font-size="15" font-family="SimSun, serif" letter-spacing="4" data-stick-number>签</text>
+    </g>
+    <path d="M132 232Q210 264 288 232L279 412Q210 448 141 412Z" fill={paint('bamboo')} stroke="var(--f-wood-dark)" stroke-width="1.5" />
+    <path d="M132 232Q210 264 288 232L279 412Q210 448 141 412Z" fill={paint('grain')} />
+    <path d="M143 251L151 407M158 257L164 415M176 262L180 421M198 265L199 424M220 264L219 424M242 262L239 421M262 257L256 415M278 250L267 408" stroke="var(--f-wood-dark)" opacity=".35" />
+    <path d="M132 232Q210 266 288 232L287 244Q210 277 133 244Z" fill={paint('brass')} />
+    <path d="M133 244Q210 276 287 244" stroke="#e9d494" stroke-opacity=".55" />
+    <path d="M139 388Q210 421 281 388L280 399Q210 434 140 399Z" fill={paint('brass')} />
+    <path d="M140 400Q210 434 280 400" stroke="#5b452a" stroke-opacity=".5" />
+    <path d="M180 281Q210 285 240 281L237 377Q210 385 183 377Z" fill="#12281e" opacity=".18" transform="translate(2 3)" />
+    <path d="M180 278Q210 282 240 278L237 374Q210 382 183 374Z" fill={paint('label')} stroke="#7d643d" />
+    <path d="M185 284Q210 287 235 284L233 370Q210 376 187 370Z" stroke="#9b733f" stroke-width=".65" />
+    <g class="f-guanyin-mark" stroke="#486452" stroke-width="1.2">
+      <path d="M210 312C199 306 199 294 210 288C221 294 221 306 210 312ZM210 312C195 313 189 304 191 296C203 295 210 302 210 312ZM210 312C225 313 231 304 229 296C217 295 210 302 210 312Z" />
+      <text x="210" y="333" fill="#395240" stroke="none" text-anchor="middle" font-size="19" font-family="SimSun, serif">觀</text>
+      <text x="210" y="358" fill="#395240" stroke="none" text-anchor="middle" font-size="19" font-family="SimSun, serif">音</text>
+    </g>
+    <g class="f-chekung-mark" stroke="#794635" stroke-width="1.2">
+      <circle cx="210" cy="300" r="12"/><path d="M210 300Q200 295 210 289V300Q215 290 221 300H210Q220 305 210 311V300Q205 310 199 300Z"/><circle cx="210" cy="300" r="1.5" fill="#794635"/>
+      <text x="210" y="333" fill="#784431" stroke="none" text-anchor="middle" font-size="19" font-family="SimSun, serif">車</text>
+      <text x="210" y="358" fill="#784431" stroke="none" text-anchor="middle" font-size="19" font-family="SimSun, serif">公</text>
+    </g>
+    <path d="M143 269L147 380" stroke="#fff1bf" stroke-width="2" opacity=".25" />
+  </g>
+</svg>
