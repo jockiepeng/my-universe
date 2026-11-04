@@ -7,8 +7,8 @@ import '../../styles/games.css';
 import '../../styles/planet-2048.css';
 ---
 <BaseLayout title="2048 星球合成" description="滑动星球，合并相同数字。从一粒星尘开始，在 4×4 棋盘里合成自己的星系。">
-  <div class="g-game p-game" data-planet-game data-pagefind-ignore>
-    <header class="g-game-head"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1>2048 星球合成</h1><p>从一粒星尘开始，慢慢拼出你的星系。</p></div></header>
+  <div class="g-game p-game" data-planet-game>
+    <header class="g-game-head" data-pagefind-body data-pagefind-meta="type:游戏"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1 data-pagefind-meta="title">2048 星球合成</h1><p>从一粒星尘开始，慢慢拼出你的星系。</p></div></header>
     <noscript><p class="g-notice">请启用 JavaScript 后游玩。下方可以查看星体图鉴和游戏规则。</p></noscript>
     <div class="p-layout">
       <section class="p-play" aria-label="2048 星球合成游戏">

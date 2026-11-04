@@ -1,0 +1,1844 @@
+{
+  "checkedOn": "2026-11-04",
+  "total": 500,
+  "method": "下载原著全文，或读取包含引文的网页正文窗口并保留工具响应；仅归一化空白、标点、HTML标签/字符实体及Unicode兼容字形后核对原句连续存在。另复核作者、作品归属及中文译意。连续匹配证明与所列电子版本一致，不代表对古籍作者或历史传承争议作出学术定论。",
+  "sources": [
+    {
+      "id": "source-001",
+      "cacheFile": ".tools/quote-research/classics/lunyu.txt",
+      "sha256": "b7a1f6f1fb367b572d7d9e3d04bdd19606a809f09837e0bd30a49ea1aa164267",
+      "bytes": 67146,
+      "quotes": [
+        "classics-001",
+        "classics-002",
+        "classics-003",
+        "classics-004",
+        "classics-005",
+        "classics-006",
+        "classics-007",
+        "classics-008",
+        "classics-009",
+        "classics-010",
+        "classics-011",
+        "classics-012",
+        "classics-013",
+        "classics-014",
+        "classics-015",
+        "classics-016",
+        "classics-017",
+        "classics-018",
+        "classics-019",
+        "classics-020",
+        "classics-021",
+        "classics-022",
+        "classics-023",
+        "classics-024",
+        "classics-025"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-lunyu",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%AE%BA%E8%AF%AD.json",
+          "file": ".tools/quote-research/classics/lunyu.txt",
+          "title": "论语",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "b7a1f6f1fb367b572d7d9e3d04bdd19606a809f09837e0bd30a49ea1aa164267",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "attribution": "孔子及弟子、再传弟子言行记录；逐句区分孔子与曾子。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%AE%BA%E8%AF%AD.json"
+      ]
+    },
+    {
+      "id": "source-002",
+      "cacheFile": ".tools/quote-research/classics/laozi.txt",
+      "sha256": "c3fa25cfc58bc78549f2efb3f25cabdeed97f942e42ff3bea84450869adf9677",
+      "bytes": 24188,
+      "quotes": [
+        "classics-026",
+        "classics-027",
+        "classics-028",
+        "classics-029",
+        "classics-030",
+        "classics-031",
+        "classics-032",
+        "classics-033",
+        "classics-034",
+        "classics-035",
+        "classics-036",
+        "classics-037",
+        "classics-038",
+        "classics-039",
+        "classics-040",
+        "classics-041",
+        "classics-042",
+        "classics-043",
+        "classics-044",
+        "classics-045"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-laozi",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%80%81%E5%AD%90.json",
+          "file": ".tools/quote-research/classics/laozi.txt",
+          "title": "老子",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "c3fa25cfc58bc78549f2efb3f25cabdeed97f942e42ff3bea84450869adf9677",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "attribution": "传世《道德经》传统署老子；成书过程及作者问题有争议，本集合按传统题署标注。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%80%81%E5%AD%90.json"
+      ]
+    },
+    {
+      "id": "source-003",
+      "cacheFile": ".tools/quote-research/classics/mengzi-alt.txt",
+      "sha256": "349888018acd0b3fea58de92e53403b8c77640d84b1ae9d37360d5ff1966bcdc",
+      "bytes": 146745,
+      "quotes": [
+        "classics-046",
+        "classics-047",
+        "classics-048",
+        "classics-049",
+        "classics-050",
+        "classics-051",
+        "classics-052",
+        "classics-053",
+        "classics-054",
+        "classics-055",
+        "classics-056",
+        "classics-057",
+        "classics-058",
+        "classics-059",
+        "classics-060",
+        "classics-061",
+        "classics-062",
+        "classics-063",
+        "classics-064",
+        "classics-065"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-mengzi",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%9B%9B%E4%B9%A6%E4%BA%94%E7%BB%8F/mengzi.json",
+          "file": ".tools/quote-research/classics/mengzi-alt.txt",
+          "title": "孟子",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "chinese-poetry/chinese-poetry 四书五经/mengzi.json，繁体全十四篇。下载源未标明具体影印底本；用于替换含“人之忌”“兼济天下”等讹字的另一开源录文。保留原始下载字节。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "349888018acd0b3fea58de92e53403b8c77640d84b1ae9d37360d5ff1966bcdc",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "attribution": "孟子及弟子后学编录；本集合摘录孟子答语和论述。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%9B%9B%E4%B9%A6%E4%BA%94%E7%BB%8F/mengzi.json"
+      ]
+    },
+    {
+      "id": "source-004",
+      "cacheFile": ".tools/quote-research/classics/xunzi.txt",
+      "sha256": "cf169afe1e209f25fb56594c3895e550d0cacb94b819e458bbb8dc2672bfec77",
+      "bytes": 275805,
+      "quotes": [
+        "classics-066",
+        "classics-067",
+        "classics-068",
+        "classics-069",
+        "classics-070",
+        "classics-071",
+        "classics-072",
+        "classics-073",
+        "classics-074",
+        "classics-075",
+        "classics-076",
+        "classics-077",
+        "classics-078",
+        "classics-079",
+        "classics-080"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-xunzi",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%8D%80%E5%AD%90.json",
+          "file": ".tools/quote-research/classics/xunzi.txt",
+          "title": "荀子",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "cf169afe1e209f25fb56594c3895e550d0cacb94b819e458bbb8dc2672bfec77",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%8D%80%E5%AD%90.json"
+      ]
+    },
+    {
+      "id": "source-005",
+      "cacheFile": ".tools/quote-research/classics/zhuangzi.txt",
+      "sha256": "4d32c6153f69a5561b14a0510dcf3a9b6374f265a8221c3d3a83fd765147575a",
+      "bytes": 245419,
+      "quotes": [
+        "classics-081",
+        "classics-082",
+        "classics-083",
+        "classics-084",
+        "classics-085",
+        "classics-086",
+        "classics-087",
+        "classics-088",
+        "classics-089",
+        "classics-090"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-zhuangzi",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E5%BA%84%E5%AD%90.json",
+          "file": ".tools/quote-research/classics/zhuangzi.txt",
+          "title": "庄子",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "4d32c6153f69a5561b14a0510dcf3a9b6374f265a8221c3d3a83fd765147575a",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "attribution": "内篇传统归庄周；外篇有后学著述和寓言，本集合外篇署《庄子》并逐条说明。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E5%BA%84%E5%AD%90.json"
+      ]
+    },
+    {
+      "id": "source-006",
+      "cacheFile": ".tools/quote-research/classics/sunzi.txt",
+      "sha256": "a7a0d7bc8686222902a8c4b8914a43264c095758da818c99bd45db5dee9db391",
+      "bytes": 23524,
+      "quotes": [
+        "classics-091",
+        "classics-092",
+        "classics-093",
+        "classics-094",
+        "classics-095",
+        "classics-096",
+        "classics-097",
+        "classics-098"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-sunzi",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95.json",
+          "file": ".tools/quote-research/classics/sunzi.txt",
+          "title": "孙子兵法",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "a7a0d7bc8686222902a8c4b8914a43264c095758da818c99bd45db5dee9db391",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "attribution": "《孙子兵法》传统署孙武；按传世本题署标注。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E5%AD%99%E5%AD%90%E5%85%B5%E6%B3%95.json"
+      ]
+    },
+    {
+      "id": "source-007",
+      "cacheFile": ".tools/quote-research/classics/shiji.txt",
+      "sha256": "842e1c79c3c04f323fe5b55cf50d51c14166a3dd9194ffb0d7f26db488014ca8",
+      "bytes": 1885043,
+      "quotes": [
+        "classics-099",
+        "classics-100",
+        "classics-101",
+        "classics-102",
+        "classics-103",
+        "classics-104",
+        "classics-105",
+        "classics-106",
+        "classics-107",
+        "classics-108"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-shiji",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E5%8F%B2%E8%AE%B0.json",
+          "file": ".tools/quote-research/classics/shiji.txt",
+          "title": "史记",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "842e1c79c3c04f323fe5b55cf50d51c14166a3dd9194ffb0d7f26db488014ca8",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E5%8F%B2%E8%AE%B0.json"
+      ]
+    },
+    {
+      "id": "source-008",
+      "cacheFile": ".tools/quote-research/classics/yanshi.txt",
+      "sha256": "e00b31806341001ceaab16f007b6c538629cf452b7fca9d6d6e55cd76c1baf3f",
+      "bytes": 53469,
+      "quotes": [
+        "classics-109",
+        "classics-110",
+        "classics-111",
+        "classics-112",
+        "classics-113"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-yanshi",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E9%A2%9C%E6%B0%8F%E5%AE%B6%E8%AE%AD.json",
+          "file": ".tools/quote-research/classics/yanshi.txt",
+          "title": "颜氏家训",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "e00b31806341001ceaab16f007b6c538629cf452b7fca9d6d6e55cd76c1baf3f",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E9%A2%9C%E6%B0%8F%E5%AE%B6%E8%AE%AD.json"
+      ]
+    },
+    {
+      "id": "source-009",
+      "cacheFile": ".tools/quote-research/classics/wenxin.txt",
+      "sha256": "54cd084531f3f9ca622c2c8ec35721b21df4a757d6e73c8ffd53fa64fd421a3d",
+      "bytes": 146104,
+      "quotes": [
+        "classics-114",
+        "classics-115",
+        "classics-116",
+        "classics-117",
+        "classics-118"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-wenxin",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E6%96%87%E5%BF%83%E9%9B%95%E9%BE%99.json",
+          "file": ".tools/quote-research/classics/wenxin.txt",
+          "title": "文心雕龙",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "54cd084531f3f9ca622c2c8ec35721b21df4a757d6e73c8ffd53fa64fd421a3d",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E6%96%87%E5%BF%83%E9%9B%95%E9%BE%99.json"
+      ]
+    },
+    {
+      "id": "source-010",
+      "cacheFile": ".tools/quote-research/classics/caigentan.txt",
+      "sha256": "bb6d3978768021cc70db4f2d5718ee2fdff377c7939e27d0473403ef2c57b591",
+      "bytes": 50397,
+      "quotes": [
+        "classics-119",
+        "classics-120",
+        "classics-121",
+        "classics-122",
+        "classics-123",
+        "classics-124",
+        "classics-125",
+        "classics-126"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-caigentan",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%8F%9C%E6%A0%B9%E8%B0%AD.json",
+          "file": ".tools/quote-research/classics/caigentan.txt",
+          "title": "菜根谭",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。 《菜根谭》按五类本（修身、应酬、评议、闲适、概论）编排；只摘古代原文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "bb6d3978768021cc70db4f2d5718ee2fdff377c7939e27d0473403ef2c57b591",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E8%8F%9C%E6%A0%B9%E8%B0%AD.json"
+      ]
+    },
+    {
+      "id": "source-011",
+      "cacheFile": ".tools/quote-research/classics/hanfei.txt",
+      "sha256": "d8e88279bf1d470dacd3e759f673f5b5267211e259c57832a86e8d43978940db",
+      "bytes": 391319,
+      "quotes": [
+        "classics-127",
+        "classics-128",
+        "classics-129",
+        "classics-130",
+        "classics-131",
+        "classics-132",
+        "classics-133",
+        "classics-134"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-hanfei",
+          "url": "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E9%9F%A9%E9%9D%9E%E5%AD%90.json",
+          "file": ".tools/quote-research/classics/hanfei.txt",
+          "title": "韩非子",
+          "kind": "Complete public-domain text in JSON",
+          "edition": "hanzhaodeng/chinese-ancient-text 固定提交 01a1183cd9bbc243bb156967043c32b6685c0d2f 的全书古文电子录文，原始 JSON 下载文本以 .txt 保存；来源未标明具体影印底本。未摘取 description 现代简介。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "d8e88279bf1d470dacd3e759f673f5b5267211e259c57832a86e8d43978940db",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/hanzhaodeng/chinese-ancient-text/01a1183cd9bbc243bb156967043c32b6685c0d2f/%E9%9F%A9%E9%9D%9E%E5%AD%90.json"
+      ]
+    },
+    {
+      "id": "source-012",
+      "cacheFile": ".tools/quote-research/classics/shishuo.txt",
+      "sha256": "b3d19e743b7ddde89bee946742422b9fd48231e8d7a58a187f9d6bddae9bb3af",
+      "bytes": 5851,
+      "quotes": [
+        "classics-135",
+        "classics-136",
+        "classics-137",
+        "classics-138"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-shishuo",
+          "url": "https://zh.wikisource.org/zh-hans/%E5%B8%AB%E8%AA%AA",
+          "file": ".tools/quote-research/classics/shishuo.txt",
+          "title": "师说",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "b3d19e743b7ddde89bee946742422b9fd48231e8d7a58a187f9d6bddae9bb3af",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E5%B8%AB%E8%AA%AA"
+      ]
+    },
+    {
+      "id": "source-013",
+      "cacheFile": ".tools/quote-research/classics/jinxue.txt",
+      "sha256": "fc62daa877d6c2517363d1d34fc800bb0b679449fb105dbe2dede77ed4f19549",
+      "bytes": 6936,
+      "quotes": [
+        "classics-139"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-jinxue",
+          "url": "https://zh.wikisource.org/zh-hans/%E9%80%B2%E5%AD%B8%E8%A7%A3",
+          "file": ".tools/quote-research/classics/jinxue.txt",
+          "title": "进学解",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "fc62daa877d6c2517363d1d34fc800bb0b679449fb105dbe2dede77ed4f19549",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E9%80%B2%E5%AD%B8%E8%A7%A3"
+      ]
+    },
+    {
+      "id": "source-014",
+      "cacheFile": ".tools/quote-research/classics/yueyang.txt",
+      "sha256": "3dffce6b246383c68779acba9cef98ca4d86ba843baab215fe1b55f8e451b7bf",
+      "bytes": 5111,
+      "quotes": [
+        "classics-140",
+        "classics-141"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-yueyang",
+          "url": "https://zh.wikisource.org/zh-hans/%E5%B2%B3%E9%99%BD%E6%A8%93%E8%A8%98",
+          "file": ".tools/quote-research/classics/yueyang.txt",
+          "title": "岳阳楼记",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "3dffce6b246383c68779acba9cef98ca4d86ba843baab215fe1b55f8e451b7bf",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E5%B2%B3%E9%99%BD%E6%A8%93%E8%A8%98"
+      ]
+    },
+    {
+      "id": "source-015",
+      "cacheFile": ".tools/quote-research/classics/jiezi.txt",
+      "sha256": "bbaf2ab3e04ce7dadb7acfad75151bbe2e5d78ae676e59afa876c5d153f700b6",
+      "bytes": 4315,
+      "quotes": [
+        "classics-142",
+        "classics-143"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-jiezi",
+          "url": "https://zh.wikisource.org/zh-hans/%E8%AA%A1%E5%AD%90%E6%9B%B8",
+          "file": ".tools/quote-research/classics/jiezi.txt",
+          "title": "诫子书",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "bbaf2ab3e04ce7dadb7acfad75151bbe2e5d78ae676e59afa876c5d153f700b6",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E8%AA%A1%E5%AD%90%E6%9B%B8"
+      ]
+    },
+    {
+      "id": "source-016",
+      "cacheFile": ".tools/quote-research/classics/chushibiao.txt",
+      "sha256": "25378642df3007cf3a31d495d6b2231f091fbf722f50653799edd959a99a54b2",
+      "bytes": 5139,
+      "quotes": [
+        "classics-144",
+        "classics-145"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-chushibiao",
+          "url": "https://zh.wikisource.org/zh-hans/%E5%87%BA%E5%B8%AB%E8%A1%A8",
+          "file": ".tools/quote-research/classics/chushibiao.txt",
+          "title": "出师表",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "25378642df3007cf3a31d495d6b2231f091fbf722f50653799edd959a99a54b2",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E5%87%BA%E5%B8%AB%E8%A1%A8"
+      ]
+    },
+    {
+      "id": "source-017",
+      "cacheFile": ".tools/quote-research/classics/xiaoshitan.txt",
+      "sha256": "175fccbb8b265ee4cdf32bbee6daa070d071dd67477b2508266893d991ba94d0",
+      "bytes": 4690,
+      "quotes": [
+        "classics-146"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-xiaoshitan",
+          "url": "https://zh.wikisource.org/zh-hans/%E8%87%B3%E5%B0%8F%E4%B8%98%E8%A5%BF%E5%B0%8F%E7%9F%B3%E6%BD%AD%E8%A8%98",
+          "file": ".tools/quote-research/classics/xiaoshitan.txt",
+          "title": "至小丘西小石潭记",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "175fccbb8b265ee4cdf32bbee6daa070d071dd67477b2508266893d991ba94d0",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E8%87%B3%E5%B0%8F%E4%B8%98%E8%A5%BF%E5%B0%8F%E7%9F%B3%E6%BD%AD%E8%A8%98"
+      ]
+    },
+    {
+      "id": "source-018",
+      "cacheFile": ".tools/quote-research/classics/weizhongli.txt",
+      "sha256": "9177da713ce09166693635c35b9f77516849db70e56e03fb02396efa7280ad05",
+      "bytes": 7866,
+      "quotes": [
+        "classics-147"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-weizhongli",
+          "url": "https://zh.wikisource.org/zh-hans/%E7%AD%94%E9%9F%8B%E4%B8%AD%E7%AB%8B%E8%AB%96%E5%B8%AB%E9%81%93%E6%9B%B8",
+          "file": ".tools/quote-research/classics/weizhongli.txt",
+          "title": "答韦中立论师道书",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "9177da713ce09166693635c35b9f77516849db70e56e03fb02396efa7280ad05",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E7%AD%94%E9%9F%8B%E4%B8%AD%E7%AB%8B%E8%AB%96%E5%B8%AB%E9%81%93%E6%9B%B8"
+      ]
+    },
+    {
+      "id": "source-019",
+      "cacheFile": ".tools/quote-research/classics/xishan.txt",
+      "sha256": "cd6904d9e121ea33f3a72814791142417a4ccebca53e8b20b6e4541e127e4542",
+      "bytes": 4437,
+      "quotes": [
+        "classics-148"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-xishan",
+          "url": "https://zh.wikisource.org/zh-hans/%E5%A7%8B%E5%BE%97%E8%A5%BF%E5%B1%B1%E5%AE%B4%E9%81%8A%E8%A8%98",
+          "file": ".tools/quote-research/classics/xishan.txt",
+          "title": "始得西山宴游记",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "cd6904d9e121ea33f3a72814791142417a4ccebca53e8b20b6e4541e127e4542",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E5%A7%8B%E5%BE%97%E8%A5%BF%E5%B1%B1%E5%AE%B4%E9%81%8A%E8%A8%98"
+      ]
+    },
+    {
+      "id": "source-020",
+      "cacheFile": ".tools/quote-research/classics/zuiweng.txt",
+      "sha256": "3d8fb4d22d7ea2fb49366221d55c9c8e052d28833f139b3ebcb67b9fc2496de5",
+      "bytes": 4921,
+      "quotes": [
+        "classics-149",
+        "classics-150"
+      ],
+      "metadata": [
+        {
+          "id": "classics-source-zuiweng",
+          "url": "https://zh.wikisource.org/zh-hans/%E9%86%89%E7%BF%81%E4%BA%AD%E8%A8%98",
+          "file": ".tools/quote-research/classics/zuiweng.txt",
+          "title": "醉翁亭记",
+          "kind": "Wikisource page text",
+          "edition": "维基文库简体显示正文；经网页工具实际打开并保存返回文本，保留原始工具响应于 classics/web-responses.json。无现代译文。",
+          "translator": null,
+          "accessedAt": "2026-11-04",
+          "sha256": "3d8fb4d22d7ea2fb49366221d55c9c8e052d28833f139b3ebcb67b9fc2496de5",
+          "copyright": "所摘古代中文正文属于公有领域；未摘录现代简介、注释或译文。",
+          "toolResponseFile": ".tools/quote-research/classics/web-responses.json"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E9%86%89%E7%BF%81%E4%BA%AD%E8%A8%98"
+      ]
+    },
+    {
+      "id": "source-021",
+      "cacheFile": ".tools/quote-research/poetry/cicada.txt",
+      "sha256": "96ef9064031233511f897579ce459b4285ec7fe5f2465ac7cd430e8a5be7a5e9",
+      "bytes": 5113,
+      "quotes": [
+        "poetry-001"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E5%9C%A8%E7%8D%84%E8%A9%A0%E8%9F%AC",
+          "file": ".tools/quote-research/poetry/cicada.txt",
+          "title": "在獄詠蟬",
+          "responseFile": ".tools/quote-research/poetry/cicada.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E5%9C%A8%E7%8D%84%E8%A9%A0%E8%9F%AC"
+      ]
+    },
+    {
+      "id": "source-022",
+      "cacheFile": ".tools/quote-research/poetry/tang300.json",
+      "sha256": "d77a145f7470da2ed2f79515944563c062ffc43fceda07f195a36ead66b7e5c7",
+      "bytes": 190787,
+      "quotes": [
+        "poetry-002",
+        "poetry-003",
+        "poetry-004",
+        "poetry-005",
+        "poetry-006",
+        "poetry-007",
+        "poetry-008",
+        "poetry-009",
+        "poetry-010",
+        "poetry-011",
+        "poetry-012",
+        "poetry-013",
+        "poetry-014",
+        "poetry-015",
+        "poetry-016",
+        "poetry-017",
+        "poetry-018",
+        "poetry-019",
+        "poetry-020",
+        "poetry-021",
+        "poetry-022",
+        "poetry-023",
+        "poetry-024",
+        "poetry-025",
+        "poetry-026",
+        "poetry-027",
+        "poetry-028",
+        "poetry-029",
+        "poetry-030",
+        "poetry-031",
+        "poetry-032",
+        "poetry-033",
+        "poetry-034",
+        "poetry-035",
+        "poetry-036",
+        "poetry-037",
+        "poetry-038",
+        "poetry-039",
+        "poetry-040",
+        "poetry-041",
+        "poetry-042",
+        "poetry-043",
+        "poetry-044",
+        "poetry-045",
+        "poetry-046",
+        "poetry-047",
+        "poetry-048",
+        "poetry-049",
+        "poetry-050",
+        "poetry-051",
+        "poetry-052",
+        "poetry-053",
+        "poetry-054",
+        "poetry-055",
+        "poetry-056",
+        "poetry-057",
+        "poetry-058",
+        "poetry-059",
+        "poetry-060",
+        "poetry-061",
+        "poetry-062",
+        "poetry-063",
+        "poetry-064",
+        "poetry-065",
+        "poetry-066",
+        "poetry-067",
+        "poetry-068",
+        "poetry-069",
+        "poetry-070",
+        "poetry-071",
+        "poetry-072",
+        "poetry-073",
+        "poetry-074",
+        "poetry-075",
+        "poetry-076",
+        "poetry-077",
+        "poetry-078",
+        "poetry-079",
+        "poetry-080",
+        "poetry-081",
+        "poetry-082",
+        "poetry-083",
+        "poetry-084",
+        "poetry-085",
+        "poetry-086",
+        "poetry-087",
+        "poetry-088",
+        "poetry-089",
+        "poetry-090",
+        "poetry-091",
+        "poetry-092",
+        "poetry-093",
+        "poetry-094",
+        "poetry-095",
+        "poetry-097",
+        "poetry-098",
+        "poetry-099",
+        "poetry-100",
+        "poetry-101",
+        "poetry-102"
+      ],
+      "metadata": [
+        {
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/%E5%94%90%E8%AF%97%E4%B8%89%E7%99%BE%E9%A6%96.json",
+          "file": ".tools/quote-research/poetry/tang300.json",
+          "title": "chinese-poetry《唐诗三百首》原始 JSON",
+          "acquisition": "curl 下载原始文件，未改正文",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/%E5%94%90%E8%AF%97%E4%B8%89%E7%99%BE%E9%A6%96.json"
+      ]
+    },
+    {
+      "id": "source-023",
+      "cacheFile": ".tools/quote-research/poetry/bai-xue-ge.txt",
+      "sha256": "232c347fc19fe438e5fbc246aa6c65bfba06c31bf558fcb6943b301410407040",
+      "bytes": 4752,
+      "quotes": [
+        "poetry-096"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/%E7%99%BD%E9%9B%AA%E6%AD%8C%E9%80%81%E6%AD%A6%E5%88%A4%E5%AE%98%E6%AD%B8%E4%BA%AC",
+          "file": ".tools/quote-research/poetry/bai-xue-ge.txt",
+          "title": "白雪歌送武判官归京",
+          "responseFile": ".tools/quote-research/poetry/bai-xue-ge.web.json",
+          "acquisition": "web.open 实际读取维基文库简体显示全文；txt 仅去除工具附加的 L行号前缀；web.json 保留完整真实工具响应。",
+          "retrievedAt": "2026-11-04",
+          "revision": "维基文库页面 oldid=2026203",
+          "note": "替换 chinese-poetry 唐诗数据中该联的“忽然”讹字；选用本页正文“忽如”。"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/zh-hans/%E7%99%BD%E9%9B%AA%E6%AD%8C%E9%80%81%E6%AD%A6%E5%88%A4%E5%AE%98%E6%AD%B8%E4%BA%AC"
+      ]
+    },
+    {
+      "id": "source-024",
+      "cacheFile": ".tools/quote-research/poetry/songci300.json",
+      "sha256": "ca5d74f7fdb9d5a6acc22a7c8b4395228cad4bb8be53df44c19ba83ab6983b20",
+      "bytes": 151283,
+      "quotes": [
+        "poetry-103",
+        "poetry-104",
+        "poetry-105",
+        "poetry-106",
+        "poetry-107",
+        "poetry-108",
+        "poetry-109",
+        "poetry-110",
+        "poetry-111",
+        "poetry-112",
+        "poetry-113",
+        "poetry-114",
+        "poetry-115",
+        "poetry-116",
+        "poetry-117",
+        "poetry-118",
+        "poetry-119",
+        "poetry-120",
+        "poetry-121",
+        "poetry-122",
+        "poetry-123",
+        "poetry-124",
+        "poetry-125",
+        "poetry-126",
+        "poetry-127",
+        "poetry-128",
+        "poetry-129",
+        "poetry-130"
+      ],
+      "metadata": [
+        {
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%AE%8B%E8%AF%8D/%E5%AE%8B%E8%AF%8D%E4%B8%89%E7%99%BE%E9%A6%96.json",
+          "file": ".tools/quote-research/poetry/songci300.json",
+          "title": "chinese-poetry《宋词三百首》原始 JSON",
+          "acquisition": "curl 下载原始文件，未改正文",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%AE%8B%E8%AF%8D/%E5%AE%8B%E8%AF%8D%E4%B8%89%E7%99%BE%E9%A6%96.json"
+      ]
+    },
+    {
+      "id": "source-025",
+      "cacheFile": ".tools/quote-research/poetry/duange2.txt",
+      "sha256": "6bf261ed0b79b44f4d40159aed255f149a5067ccccbb1334e7b556c0aa165524",
+      "bytes": 6029,
+      "quotes": [
+        "poetry-131"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E7%9F%AD%E6%AD%8C%E8%A1%8C_(%E6%9B%B9%E6%93%8D)",
+          "file": ".tools/quote-research/poetry/duange2.txt",
+          "title": "短歌行_(曹操)",
+          "responseFile": ".tools/quote-research/poetry/duange2.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E7%9F%AD%E6%AD%8C%E8%A1%8C_(%E6%9B%B9%E6%93%8D)"
+      ]
+    },
+    {
+      "id": "source-026",
+      "cacheFile": ".tools/quote-research/poetry/guishoushou.txt",
+      "sha256": "bbf69cb62e934b8195971f188c48ac022762106a319feff9d1fa91675fbf53d6",
+      "bytes": 4259,
+      "quotes": [
+        "poetry-132",
+        "poetry-133"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E9%BE%9C%E9%9B%96%E5%A3%BD",
+          "file": ".tools/quote-research/poetry/guishoushou.txt",
+          "title": "龜雖壽",
+          "responseFile": ".tools/quote-research/poetry/guishoushou.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E9%BE%9C%E9%9B%96%E5%A3%BD"
+      ]
+    },
+    {
+      "id": "source-027",
+      "cacheFile": ".tools/quote-research/poetry/drinking.txt",
+      "sha256": "bc2de7269f94eb9fdb054205399f5aa21d8891689b35c145170291334a1df4c1",
+      "bytes": 9785,
+      "quotes": [
+        "poetry-134",
+        "poetry-135",
+        "poetry-136"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E9%A3%B2%E9%85%92%E4%BA%8C%E5%8D%81%E9%A6%96",
+          "file": ".tools/quote-research/poetry/drinking.txt",
+          "title": "飲酒二十首",
+          "responseFile": ".tools/quote-research/poetry/drinking.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E9%A3%B2%E9%85%92%E4%BA%8C%E5%8D%81%E9%A6%96"
+      ]
+    },
+    {
+      "id": "source-028",
+      "cacheFile": ".tools/quote-research/poetry/garden.txt",
+      "sha256": "fa08076d6ad3d9a0965fa51c7539c08bfa981242c9ad3cd6ac7369b35c9e1dfb",
+      "bytes": 6368,
+      "quotes": [
+        "poetry-137"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E6%AD%B8%E5%9C%92%E7%94%B0%E5%B1%85",
+          "file": ".tools/quote-research/poetry/garden.txt",
+          "title": "歸園田居",
+          "responseFile": ".tools/quote-research/poetry/garden.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E6%AD%B8%E5%9C%92%E7%94%B0%E5%B1%85"
+      ]
+    },
+    {
+      "id": "source-029",
+      "cacheFile": ".tools/quote-research/poetry/misc-tao.txt",
+      "sha256": "a65ba529e3d2d41543038847c44554b29550d7f0d05977f492bfe3f401b61bcf",
+      "bytes": 7691,
+      "quotes": [
+        "poetry-138"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E9%9B%9C%E8%A9%A9_(%E9%99%B6%E6%B7%B5%E6%98%8E)",
+          "file": ".tools/quote-research/poetry/misc-tao.txt",
+          "title": "雜詩_(陶淵明)",
+          "responseFile": ".tools/quote-research/poetry/misc-tao.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E9%9B%9C%E8%A9%A9_(%E9%99%B6%E6%B7%B5%E6%98%8E)"
+      ]
+    },
+    {
+      "id": "source-030",
+      "cacheFile": ".tools/quote-research/poetry/return.txt",
+      "sha256": "18b5aad14f4c64a9ccc20a5159673997691322fc63ec894c7739a658064636c3",
+      "bytes": 7549,
+      "quotes": [
+        "poetry-139"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E6%AD%B8%E5%8E%BB%E4%BE%86%E5%85%AE",
+          "file": ".tools/quote-research/poetry/return.txt",
+          "title": "歸去來兮",
+          "responseFile": ".tools/quote-research/poetry/return.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E6%AD%B8%E5%8E%BB%E4%BE%86%E5%85%AE"
+      ]
+    },
+    {
+      "id": "source-031",
+      "cacheFile": ".tools/quote-research/poetry/lisao.txt",
+      "sha256": "ebfb3731a43a2a571da2c6a1cfb417c2d5a8ef7f14e6faf2d426d01ad9cc016c",
+      "bytes": 17191,
+      "quotes": [
+        "poetry-140",
+        "poetry-141",
+        "poetry-142"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E9%9B%A2%E9%A8%B7",
+          "file": ".tools/quote-research/poetry/lisao.txt",
+          "title": "離騷",
+          "responseFile": ".tools/quote-research/poetry/lisao.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E9%9B%A2%E9%A8%B7"
+      ]
+    },
+    {
+      "id": "source-032",
+      "cacheFile": ".tools/quote-research/poetry/bamboo.txt",
+      "sha256": "86e343ae3713325806928c2d5aab1463564fbc2257cee94fe080377b6e353a6e",
+      "bytes": 3988,
+      "quotes": [
+        "poetry-143",
+        "poetry-144"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E7%AB%B9%E7%9F%B3",
+          "file": ".tools/quote-research/poetry/bamboo.txt",
+          "title": "竹石",
+          "responseFile": ".tools/quote-research/poetry/bamboo.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E7%AB%B9%E7%9F%B3"
+      ]
+    },
+    {
+      "id": "source-033",
+      "cacheFile": ".tools/quote-research/poetry/linjiangxian.txt",
+      "sha256": "f031b3af5290a45f1d85096bd0b8f94e702c2e279348f79cd220557b25ab54df",
+      "bytes": 4439,
+      "quotes": [
+        "poetry-145",
+        "poetry-146"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E8%87%A8%E6%B1%9F%E4%BB%99_(%E6%A5%8A%E6%85%8E)",
+          "file": ".tools/quote-research/poetry/linjiangxian.txt",
+          "title": "臨江仙_(楊慎)",
+          "responseFile": ".tools/quote-research/poetry/linjiangxian.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E8%87%A8%E6%B1%9F%E4%BB%99_(%E6%A5%8A%E6%85%8E)"
+      ]
+    },
+    {
+      "id": "source-034",
+      "cacheFile": ".tools/quote-research/poetry/gong.txt",
+      "sha256": "0c29f7a4c164fb7e23cedb86a0f97c74800974a8e82c3d245892df5139aef012",
+      "bytes": 17479,
+      "quotes": [
+        "poetry-147"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E5%B7%B1%E4%BA%A5%E9%9B%9C%E8%A9%A9",
+          "file": ".tools/quote-research/poetry/gong.txt",
+          "title": "己亥雜詩",
+          "responseFile": ".tools/quote-research/poetry/gong.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E5%B7%B1%E4%BA%A5%E9%9B%9C%E8%A9%A9"
+      ]
+    },
+    {
+      "id": "source-035",
+      "cacheFile": ".tools/quote-research/poetry/gong-125.txt",
+      "sha256": "480e450d1f0ba498d89011874da24de174a86708843b5e8d7b9759ff34d544f9",
+      "bytes": 15046,
+      "quotes": [
+        "poetry-148"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E5%B7%B1%E4%BA%A5%E9%9B%9C%E8%A9%A9",
+          "file": ".tools/quote-research/poetry/gong-125.txt",
+          "title": "己亥雜詩·其一百二十五",
+          "responseFile": ".tools/quote-research/poetry/gong-125.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E5%B7%B1%E4%BA%A5%E9%9B%9C%E8%A9%A9"
+      ]
+    },
+    {
+      "id": "source-036",
+      "cacheFile": ".tools/quote-research/poetry/autumn.txt",
+      "sha256": "0bb09c76e0c020007634b14a0208b0b2af385ec5af090431f68af94e8065d2fd",
+      "bytes": 4175,
+      "quotes": [
+        "poetry-149"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E5%A4%A9%E6%B7%A8%E6%B2%99%C2%B7%E7%A7%8B%E6%80%9D",
+          "file": ".tools/quote-research/poetry/autumn.txt",
+          "title": "天淨沙·秋思",
+          "responseFile": ".tools/quote-research/poetry/autumn.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E5%A4%A9%E6%B7%A8%E6%B2%99%C2%B7%E7%A7%8B%E6%80%9D"
+      ]
+    },
+    {
+      "id": "source-037",
+      "cacheFile": ".tools/quote-research/poetry/plum.txt",
+      "sha256": "1a28f37d649f8e7b69ef144e28fccdae1f9d1f9f4fe28ea7e4a244cde0454cea",
+      "bytes": 4568,
+      "quotes": [
+        "poetry-150"
+      ],
+      "metadata": [
+        {
+          "url": "https://zh.wikisource.org/wiki/%E5%A2%A8%E6%A2%85",
+          "file": ".tools/quote-research/poetry/plum.txt",
+          "title": "墨梅",
+          "responseFile": ".tools/quote-research/poetry/plum.web.json",
+          "acquisition": "web.open 实际读取网页正文并保存；txt 仅去除工具附加的 L行号前缀；web.json 保留完整工具响应。长页为包含引文的实际返回窗口，非全文。",
+          "retrievedAt": "2026-11-04"
+        }
+      ],
+      "urls": [
+        "https://zh.wikisource.org/wiki/%E5%A2%A8%E6%A2%85"
+      ]
+    },
+    {
+      "id": "source-038",
+      "cacheFile": ".tools/quote-research/foreign/epictetus-enchiridion.txt",
+      "sha256": "15a09ebd7f782cb64390459a29555140d86fb07f168675d41088a717978c3e4f",
+      "bytes": 91688,
+      "quotes": [
+        "foreign-001",
+        "foreign-002",
+        "foreign-003",
+        "foreign-004",
+        "foreign-005",
+        "foreign-006",
+        "foreign-007",
+        "foreign-008",
+        "foreign-009",
+        "foreign-010",
+        "foreign-011",
+        "foreign-012",
+        "foreign-013",
+        "foreign-014",
+        "foreign-015"
+      ],
+      "metadata": [
+        {
+          "id": "epictetus",
+          "url": "https://www.gutenberg.org/ebooks/45109.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/45109.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/45109",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/45109",
+          "file": ".tools/quote-research/foreign/epictetus-enchiridion.txt",
+          "title": "手册",
+          "author": "爱比克泰德",
+          "originalLanguage": "古希腊语",
+          "downloadedLanguage": "en",
+          "translator": "Thomas Wentworth Higginson",
+          "edition": "Higginson 1865 年公版英译（基于 Elizabeth Carter）；下载底本为 Liberal Arts Press 1955 年第二版，含 Albert Salomon 导言，本库仅引用爱比克泰德正文",
+          "accessed": "2026-11-04",
+          "sha256": "15a09ebd7f782cb64390459a29555140d86fb07f168675d41088a717978c3e4f",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/45109.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-039",
+      "cacheFile": ".tools/quote-research/foreign/goethe-maxims.txt",
+      "sha256": "4ff9b8b40d51e3cd90b2617308afe0c37b92629c4aacefab248b39250460a48f",
+      "bytes": 207984,
+      "quotes": [
+        "foreign-016",
+        "foreign-017",
+        "foreign-018",
+        "foreign-019",
+        "foreign-020",
+        "foreign-021",
+        "foreign-022",
+        "foreign-023",
+        "foreign-024",
+        "foreign-025"
+      ],
+      "metadata": [
+        {
+          "id": "goethe",
+          "url": "https://www.gutenberg.org/ebooks/33670.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/33670.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/33670",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/33670",
+          "file": ".tools/quote-research/foreign/goethe-maxims.txt",
+          "title": "格言与省思",
+          "author": "约翰·沃尔夫冈·冯·歌德",
+          "originalLanguage": "德语",
+          "downloadedLanguage": "en",
+          "translator": "T. Bailey Saunders",
+          "edition": "译者序日期为 1892-12-02；下载底本标题页为 New York: The Macmillan Company, 1906；格言号依本版",
+          "accessed": "2026-11-04",
+          "sha256": "4ff9b8b40d51e3cd90b2617308afe0c37b92629c4aacefab248b39250460a48f",
+          "publicDomain": true,
+          "selectedQuoteCount": 10
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/33670.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-040",
+      "cacheFile": ".tools/quote-research/foreign/bacon-essays.txt",
+      "sha256": "4434aa015d325e65816eb0e694e7c573fa4b71523530e45adfeb23e7fcf63bf1",
+      "bytes": 324388,
+      "quotes": [
+        "foreign-026",
+        "foreign-027",
+        "foreign-028",
+        "foreign-029",
+        "foreign-030",
+        "foreign-031",
+        "foreign-032",
+        "foreign-033",
+        "foreign-034",
+        "foreign-035",
+        "foreign-036",
+        "foreign-037",
+        "foreign-038",
+        "foreign-039",
+        "foreign-040"
+      ],
+      "metadata": [
+        {
+          "id": "bacon",
+          "url": "https://www.gutenberg.org/ebooks/575.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/575.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/575",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/575",
+          "file": ".tools/quote-research/foreign/bacon-essays.txt",
+          "title": "培根随笔",
+          "author": "弗朗西斯·培根",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "英语原作",
+          "accessed": "2026-11-04",
+          "sha256": "4434aa015d325e65816eb0e694e7c573fa4b71523530e45adfeb23e7fcf63bf1",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/575.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-041",
+      "cacheFile": ".tools/quote-research/foreign/emerson-essays.txt",
+      "sha256": "bd1e8cd9feb2c331b560dbb254cde873cb3db4b5d5464996d98f6e43649ad1e1",
+      "bytes": 567493,
+      "quotes": [
+        "foreign-041",
+        "foreign-042",
+        "foreign-043",
+        "foreign-044",
+        "foreign-045",
+        "foreign-046",
+        "foreign-047",
+        "foreign-048",
+        "foreign-049",
+        "foreign-050",
+        "foreign-051",
+        "foreign-052",
+        "foreign-053",
+        "foreign-054",
+        "foreign-055"
+      ],
+      "metadata": [
+        {
+          "id": "emerson",
+          "url": "https://www.gutenberg.org/ebooks/16643.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/16643.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/16643",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/16643",
+          "file": ".tools/quote-research/foreign/emerson-essays.txt",
+          "title": "爱默生随笔",
+          "author": "拉尔夫·沃尔多·爱默生",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "英语原作；Edna H. L. Turpin 编订的 1907 年版，原文中的数字方括号为底本注号",
+          "accessed": "2026-11-04",
+          "sha256": "bd1e8cd9feb2c331b560dbb254cde873cb3db4b5d5464996d98f6e43649ad1e1",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/16643.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-042",
+      "cacheFile": ".tools/quote-research/foreign/thoreau-walden.txt",
+      "sha256": "2d9a76a2e3e8195c69430516ebd33c4d0757a53ad432ff6186b7b794e6fe99f9",
+      "bytes": 667957,
+      "quotes": [
+        "foreign-056",
+        "foreign-057",
+        "foreign-058",
+        "foreign-059",
+        "foreign-060",
+        "foreign-061",
+        "foreign-062",
+        "foreign-063",
+        "foreign-064",
+        "foreign-065",
+        "foreign-066",
+        "foreign-067",
+        "foreign-068",
+        "foreign-069",
+        "foreign-070"
+      ],
+      "metadata": [
+        {
+          "id": "thoreau",
+          "url": "https://www.gutenberg.org/ebooks/205.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/205.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/205",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/205",
+          "file": ".tools/quote-research/foreign/thoreau-walden.txt",
+          "title": "瓦尔登湖",
+          "author": "亨利·戴维·梭罗",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "英语原作",
+          "accessed": "2026-11-04",
+          "sha256": "2d9a76a2e3e8195c69430516ebd33c4d0757a53ad432ff6186b7b794e6fe99f9",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/205.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-043",
+      "cacheFile": ".tools/quote-research/foreign/aurelius-long.txt",
+      "sha256": "06d297ee497058efbd89bd90a90582ecc68614b65ca75b44ff452a6b34b51cfb",
+      "bytes": 451715,
+      "quotes": [
+        "foreign-071",
+        "foreign-072",
+        "foreign-073",
+        "foreign-074",
+        "foreign-075",
+        "foreign-076",
+        "foreign-077",
+        "foreign-078",
+        "foreign-079",
+        "foreign-080",
+        "foreign-081",
+        "foreign-082",
+        "foreign-083",
+        "foreign-084",
+        "foreign-085"
+      ],
+      "metadata": [
+        {
+          "id": "aurelius",
+          "url": "https://www.gutenberg.org/ebooks/15877.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/15877.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/15877",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/15877",
+          "file": ".tools/quote-research/foreign/aurelius-long.txt",
+          "title": "沉思录",
+          "author": "马可·奥勒留",
+          "originalLanguage": "古希腊语",
+          "downloadedLanguage": "en",
+          "translator": "George Long",
+          "edition": "1862 年公版英译",
+          "accessed": "2026-11-04",
+          "sha256": "06d297ee497058efbd89bd90a90582ecc68614b65ca75b44ff452a6b34b51cfb",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/15877.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-044",
+      "cacheFile": ".tools/quote-research/foreign/pascal-thoughts.txt",
+      "sha256": "c75a39c79bc6e8a494674e33cfb9ff2b1eedcdf286637b018c68a1630d8d47fb",
+      "bytes": 663107,
+      "quotes": [
+        "foreign-086",
+        "foreign-087",
+        "foreign-088",
+        "foreign-089",
+        "foreign-090",
+        "foreign-091",
+        "foreign-092",
+        "foreign-093",
+        "foreign-094",
+        "foreign-095",
+        "foreign-096",
+        "foreign-097",
+        "foreign-098",
+        "foreign-099",
+        "foreign-100"
+      ],
+      "metadata": [
+        {
+          "id": "pascal",
+          "url": "https://www.gutenberg.org/ebooks/18269.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/18269.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/18269",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/18269",
+          "file": ".tools/quote-research/foreign/pascal-thoughts.txt",
+          "title": "思想录",
+          "author": "布莱兹·帕斯卡",
+          "originalLanguage": "法语",
+          "downloadedLanguage": "en",
+          "translator": "W. F. Trotter",
+          "edition": "Trotter 20 世纪初公版英译（WorldCat 记录 1908 年版本）；下载底本为 E. P. Dutton 1958 年重印，含 T. S. Eliot 导言；本库仅引用帕斯卡正文，编号依本版",
+          "accessed": "2026-11-04",
+          "sha256": "c75a39c79bc6e8a494674e33cfb9ff2b1eedcdf286637b018c68a1630d8d47fb",
+          "publicDomain": true,
+          "selectedQuoteCount": 15,
+          "bibliographicVerificationUrl": "https://search.worldcat.org/title/5012494"
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/18269.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-045",
+      "cacheFile": ".tools/quote-research/foreign/tagore-stray-birds.txt",
+      "sha256": "5f148f67550dd8b97d169eed06ad02858a5fa3cd8e7c1bf176b63e64f6a9e3c1",
+      "bytes": 51650,
+      "quotes": [
+        "foreign-101",
+        "foreign-102",
+        "foreign-103",
+        "foreign-104",
+        "foreign-105",
+        "foreign-106",
+        "foreign-107",
+        "foreign-108",
+        "foreign-109",
+        "foreign-110",
+        "foreign-111",
+        "foreign-112",
+        "foreign-113",
+        "foreign-114",
+        "foreign-115"
+      ],
+      "metadata": [
+        {
+          "id": "tagore",
+          "url": "https://www.gutenberg.org/ebooks/6524.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/6524.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/6524",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/6524",
+          "file": ".tools/quote-research/foreign/tagore-stray-birds.txt",
+          "title": "飞鸟集",
+          "author": "拉宾德拉纳特·泰戈尔",
+          "originalLanguage": "孟加拉语",
+          "downloadedLanguage": "en",
+          "translator": "Rabindranath Tagore",
+          "edition": "1916 年 Macmillan 版；所下载正文标明作者自孟加拉语译为英文",
+          "accessed": "2026-11-04",
+          "sha256": "5f148f67550dd8b97d169eed06ad02858a5fa3cd8e7c1bf176b63e64f6a9e3c1",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/6524.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-046",
+      "cacheFile": ".tools/quote-research/foreign/shakespeare-sonnets.txt",
+      "sha256": "4a3a5466591e30ca93b2c19daeb24770bb08833b57b1616c972b97246e23580f",
+      "bytes": 119936,
+      "quotes": [
+        "foreign-116",
+        "foreign-117",
+        "foreign-118",
+        "foreign-119",
+        "foreign-120",
+        "foreign-121",
+        "foreign-122",
+        "foreign-123",
+        "foreign-124",
+        "foreign-125",
+        "foreign-126",
+        "foreign-127",
+        "foreign-128",
+        "foreign-129",
+        "foreign-130"
+      ],
+      "metadata": [
+        {
+          "id": "shakespeare",
+          "url": "https://www.gutenberg.org/ebooks/1041.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/1041.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/1041",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/1041",
+          "file": ".tools/quote-research/foreign/shakespeare-sonnets.txt",
+          "title": "十四行诗",
+          "author": "威廉·莎士比亚",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "英语原作；诗中第一人称为抒情说话人",
+          "accessed": "2026-11-04",
+          "sha256": "4a3a5466591e30ca93b2c19daeb24770bb08833b57b1616c972b97246e23580f",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/1041.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-047",
+      "cacheFile": ".tools/quote-research/foreign/montaigne-essays.txt",
+      "sha256": "1b4c87312f0890e04cecee48e3a5fa263de65743230b819e16cb1bd72f7aee59",
+      "bytes": 3105655,
+      "quotes": [
+        "foreign-131",
+        "foreign-132",
+        "foreign-133",
+        "foreign-134",
+        "foreign-135",
+        "foreign-136",
+        "foreign-137",
+        "foreign-138",
+        "foreign-139",
+        "foreign-140"
+      ],
+      "metadata": [
+        {
+          "id": "montaigne",
+          "url": "https://www.gutenberg.org/ebooks/3600.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/3600.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/3600",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/3600",
+          "file": ".tools/quote-research/foreign/montaigne-essays.txt",
+          "title": "蒙田随笔全集",
+          "author": "米歇尔·德·蒙田",
+          "originalLanguage": "法语",
+          "downloadedLanguage": "en",
+          "translator": "Charles Cotton；W. Carew Hazlitt 修订",
+          "edition": "Charles Cotton 公版英译，William Carew Hazlitt 编订，1877 年版；章号依所下载底本",
+          "accessed": "2026-11-04",
+          "sha256": "1b4c87312f0890e04cecee48e3a5fa263de65743230b819e16cb1bd72f7aee59",
+          "publicDomain": true,
+          "selectedQuoteCount": 10
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/3600.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-048",
+      "cacheFile": ".tools/quote-research/foreign/wollstonecraft-rights.txt",
+      "sha256": "7d79652f43541759d8ff0ce467372fa4a534d3f9dc32013e01ca99ea04b286a8",
+      "bytes": 538225,
+      "quotes": [
+        "foreign-141",
+        "foreign-142",
+        "foreign-143",
+        "foreign-144",
+        "foreign-145",
+        "foreign-146",
+        "foreign-147",
+        "foreign-148",
+        "foreign-149",
+        "foreign-150"
+      ],
+      "metadata": [
+        {
+          "id": "wollstonecraft",
+          "url": "https://www.gutenberg.org/ebooks/3420.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/3420.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/3420",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/3420",
+          "file": ".tools/quote-research/foreign/wollstonecraft-rights.txt",
+          "title": "女权辩护",
+          "author": "玛丽·沃斯通克拉夫特",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "1792 年英语原作",
+          "accessed": "2026-11-04",
+          "sha256": "7d79652f43541759d8ff0ce467372fa4a534d3f9dc32013e01ca99ea04b286a8",
+          "publicDomain": true,
+          "selectedQuoteCount": 10
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/3420.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-049",
+      "cacheFile": ".tools/quote-research/foreign/spinoza-ethics.txt",
+      "sha256": "c549e5146cc820899acbed30f9c4e28e7bb8cd26046a98a977800ae62f856214",
+      "bytes": 531667,
+      "quotes": [
+        "foreign-151",
+        "foreign-152",
+        "foreign-153",
+        "foreign-154",
+        "foreign-155",
+        "foreign-156",
+        "foreign-157",
+        "foreign-158",
+        "foreign-159",
+        "foreign-160"
+      ],
+      "metadata": [
+        {
+          "id": "spinoza",
+          "url": "https://www.gutenberg.org/ebooks/3800.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/3800.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/3800",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/3800",
+          "file": ".tools/quote-research/foreign/spinoza-ethics.txt",
+          "title": "伦理学",
+          "author": "巴鲁赫·斯宾诺莎",
+          "originalLanguage": "拉丁语",
+          "downloadedLanguage": "en",
+          "translator": "R. H. M. Elwes",
+          "edition": "1883 年公版英译",
+          "accessed": "2026-11-04",
+          "sha256": "c549e5146cc820899acbed30f9c4e28e7bb8cd26046a98a977800ae62f856214",
+          "publicDomain": true,
+          "selectedQuoteCount": 10
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/3800.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-050",
+      "cacheFile": ".tools/quote-research/foreign/seneca-dialogues.txt",
+      "sha256": "ff92ddd84505a319d6346113900312315ab58e0ff46570fdb808c5995c5a483b",
+      "bytes": 861507,
+      "quotes": [
+        "foreign-161",
+        "foreign-162",
+        "foreign-163",
+        "foreign-164",
+        "foreign-165",
+        "foreign-166",
+        "foreign-167",
+        "foreign-168",
+        "foreign-169",
+        "foreign-170"
+      ],
+      "metadata": [
+        {
+          "id": "seneca",
+          "url": "https://www.gutenberg.org/ebooks/64576.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/64576.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/64576",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/64576",
+          "file": ".tools/quote-research/foreign/seneca-dialogues.txt",
+          "title": "短篇对话集",
+          "author": "塞涅卡",
+          "originalLanguage": "拉丁语",
+          "downloadedLanguage": "en",
+          "translator": "Aubrey Stewart",
+          "edition": "1889 年公版英译",
+          "accessed": "2026-11-04",
+          "sha256": "ff92ddd84505a319d6346113900312315ab58e0ff46570fdb808c5995c5a483b",
+          "publicDomain": true,
+          "selectedQuoteCount": 10
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/64576.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-051",
+      "cacheFile": ".tools/quote-research/foreign/dickinson-poems.txt",
+      "sha256": "f4421418353de2737c9bfe3db1e4657534b6b8ae2a8603f31de2d77678d18791",
+      "bytes": 206765,
+      "quotes": [
+        "foreign-171",
+        "foreign-172",
+        "foreign-173",
+        "foreign-174",
+        "foreign-175",
+        "foreign-176",
+        "foreign-177",
+        "foreign-178",
+        "foreign-179",
+        "foreign-180",
+        "foreign-181",
+        "foreign-182",
+        "foreign-183",
+        "foreign-184",
+        "foreign-185"
+      ],
+      "metadata": [
+        {
+          "id": "dickinson",
+          "url": "https://www.gutenberg.org/ebooks/12242.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/12242.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/12242",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/12242",
+          "file": ".tools/quote-research/foreign/dickinson-poems.txt",
+          "title": "狄金森诗集（三辑）",
+          "author": "艾米莉·狄金森",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "1890—1896 年早期编订本；其标题和标点可能不同于后来的手稿校勘本",
+          "accessed": "2026-11-04",
+          "sha256": "f4421418353de2737c9bfe3db1e4657534b6b8ae2a8603f31de2d77678d18791",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/12242.txt.utf-8"
+      ]
+    },
+    {
+      "id": "source-052",
+      "cacheFile": ".tools/quote-research/foreign/whitman-leaves.txt",
+      "sha256": "77c066a8774e2b04d8bfbc570d9aa5131410355cd6062ab5962ac773240f3140",
+      "bytes": 780492,
+      "quotes": [
+        "foreign-186",
+        "foreign-187",
+        "foreign-188",
+        "foreign-189",
+        "foreign-190",
+        "foreign-191",
+        "foreign-192",
+        "foreign-193",
+        "foreign-194",
+        "foreign-195",
+        "foreign-196",
+        "foreign-197",
+        "foreign-198",
+        "foreign-199",
+        "foreign-200"
+      ],
+      "metadata": [
+        {
+          "id": "whitman",
+          "url": "https://www.gutenberg.org/ebooks/1322.txt.utf-8",
+          "downloadUrl": "https://www.gutenberg.org/ebooks/1322.txt.utf-8",
+          "sourceUrl": "https://www.gutenberg.org/ebooks/1322",
+          "catalogUrl": "https://www.gutenberg.org/ebooks/1322",
+          "file": ".tools/quote-research/foreign/whitman-leaves.txt",
+          "title": "草叶集",
+          "author": "沃尔特·惠特曼",
+          "originalLanguage": "英语",
+          "downloadedLanguage": "en",
+          "translator": null,
+          "edition": "英语原作",
+          "accessed": "2026-11-04",
+          "sha256": "77c066a8774e2b04d8bfbc570d9aa5131410355cd6062ab5962ac773240f3140",
+          "publicDomain": true,
+          "selectedQuoteCount": 15
+        }
+      ],
+      "urls": [
+        "https://www.gutenberg.org/ebooks/1322.txt.utf-8"
+      ]
+    }
+  ]
+}

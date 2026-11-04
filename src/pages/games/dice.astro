@@ -6,8 +6,8 @@ import { TOTAL_ODDS } from '../../lib/dice-game.mjs';
 import '../../styles/games.css';
 ---
 <BaseLayout title="三骰猜大小" description="三颗骰子猜大小，虚拟金币下注，记录每局点数与盈亏。">
-  <div class="g-game" data-dice-game data-pagefind-ignore>
-    <header class="g-game-head"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1>三骰猜大小</h1><p>选好筹码，押下你的猜测。</p></div><button type="button" class="g-button g-reset-open" data-reset-open>设定金币 / 重新开始</button></header>
+  <div class="g-game" data-dice-game>
+    <header class="g-game-head" data-pagefind-body data-pagefind-meta="type:游戏"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1 data-pagefind-meta="title">三骰猜大小</h1><p>三颗骰子猜大小，选好筹码，押下你的猜测。</p></div><button type="button" class="g-button g-reset-open" data-reset-open data-pagefind-ignore>设定金币 / 重新开始</button></header>
     <noscript><p class="g-notice">请启用 JavaScript 后游玩，金币和历史会保存在当前浏览器。</p></noscript>
     <p class="g-save-note" data-save-note>虚拟金币，仅供娱乐。进度自动保存在此浏览器。</p>
     <div class="g-game-layout">

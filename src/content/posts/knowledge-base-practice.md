@@ -9,6 +9,8 @@ tags: ["知识库", "AI 工作流", "Skill", "工程化"]
 draft: false
 featured: true
 slug: knowledge-base-practice
+thumbnail: ./knowledge-base-practice/knowledge-pain-points.png
+thumbnailAlt: 分散在文档、代码和聊天记录中的知识痛点
 ---
 
 本文记录了一次本地知识库工作流实践：通过知识分类、置信度、Skill、工作流和 CLI 工程化，把分散资料沉淀为 AI 可调用、可验证、可持续演进的知识底座。

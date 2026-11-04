@@ -133,7 +133,10 @@ try {
     assert.equal(await page.locator(`.u-post h3 a[href="${base}/posts/${slug}/"]`).count(), 1, `首页包含正式记录 ${slug}`);
   }
   assert.equal(await page.locator('#daily-quote-title').innerText(), '随想');
-  assert.equal(await page.locator('[data-daily-quote] time, [data-quote-source]').count(), 0);
+  assert.equal(await page.locator('[data-daily-quote] time').count(), 0);
+  assert.equal(await page.locator('[data-quote-source]').isVisible(), true);
+  assert.equal(await page.locator('[data-quote-source]').getAttribute('href'), null);
+  assert.equal(await page.locator('[data-quote-source] a').count(), 0);
   await page.locator('[data-daily-quote][data-quote-id]:not([data-quote-id=""])').waitFor();
   const dailyText = await page.locator('[data-quote-text]').innerText();
   await page.reload();
@@ -224,7 +227,7 @@ try {
   checks.push('实时时钟逐秒更新，上海午夜跨年同步刷新日期和月历');
   checks.push('2027 元旦到期显示已到达，春节倒计时继续按秒更新');
   checks.push('日历支持跨年翻月、指定年月、回到本月，弹层内部点击保持打开');
-  checks.push('随想只显示标题和句子，同日稳定，上海午夜自动更新');
+  checks.push('随想显示原文、译文与作者作品出处，无链接跳转，同日稳定，上海午夜自动更新');
   await page.locator('[data-scene-toggle]').click();
   await page.locator('[data-scene-option="ocean"]').click();
   assert.equal(await page.locator('html').getAttribute('data-scene'), 'ocean');
@@ -281,11 +284,11 @@ try {
   await page.waitForFunction(() => scrollY === 0);
   await topArrow.waitFor({ state: 'hidden' });
   checks.push('文章右侧箭头可直接返回顶部');
-  await page.getByRole('button', { name: '搜索文章', exact: true }).click();
+  await page.getByRole('button', { name: '站内搜索', exact: true }).click();
   await page.locator('#search-input').fill('工具');
-  await page.locator('.u-search-result').first().waitFor();
-  assert.match(await page.locator('.u-search-result').first().getAttribute('href'), new RegExp(`${base}/posts/`));
-  assert.match(await page.locator('.u-search-result').first().innerText(), /工具/);
+  const articleSearchResult = page.locator(`.u-search-result[href^="${base}/posts/"]`).first();
+  await articleSearchResult.waitFor();
+  assert.match(await articleSearchResult.innerText(), /工具/);
   // Exact phrase avoids matching the word "draft" in published frontmatter examples.
   await page.locator('#search-input').fill('"DRAFT_ONLY_SENTINEL_7bf1"');
   await page.getByText('还没找到相关记录，试试换个关键词。', { exact: true }).waitFor();

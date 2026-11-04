@@ -7,8 +7,8 @@ interface Props { title: string; description: string; slug: string }
 const { title, description, slug } = Astro.props;
 ---
 <BaseLayout title={title} description={description}>
-  <div class="a-game g-game" data-arcade={slug} data-pagefind-ignore>
-    <header class="g-game-head"><div><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1>{title}</h1><p>{description}</p></div><slot name="heading-actions" /></header>
+  <div class="a-game g-game" data-arcade={slug}>
+    <header class="g-game-head"><div data-pagefind-body data-pagefind-meta="type:游戏"><a class="g-back" href={href('/games/')}>‹ 游戏大厅</a><h1 data-pagefind-meta="title">{title}</h1><p>{description}</p></div><slot name="heading-actions" /></header>
     <noscript><p class="g-notice">请启用 JavaScript 后游玩。下方可查看游戏规则。</p></noscript>
     <div class="a-layout"><section class="a-play" aria-label={`${title}游戏区`}><slot /></section><aside class="a-guide" aria-label="操作说明与游戏规则"><slot name="guide" /></aside></div>
   </div>

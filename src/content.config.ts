@@ -25,6 +25,8 @@ const posts = defineCollection({
     example: z.boolean().default(false),
     cover: image().optional(),
     coverAlt: z.string().optional(),
+    thumbnail: image().optional(),
+    thumbnailAlt: z.string().optional(),
     images: z.array(z.object({
       src: image(),
       alt: z.string().trim().min(1, '请为每张贴图填写图片说明 alt。'),

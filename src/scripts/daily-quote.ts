@@ -9,7 +9,13 @@ if (section) {
     clearTimeout(timer);
     const result = getDailyQuote(quotes);
     if (lastDate !== result.dateKey) {
-      section!.querySelector<HTMLElement>('[data-quote-text]')!.textContent = result.quote?.text || '留一点空白，等待下一段话。';
+      const quote = result.quote;
+      const get = <T extends HTMLElement = HTMLElement>(selector: string) => section!.querySelector<T>(selector)!;
+      const hasTranslation = Boolean(quote?.original && !(quote.originalLanguage || 'zh').startsWith('zh') && quote.original !== quote.text);
+      get('[data-quote-text]').textContent = hasTranslation ? `${quote.original}（${quote.text}）` : quote?.text || '留一点空白，等待下一段话。';
+      get('[data-quote-author]').textContent = quote?.author || '';
+      get('[data-quote-work]').textContent = quote?.source || '';
+      get('[data-quote-attribution]').hidden = !quote;
       section!.dataset.quoteDay = result.dateKey;
       section!.dataset.quoteId = result.quote?.id || '';
       lastDate = result.dateKey;

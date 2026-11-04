@@ -1,6 +1,8 @@
 ---
 title: "Codex 反复重连 Reconnecting 的排查与配置参考"
 slug: codex-reconnecting-troubleshooting
+thumbnail: ./codex-reconnecting-troubleshooting/reconnecting.png
+thumbnailAlt: Codex 反复重连及流连接中断的提示示例
 date: 2026-11-02T00:00:00+08:00
 updated: 2026-11-02T00:00:00+08:00
 datePrecision: day

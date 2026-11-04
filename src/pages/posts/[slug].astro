@@ -26,7 +26,7 @@ const comments = post.data.comments ?? post.data.kind === 'post';
 <BaseLayout title={post.data.title} description={post.data.summary || summarize(post.body, 150)} article noIndex={post.data.draft} image={post.data.cover?.src || post.data.images[0]?.src.src}>
   <a class="u-back" href={href('/')}><Icon name="left" size={14} />返回首页</a>
   <div class:list={['u-article-layout', { 'u-no-toc': toc.length === 0 }]}>
-    <article class="u-article" data-pagefind-body>
+    <article class="u-article" data-pagefind-body data-pagefind-meta={`type:${isPhoto ? '贴图' : '文章'}`}>
       <header class="u-article-head"><h1 data-pagefind-meta="title">{post.data.title}</h1><ArticleMeta post={post} showViews={!post.data.draft} /></header>
       <div class="u-article-content">
         {isPhoto ? <PhotoPost post={post} /> : <>

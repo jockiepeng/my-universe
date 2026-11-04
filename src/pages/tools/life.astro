@@ -9,7 +9,7 @@ import '../../styles/life-journey.css';
 <BaseLayout title="人生格子" description="跟着每一个年龄的自己，走过人生长卷。以日或周看完整一生，写下未来愿望，生成属于你的分享图片。">
   <section class="l-life" data-life-grid data-unit="day" data-example="true" data-animating="false" data-phase="overview">
     <a class="l-back" href={href('/tools/')}>工具 / 人生格子</a>
-    <header class="l-heading"><h1>从小小的你，<br />走到今天的你。</h1><p>那些回不去的日子，连成了走过的路。<br />那些还空着的格子，等你写下新的故事。</p></header>
+    <header class="l-heading" data-pagefind-body data-pagefind-meta="type:功能"><span class="u-sr-only">功能 · 工具 · <span data-pagefind-meta="title">人生格子 · 角色旅程</span></span><h1>从小小的你，<br />走到今天的你。</h1><p>那些回不去的日子，连成了走过的路。<br />那些还空着的格子，等你写下新的故事。</p></header>
     <form class="l-form" data-life-form>
       <div class="l-field"><label for="life-birth">出生日期</label><input id="life-birth" name="birth" type="date" min="0001-01-01" required aria-describedby="life-privacy" /></div>
       <div class="l-field"><label for="life-lifespan">预计寿命</label><div class="l-number-field"><input id="life-lifespan" name="lifespan" type="number" min="1" max="120" step="1" value="80" required /><span>岁</span></div></div>

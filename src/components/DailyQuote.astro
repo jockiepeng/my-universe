@@ -2,10 +2,21 @@
 import quotes from '../data/daily-quotes.json';
 import { getDailyQuote } from '../lib/daily-quote.mjs';
 const { quote, dateKey } = getDailyQuote(quotes);
+const hasTranslation = Boolean(quote?.original && !(quote.originalLanguage || 'zh').startsWith('zh') && quote.original !== quote.text);
+const text = hasTranslation ? `${quote.original}（${quote.text}）` : quote?.text || '留一点空白，等待下一段话。';
 ---
 <section class="u-daily-quote" aria-labelledby="daily-quote-title" data-daily-quote data-quote-day={dateKey} data-quote-id={quote?.id || ''} data-pagefind-ignore>
   <div class="u-quote-heading"><h2 id="daily-quote-title">随想</h2></div>
-  <blockquote data-quote-text>{quote?.text || '留一点空白，等待下一段话。'}</blockquote>
+  <figure class="u-quote-content">
+    <blockquote>
+      <p data-quote-text>{text}</p>
+    </blockquote>
+    <figcaption class="u-quote-attribution" data-quote-attribution hidden={!quote}>
+      <p class="u-quote-source" data-quote-source>
+        出处：<span data-quote-author>{quote?.author}</span><span aria-hidden="true"> · </span><cite data-quote-work>{quote?.source}</cite>
+      </p>
+    </figcaption>
+  </figure>
 </section>
 <script>
   import '../scripts/daily-quote';

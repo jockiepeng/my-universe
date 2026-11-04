@@ -9,6 +9,8 @@ tags: ["AI 编程", "Codex", "Superpowers", "个人博客"]
 draft: false
 featured: true
 slug: ai-tools-setup
+thumbnail: ./ai-tools-setup/home.png
+thumbnailAlt: 博客首页截图
 ---
 
 这篇文章主要是提供一个思路，记录我如何准备基础工具来探索 AI。当前这一篇主要是 AI 编程探索：如何让 AI 参与真实项目，并最终做出一个可以访问的小作品。过程中遇到问题，不一定要自己硬查硬试，直接问 AI 往往是更高效的解决方案。

@@ -7,7 +7,7 @@ import '../../styles/life-replay.css';
 <BaseLayout title="时光回放 · 人生格子" description="让走过的日子逐格亮起。在完整的人生格子里，看见过去，也给未来留一个愿望。">
   <section class="lr-root" data-life-replay-page data-example="true" data-phase="overview" data-animating="false">
     <a class="lr-back" href={href('/tools/')}>‹ 返回工具</a>
-    <header class="lr-heading"><p>人生格子 · 时光回放</p><h1>时间，原来有形状。</h1><p>看见已经走过的日子，<br class="lr-mobile" />也看见尚未写下的故事。</p></header>
+    <header class="lr-heading" data-pagefind-body data-pagefind-meta="type:功能"><span class="u-sr-only">功能 · 工具</span><p data-pagefind-meta="title">人生格子 · 时光回放</p><h1>时间，原来有形状。</h1><p>看见已经走过的日子，<br class="lr-mobile" />也看见尚未写下的故事。</p></header>
     <form class="lr-form" data-life-form>
       <label>出生日期<input name="birth" type="date" min="0001-01-01" required aria-describedby="replay-privacy" /></label>
       <label>预计寿命<span class="lr-years"><input name="lifespan" type="number" min="1" max="120" step="1" value="80" required /><span>岁</span></span></label>
