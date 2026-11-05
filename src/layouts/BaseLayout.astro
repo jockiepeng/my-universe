@@ -10,6 +10,7 @@ import MusicPlayer from '../components/MusicPlayer.astro';
 import { siteConfig } from '../site.config';
 import { href } from '../lib/posts';
 import { dailyMotionPairs } from '../lib/motion.mjs';
+import { translate } from '../lib/i18n.mjs';
 import '../styles/global.css';
 interface Props { title?: string; description?: string; article?: boolean; noIndex?: boolean; image?: string; home?: boolean }
 const { title, description = siteConfig.description, article = false, noIndex = false, image, home = false } = Astro.props;
@@ -23,9 +24,9 @@ const showEntry = home && Astro.url.pathname === href('/');
     <meta charset="UTF-8" />
     <meta name="google-site-verification" content="ue-2oAe6Qqys_YzMSCM-kADrkXyKsBm-F_ryHgGDqow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
+    <meta name="description" content={description} data-pagefind-meta="description[content]" />
     <meta name="color-scheme" content="light dark" />
-    <title>{pageTitle}</title>
+    <title data-page-title={title || ''} data-site-title={siteConfig.title} data-article-title={article || undefined}>{pageTitle}</title>
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
     <link rel="alternate" type="application/rss+xml" title={`${siteConfig.title} RSS`} href={href('/rss.xml')} />
@@ -38,6 +39,14 @@ const showEntry = home && Astro.url.pathname === href('/');
       (() => {
         const el = document.documentElement;
         el.classList.add('js');
+        let language = 'zh';
+        try { if (localStorage.getItem('little-universe-language-v1') === 'en') language = 'en'; } catch { /* Chinese is the fallback. */ }
+        el.dataset.language = language;
+        el.lang = language === 'en' ? 'en' : 'zh-CN';
+        if (language === 'en') {
+          el.dataset.i18nPending = '';
+          setTimeout(() => delete el.dataset.i18nPending, 1800);
+        }
         let data = {};
         try {
           const stored = JSON.parse(localStorage.getItem('little-universe-appearance-v1') || 'null');
@@ -70,7 +79,7 @@ const showEntry = home && Astro.url.pathname === href('/');
     <Header home={showEntry} />
     <div class="u-page">
       <div class="u-wrap">
-        <main id="main-content" tabindex="-1"><slot /></main>
+        <main id="main-content" tabindex="-1"><slot />{!article && title && /\/(?:games|tools)\/[^/]+\/$/.test(Astro.url.pathname) && <span class="u-sr-only" data-pagefind-body data-i18n-skip aria-hidden="true">{translate(title, 'en')} {description !== siteConfig.description && translate(description, 'en')}</span>}</main>
       </div>
     </div>
     <Footer />
@@ -78,6 +87,7 @@ const showEntry = home && Astro.url.pathname === href('/');
     {article && <BackToTop />}
     <SearchDialog />
     <script>
+      import '../scripts/language';
       import '../scripts/appearance';
       import '../scripts/fixed-bars';
       import '../scripts/page-views';

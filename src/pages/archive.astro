@@ -23,7 +23,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))];
             {monthDay.format(post.data.date)}<span class="u-archive-clock">{clock.format(post.data.date)}</span>
           </time>
           <div>
-            <a href={postHref(post)}>{post.data.title}</a>
+            <a href={postHref(post)} data-i18n-skip lang="zh-CN">{post.data.title}</a>
             {post.data.kind === 'photo' && <span class="u-archive-kind">贴图</span>}
             {post.data.example && <span class="u-archive-kind">示例</span>}
             {post.data.draft && <span class="u-archive-kind">草稿</span>}

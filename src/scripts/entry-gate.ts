@@ -1,5 +1,6 @@
 import { normalizeAppearance } from '../lib/appearance.mjs';
 import { getDailyMotion, resolveMotion } from '../lib/motion.mjs';
+import { t } from '../lib/i18n.mjs';
 
 const entry = document.querySelector<HTMLElement>('[data-entry-gate]');
 if (entry) {
@@ -44,7 +45,7 @@ if (entry) {
     const rect = title.getBoundingClientRect(), font = getComputedStyle(title);
     paint.font = `${font.fontWeight} ${font.fontSize} ${font.fontFamily}`;
     paint.textAlign = 'center'; paint.textBaseline = 'middle'; paint.fillStyle = '#fff';
-    paint.fillText(title.textContent || '', width / 2, rect.y + rect.height / 2);
+    paint.fillText(t(title.dataset.entryTitle || ''), width / 2, rect.y + rect.height / 2);
     const pixels = paint.getImageData(0, 0, width, height).data, step = width < 700 ? 5 : 7;
     for (let y = Math.max(0, Math.floor(rect.y)); y < Math.min(height, rect.bottom); y += step) {
       for (let x = 0; x < width; x += step) {
@@ -118,6 +119,7 @@ if (entry) {
     if (!document.hidden) frame = requestAnimationFrame(tick);
   });
   window.addEventListener('resize', makePoints);
+  window.addEventListener('universe:language', makePoints);
   window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); clearTimeout(readyTimer); });
   window.addEventListener('pageshow', () => { if (active && playing) { cancelAnimationFrame(frame); clearTimeout(readyTimer); readyTimer = setTimeout(ready, 5500); last = 0; frame = requestAnimationFrame(tick); } });
   // The head bootstrap owns the initial decision. After a timeout or an early

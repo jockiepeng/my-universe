@@ -1,6 +1,7 @@
 import { createBreakout, movePaddle, launchBall, stepBreakout, pauseBreakout, resumeBreakout, nextBreakoutLevel } from '../lib/breakout.mjs';
 import { readNumber, writeNumber } from '../lib/arcade-storage';
 import { bindAction } from '../lib/arcade-input';
+import { t } from '../lib/i18n.mjs';
 
 const root = document.querySelector<HTMLElement>('[data-arcade="breakout"]');
 if (root) initializeBreakout(root);
@@ -96,9 +97,9 @@ function initializeBreakout(root: HTMLElement) {
     for (let x = 40; x < 720; x += 40) { ctx.beginPath(); ctx.moveTo(x, 240); ctx.lineTo(x, 560); ctx.stroke(); }
     for (let y = 240; y < 560; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(720, y); ctx.stroke(); }
     ctx.font = '12px "Segoe UI",sans-serif'; ctx.fillStyle = '#b8cbdc'; ctx.textAlign = 'left';
-    ctx.fillText(`第 ${game.level} 关`, 30, 36);
+    ctx.fillText(t(`第 ${game.level} 关`), 30, 36);
     ctx.textAlign = 'right'; ctx.fillStyle = '#8fa9bf';
-    ctx.fillText(`剩余 ${game.bricks.filter(brick => brick.alive).length} 块`, 690, 36);
+    ctx.fillText(t(`剩余 ${game.bricks.filter(brick => brick.alive).length} 块`), 690, 36);
     const colors = ['#efad9b', '#ed9685', '#cb8192', '#a391ba', '#83a9c5', '#79b7be', '#9ccabf'];
     for (const brick of game.bricks) {
       if (!brick.alive) continue;
@@ -123,9 +124,9 @@ function initializeBreakout(root: HTMLElement) {
       roundedRect(155, 284, 410, 113, 14, '#081b2de8');
       ctx.textAlign = 'center'; ctx.fillStyle = '#edf5ff'; ctx.font = '600 26px "Segoe UI","Microsoft YaHei",sans-serif';
       const heading = paused ? '星光暂停' : game.status === 'cleared' ? '星域已点亮' : game.status === 'gameover' ? '这次航行已结束' : '准备发射';
-      ctx.fillText(heading, 360, 328);
+      ctx.fillText(t(heading), 360, 328, 380);
       ctx.fillStyle = '#bacbd9'; ctx.font = '15px "Segoe UI","Microsoft YaHei",sans-serif';
-      ctx.fillText(paused ? '点击继续，接住下一道星光' : game.status === 'cleared' ? '点击下一关，继续探索' : game.status === 'gameover' ? `获得 ${game.score} 分 · 再玩一局` : '先移动挡板，再点击发球或按空格', 360, 362);
+      ctx.fillText(t(paused ? '点击继续，接住下一道星光' : game.status === 'cleared' ? '点击下一关，继续探索' : game.status === 'gameover' ? `获得 ${game.score} 分 · 再玩一局` : '先移动挡板，再点击发球或按空格'), 360, 362, 380);
     }
   }
 
@@ -242,5 +243,6 @@ function initializeBreakout(root: HTMLElement) {
   }
   new ResizeObserver(resize).observe(board);
   window.addEventListener('resize', resize);
+  window.addEventListener('universe:language', draw);
   sync(); resize(); root.dataset.ready = 'true';
 }

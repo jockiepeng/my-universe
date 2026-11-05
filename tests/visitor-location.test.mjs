@@ -2,6 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { formatVisitorLocation } from '../src/lib/visitor-location.mjs';
 
+test('English location localizes the country and preserves provider locations', () => {
+  assert.equal(formatVisitorLocation({ country_code: 'US', region: 'California', city: 'Los Angeles' }, 'en'), 'United States · California · Los Angeles');
+  assert.equal(formatVisitorLocation({ country_code: 'JP' }, 'en'), 'Japan');
+});
+
 test('formats country in Chinese and preserves the provider region and city', () => {
   assert.equal(formatVisitorLocation({ country_code: 'US', region: 'California', city: 'Los Angeles' }), '美国 · California · Los Angeles');
   assert.equal(formatVisitorLocation({ country_code: 'CN', region: '广东省', city: '深圳市' }), '中国 · 广东省 · 深圳市');

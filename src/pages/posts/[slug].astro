@@ -27,21 +27,21 @@ const comments = post.data.comments ?? true;
   <a class="u-back" href={href('/')}><Icon name="left" size={14} />返回首页</a>
   <div class:list={['u-article-layout', { 'u-no-toc': toc.length === 0 }]}>
     <article class="u-article" data-pagefind-body data-pagefind-meta={`type:${isPhoto ? '贴图' : '文章'}`}>
-      <header class="u-article-head"><h1 data-pagefind-meta="title">{post.data.title}</h1><ArticleMeta post={post} showViews={!post.data.draft} /></header>
+      <header class="u-article-head"><h1 data-pagefind-meta="title" data-i18n-skip lang="zh-CN">{post.data.title}</h1><ArticleMeta post={post} showViews={!post.data.draft} /></header>
       <div class="u-article-content">
         {isPhoto ? <PhotoPost post={post} /> : <>
-          {post.data.cover && <Image src={post.data.cover} alt={post.data.coverAlt || post.data.title} width={1000} class="u-article-cover" />}
-          {Content && <div class="u-article-body"><Content /></div>}
+          {post.data.cover && <Image data-i18n-skip src={post.data.cover} alt={post.data.coverAlt || post.data.title} width={1000} class="u-article-cover" />}
+          {Content && <div class="u-article-body" data-i18n-skip lang="zh-CN"><Content /></div>}
         </>}
         {post.data.tags.length > 0 && <div class="u-article-tags" data-pagefind-ignore>{post.data.tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}># {tag}</a>)}</div>}
         <nav class="u-post-neighbors" aria-label="继续阅读" data-pagefind-ignore>
-          {newer && <a class="u-next" href={postHref(newer)} rel="prev"><span>上一篇</span><p>{newer.data.title}</p></a>}
-          {older && <a class="u-next" href={postHref(older)} rel="next"><span>下一篇</span><p>{older.data.title}</p></a>}
+          {newer && <a class="u-next" href={postHref(newer)} rel="prev"><span>上一篇</span><p data-i18n-skip lang="zh-CN">{newer.data.title}</p></a>}
+          {older && <a class="u-next" href={postHref(older)} rel="next"><span>下一篇</span><p data-i18n-skip lang="zh-CN">{older.data.title}</p></a>}
         </nav>
         {comments && !post.data.draft && <Comments />}
       </div>
     </article>
-    {toc.length > 0 && <details class="u-toc" open><summary>这篇文章里</summary><ol>{toc.map(heading => <li class:list={{ 'u-toc-child': heading.depth === 3 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></details>}
+    {toc.length > 0 && <details class="u-toc" open><summary>这篇文章里</summary><ol data-i18n-skip lang="zh-CN">{toc.map(heading => <li class:list={{ 'u-toc-child': heading.depth === 3 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></details>}
   </div>
   <script>
     import '../../scripts/article-services';

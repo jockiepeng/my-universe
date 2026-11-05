@@ -8,7 +8,7 @@ import '../styles/entry.css';
   <button class="u-entry-skip" type="button" data-entry-skip>跳过开场</button>
   <div class="u-entry-inner">
     <p class="u-entry-welcome" data-entry-welcome>让每一个念头，都有自己的轨道</p>
-    <h2 id="entry-title">{siteConfig.title}</h2>
+    <h2 id="entry-title" data-entry-title={siteConfig.title}>{siteConfig.title}</h2>
     <p class="u-entry-sub">记录生活，也探索未知。</p>
     <button class="u-entry-enter" type="button" data-entry-enter hidden>进入博客 <span aria-hidden="true">↗</span></button>
     <p class="u-entry-note">开场结束后，由你决定何时启程</p>

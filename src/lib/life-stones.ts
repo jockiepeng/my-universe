@@ -1,6 +1,7 @@
 import { createTerrain, terrainCell, terrainStep, terrainCamera, projectTerrain, unprojectTerrain } from './life-terrain.mjs';
 import { stageSegments } from './life-journey.mjs';
 import type { Life, Unit, Palette } from './life-painter';
+import { t } from './i18n.mjs';
 
 type Terrain = ReturnType<typeof createTerrain>;
 function blend(a: string, b: string, ratio: number) {
@@ -107,7 +108,7 @@ export class LifeStoneTerrain {
       ctx.fillStyle = this.dark ? '#11292be8' : '#f7f9f4e8'; ctx.fillRect(0, 0, mapWidth, mapHeight);
       this.paintWorld(ctx, mini, filled);
       const p = projectTerrain(mini, foot.x, foot.z); ctx.fillStyle = palette.today; ctx.beginPath(); ctx.arc(p.x, p.y, 2.7, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = palette.muted; ctx.font = '10px "Microsoft YaHei",sans-serif'; ctx.fillText('完整人生地面', 8, 15); ctx.restore();
+      ctx.fillStyle = palette.muted; ctx.font = '10px "Microsoft YaHei",sans-serif'; ctx.fillText(t('完整人生地面'), 8, 15); ctx.restore();
     }
     return { ...foot, ...screen, zoom, scale: camera.scale, spriteHeight: Math.max(22, Math.min(width < 500 ? 110 : 156, camera.scale * 3)), lift: foot.lift * camera.scale };
   }

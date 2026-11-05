@@ -15,11 +15,11 @@ const initial = initialIds ? new Set(initialIds) : undefined;
       <ArticleMeta post={post} />
       <div class:list={['u-post-body', { 'has-thumbnail': thumbnail }]}>
         <div class="u-post-copy">
-          <h3><a href={postHref(post)}>{post.data.title}</a></h3>
-          <p>{post.data.summary || summarize(post.body)}</p>
+          <h3 data-i18n-skip lang="zh-CN"><a href={postHref(post)}>{post.data.title}</a></h3>
+          <p data-i18n-skip lang="zh-CN">{post.data.summary || summarize(post.body)}</p>
           {post.data.tags.length > 0 && <div class="u-tags">{post.data.tags.map(tag => <a href={href(`/tags/${encodeURIComponent(tag)}/`)}># {tag}</a>)}</div>}
         </div>
-        {thumbnail && <Image src={thumbnail} alt={thumbnailAlt || post.data.title} width={144} height={96} widths={[144, 288]} sizes="(max-width: 580px) 96px, 144px" fit="cover" loading="lazy" class="u-post-thumbnail" />}
+        {thumbnail && <Image data-i18n-skip src={thumbnail} alt={thumbnailAlt || post.data.title} width={144} height={96} widths={[144, 288]} sizes="(max-width: 580px) 96px, 144px" fit="cover" loading="lazy" class="u-post-thumbnail" />}
       </div>
     </article>;
   })}

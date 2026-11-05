@@ -6,16 +6,16 @@ const clockFormat = new Intl.DateTimeFormat('en-GB', {
 });
 const weekdayFormat = new Intl.DateTimeFormat('zh-CN', { timeZone: calendarTimeZone, weekday: 'long' });
 
-export function getZonedClock(now = new Date()) {
+export function getZonedClock(now = new Date(), language = 'zh') {
   const parts = Object.fromEntries(clockFormat.formatToParts(now).map(part => [part.type, part.value]));
   const year = Number(parts.year), month = Number(parts.month), day = Number(parts.day);
   return {
     year, month, day,
     dateKey: `${parts.year}-${parts.month}-${parts.day}`,
     time: `${parts.hour}:${parts.minute}:${parts.second}`,
-    weekday: weekdayFormat.format(now),
+    weekday: language === 'en' ? new Intl.DateTimeFormat('en', { timeZone: calendarTimeZone, weekday: 'long' }).format(now) : weekdayFormat.format(now),
     monthLabel: `${year} 年 ${month} 月`,
-    dateLabel: `${month} 月 ${day} 日`,
+    dateLabel: language === 'en' ? new Intl.DateTimeFormat('en', { timeZone: calendarTimeZone, month: 'short', day: 'numeric' }).format(now) : `${month} 月 ${day} 日`,
   };
 }
 

@@ -6,6 +6,12 @@
   padding-block:36px 20px;
 }
 .f-page[data-collection="chekung"] { --f-wood:#8e6244; --f-wood-light:#b08759; --f-wood-dark:#513a2d; --f-accent:light-dark(#795140,#d0af89); }
+html[lang="en"] .f-page { --f-serif:Georgia,"Times New Roman",serif; }
+html[lang="en"] .f-heading h1 { letter-spacing:.02em; }
+html[lang="en"] .f-poem { font-size:16px; line-height:1.8; letter-spacing:0; }
+html[lang="en"] .f-poem p+p { margin-top:8px; }
+html[lang="en"] :is(.f-paper-kind,.f-paper-grade,.f-collection strong,.f-steps,.f-side-script) { letter-spacing:.02em; }
+html[lang="en"] .f-tube-art text[data-i18n-en] { font-size:12px; }
 .f-back { font-size:12px; color:var(--u-muted)!important; }
 .f-heading-row { display:flex; align-items:flex-end; justify-content:space-between; gap:30px; margin:27px 0 30px; }
 .f-heading h1 { font:400 clamp(30px,4vw,42px)/1.5 var(--f-serif); letter-spacing:.08em; margin:0 0 10px; }

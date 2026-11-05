@@ -260,6 +260,7 @@ if (element) {
   function refreshDate() { const today = localToday(); birth.max = today; if (formatDay(life.todayDay) !== today) { life = calculateLife(inputBirth, inputYears, today); render(); } }
   window.setInterval(refreshDate, 60_000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshDate(); });
+  document.addEventListener('universe:language', () => { if (root.dataset.phase === 'overview') drawOverview(); drawFullscreen(); });
   if (canvas.getContext('2d')) {
     setupLifeShare(root, () => ({ life, unit, birth: inputBirth, years: inputYears, example }));
     get<HTMLButtonElement>('.l-submit').disabled = false; render(); root.dataset.ready = 'true';

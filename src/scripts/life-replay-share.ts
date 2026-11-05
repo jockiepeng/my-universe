@@ -2,6 +2,7 @@ import { formatDay } from '../lib/life-grid.mjs';
 import { DEFAULT_WISH, normalizeWish, graphemes, visibleLength } from '../lib/life-journey.mjs';
 import { totalCells, wrapCanvasText, type Life, type Unit } from '../lib/life-painter';
 import { LifeLightMap, LIGHT_COLORS } from '../lib/life-light-map';
+import { t, getLanguage } from '../lib/i18n.mjs';
 
 type Snapshot = { life: Life; unit: Unit; birth: string; years: number; example: boolean };
 const font = '"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif';
@@ -9,25 +10,25 @@ async function createPoster(snapshot: Snapshot, wish: string, includeBirth: bool
   const { life, unit, example, years, birth } = snapshot;
   const canvas = document.createElement('canvas'); canvas.width = 1600; canvas.height = 2400;
   const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('当前浏览器无法生成图片。');
+  if (!ctx) throw new Error(t('当前浏览器无法生成图片。'));
   const color = LIGHT_COLORS;
   ctx.fillStyle = color.background; ctx.fillRect(0, 0, 1600, 2400);
   ctx.textAlign = 'center'; ctx.fillStyle = color.muted; ctx.font = `26px ${font}`;
-  ctx.fillText(`${example ? '示例人生 · ' : ''}假设这一生，走到 ${years} 岁`, 800, 118);
+  ctx.fillText(t(`${example ? '示例人生 · ' : ''}假设这一生，走到 ${years} 岁`), 800, 118, 1350);
   ctx.fillStyle = color.text; ctx.font = `600 66px ${font}`;
-  ctx.fillText(`一生不过 ${life.totalDays.toLocaleString('en-US')} 天。`, 800, 210);
+  ctx.fillText(t(`一生不过 ${life.totalDays.toLocaleString('en-US')} 天。`), 800, 210, 1350);
   ctx.fillStyle = color.muted; ctx.font = `24px ${font}`;
-  ctx.fillText(`一格一${unit === 'day' ? '天' : '周'}，共 ${totalCells(life, unit).toLocaleString('en-US')} 格。每个日夜，都不可重复。`, 800, 265);
+  ctx.fillText(t(`一格一${unit === 'day' ? '天' : '周'}，共 ${totalCells(life, unit).toLocaleString('en-US')} 格。每个日夜，都不可重复。`), 800, 265, 1350);
   const map = new LifeLightMap(life, unit, 1320, 1390);
   map.paint(ctx, { x: 180, y: 330, width: 1320, height: 1390 }, life.elapsedDays, { labelScale: 2.1 });
   ctx.textAlign = 'center'; ctx.fillStyle = color.text; ctx.font = `600 44px ${font}`;
-  ctx.fillText('原来，我已经走过这么远了。', 800, 1810);
+  ctx.fillText(t('原来，我已经走过这么远了。'), 800, 1810, 1350);
   ctx.fillStyle = color.muted; ctx.font = `25px ${font}`;
   const progress = life.remainingDays ? Math.min(99.9, life.elapsedDays / life.totalDays * 100) : 100;
-  ctx.fillText(`已走过 ${life.elapsedDays.toLocaleString('en-US')} 天   /   ${progress.toFixed(1)}%   /   按设定尚有 ${life.remainingDays.toLocaleString('en-US')} 天`, 800, 1870);
+  ctx.fillText(t(`已走过 ${life.elapsedDays.toLocaleString('en-US')} 天   /   ${progress.toFixed(1)}%   /   按设定尚有 ${life.remainingDays.toLocaleString('en-US')} 天`), 800, 1870, 1350);
   ctx.font = `24px ${font}`;
-  ctx.fillText('珍惜时间，热爱生活。', 800, 1950);
-  ctx.fillText('剩下的格子，还等着你填写。', 800, 2000);
+  ctx.fillText(t('珍惜时间，热爱生活。'), 800, 1950, 1350);
+  ctx.fillText(t('剩下的格子，还等着你填写。'), 800, 2000, 1350);
   let wishSize = 34;
   ctx.font = `${wishSize}px ${font}`; ctx.fillStyle = color.text;
   let lines = wrapCanvasText(ctx, wish, 1260);
@@ -38,9 +39,9 @@ async function createPoster(snapshot: Snapshot, wish: string, includeBirth: bool
   lines.forEach((line, i) => ctx.fillText(line, 800, 2080 + i * wishSize * 1.6));
   ctx.fillStyle = color.muted; ctx.font = `19px ${font}`;
   const date = formatDay(life.todayDay);
-  ctx.fillText(`${includeBirth ? `出生日期 ${birth} · ` : ''}生成于 ${date} · 按个人设定寿命计算，并非预测`, 800, 2275);
-  ctx.fillText('jockie的小宇宙 · 时光回放', 800, 2310);
-  return new Promise<Blob>((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('图片生成失败，请重试。')), 'image/png'));
+  ctx.fillText(`${includeBirth ? `${t(`出生日期 ${birth}`)} · ` : ''}${t(`生成于 ${date} · 按个人设定寿命计算，并非预测`)}`, 800, 2275, 1350);
+  ctx.fillText(t('jockie的小宇宙 · 时光回放'), 800, 2310, 1350);
+  return new Promise<Blob>((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error(t('图片生成失败，请重试。'))), 'image/png'));
 }
 
 export function setupReplayShare(root: HTMLElement, getSnapshot: () => Snapshot) {
@@ -51,8 +52,11 @@ export function setupReplayShare(root: HTMLElement, getSnapshot: () => Snapshot)
   const image = get<HTMLImageElement>('[data-life-poster]');
   const download = get<HTMLButtonElement>('[data-life-download]'), share = get<HTMLButtonElement>('[data-life-native-share]');
   const status = get('[data-life-share-status]');
+  const summary = get('[data-life-poster-summary]');
+  // The translated caption includes a user-authored wish; never translate that text.
+  summary.setAttribute('data-i18n-skip', '');
   let url = '', blob: Blob | null = null, revision = 0, timer = 0, sharing = false;
-  const filename = () => `人生长卷-${getSnapshot().unit === 'day' ? '日' : '周'}-${formatDay(getSnapshot().life.todayDay)}.png`;
+  const filename = () => getLanguage() === 'en' ? `life-replay-${getSnapshot().unit}-${formatDay(getSnapshot().life.todayDay)}.png` : `人生长卷-${getSnapshot().unit === 'day' ? '日' : '周'}-${formatDay(getSnapshot().life.todayDay)}.png`;
   function release() { if (url) URL.revokeObjectURL(url); url = ''; blob = null; image.removeAttribute('src'); get('[data-life-image-link]').removeAttribute('href'); }
   function pending() {
     revision++; blob = null;
@@ -64,7 +68,7 @@ export function setupReplayShare(root: HTMLElement, getSnapshot: () => Snapshot)
   async function generate() {
     window.clearTimeout(timer); if (!dialog.open) return;
     pending(); const token = revision;
-    const snapshot = getSnapshot(), text = normalizeWish(wish.value), showBirth = includeBirth.checked;
+    const snapshot = getSnapshot(), text = wish.value.trim() ? normalizeWish(wish.value) : t(DEFAULT_WISH), showBirth = includeBirth.checked;
     try {
       const next = await createPoster(snapshot, text, showBirth);
       if (token !== revision || !dialog.open) return;
@@ -72,7 +76,7 @@ export function setupReplayShare(root: HTMLElement, getSnapshot: () => Snapshot)
       image.src = url; image.alt = `一生不过 ${snapshot.life.totalDays.toLocaleString('en-US')} 天。珍惜时间，热爱生活。完整人生格子与未来寄语分享图。`; get<HTMLAnchorElement>('[data-life-image-link]').href = url;
       await image.decode();
       if (token !== revision || !dialog.open) return;
-      get('[data-life-poster-summary]').textContent = `${snapshot.example ? '示例人生' : '你的人生'} · 共 ${totalCells(snapshot.life, snapshot.unit).toLocaleString('en-US')} 格 · ${showBirth ? `出生日期 ${snapshot.birth} · ` : ''}${text}`;
+      summary.textContent = `${t(`${snapshot.example ? '示例人生' : '你的人生'} · 共 ${totalCells(snapshot.life, snapshot.unit).toLocaleString('en-US')} 格`)} · ${showBirth ? `${t(`出生日期 ${snapshot.birth}`)} · ` : ''}${text}`;
       const file = new File([next], filename(), { type: 'image/png' });
       let native = false;
       try { native = typeof navigator.share === 'function' && !!navigator.canShare?.({ files: [file] }); } catch { /* Download remains available. */ }
@@ -90,18 +94,23 @@ export function setupReplayShare(root: HTMLElement, getSnapshot: () => Snapshot)
   function updateWish() {
     if (visibleLength(wish.value) > 80) wish.value = graphemes(wish.value).slice(0, 80).join('');
     get('[data-life-wish-count]').textContent = `${visibleLength(wish.value)} / 80`;
-    root.querySelectorAll<HTMLButtonElement>('[data-life-idea]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lifeIdea === wish.value)));
+    root.querySelectorAll<HTMLButtonElement>('[data-life-idea]').forEach(button => button.setAttribute('aria-pressed', String(t(button.dataset.lifeIdea || '') === wish.value)));
     schedule();
   }
-  wish.placeholder = DEFAULT_WISH;
+  wish.placeholder = t(DEFAULT_WISH);
   wish.addEventListener('input', event => { if (!(event instanceof InputEvent) || !event.isComposing) updateWish(); });
   wish.addEventListener('compositionend', updateWish);
-  root.querySelectorAll<HTMLButtonElement>('[data-life-idea]').forEach(button => button.addEventListener('click', () => { wish.value = button.dataset.lifeIdea || ''; updateWish(); }));
+  root.querySelectorAll<HTMLButtonElement>('[data-life-idea]').forEach(button => button.addEventListener('click', () => { wish.value = t(button.dataset.lifeIdea || ''); updateWish(); }));
   get('[data-life-share-open]').addEventListener('click', () => { dialog.showModal(); void generate(); });
   get('[data-life-share-close]').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => { revision++; window.clearTimeout(timer); release(); get<HTMLButtonElement>('[data-life-share-open]').focus({ preventScroll: true }); });
   includeBirth.addEventListener('change', () => void generate());
   root.addEventListener('lifechange', schedule);
+  document.addEventListener('universe:language', () => {
+    wish.placeholder = t(DEFAULT_WISH);
+    root.querySelectorAll<HTMLButtonElement>('[data-life-idea]').forEach(button => button.setAttribute('aria-pressed', String(t(button.dataset.lifeIdea || '') === wish.value)));
+    schedule();
+  });
   download.addEventListener('click', () => {
     if (!blob || !url) return;
     const link = document.createElement('a'); link.href = url; link.download = filename(); link.click();

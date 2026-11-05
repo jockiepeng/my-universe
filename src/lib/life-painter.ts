@@ -2,6 +2,7 @@ import { calculateLife } from './life-grid.mjs';
 import { cellPosition, fitGrid, stageSegments, graphemes, groundLayout, groundPoint, walkPosition, stageAtDay } from './life-journey.mjs';
 import { CHARACTER_SHEET, characterIndex } from './life-character.mjs';
 import { stoneTint } from './life-stones';
+import { t } from './i18n.mjs';
 
 export type Life = ReturnType<typeof calculateLife>;
 export type Unit = 'day' | 'week';
@@ -65,7 +66,7 @@ export function paintLifeGrid(ctx: CanvasRenderingContext2D, life: Life, unit: U
       const p = cellPosition(grid, segment.firstCell), y = rect.y + p.y;
       ctx.fillStyle = options.monochrome ? palette.muted : segment.firstCell <= filled ? segment.color : palette.muted;
       ctx.beginPath(); ctx.arc(railX, y + 4 * scale, 2.3 * scale, 0, Math.PI * 2); ctx.fill();
-      ctx.fillText(segment.name, rect.x - 58 * scale, y, 42 * scale);
+      ctx.fillText(t(segment.name), rect.x - 58 * scale, y, 42 * scale);
     }
     if (filled < count) {
       ctx.fillStyle = palette.today;
@@ -78,12 +79,12 @@ export function paintLifeGrid(ctx: CanvasRenderingContext2D, life: Life, unit: U
 
 const images = new Map<string, Promise<HTMLImageElement>>();
 let sheet: Promise<HTMLImageElement> | null = null;
-function imageFrom(src: string) { return new Promise<HTMLImageElement>((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = () => reject(new Error('人物图片暂时无法读取，请重试。')); img.src = src; }); }
+function imageFrom(src: string) { return new Promise<HTMLImageElement>((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = () => reject(new Error(t('人物图片暂时无法读取，请重试。'))); img.src = src; }); }
 export function characterImage(stage: string) {
   sheet ??= imageFrom(CHARACTER_SHEET).catch(error => { sheet = null; throw error; });
   if (!images.has(stage)) images.set(stage, sheet.then(atlas => {
     const cell = document.createElement('canvas'); cell.width = atlas.width / 7; cell.height = atlas.height / 4;
-    const ctx = cell.getContext('2d'); if (!ctx) throw new Error('无法绘制人物。');
+    const ctx = cell.getContext('2d'); if (!ctx) throw new Error(t('无法绘制人物。'));
     ctx.drawImage(atlas, characterIndex(stage) * cell.width, cell.height, cell.width, cell.height, 0, 0, cell.width, cell.height);
     return imageFrom(cell.toDataURL('image/png'));
   }).catch(error => { images.delete(stage); throw error; }));

@@ -1,7 +1,10 @@
 import { collections, fortuneStorageKey, chineseNumber, fortuneReading, drawFortune, restoreHistory, addHistory } from '../lib/fortune.mjs';
+import englishReadings from '../data/fortune-texts.en.json';
+import { getLanguage } from '../lib/i18n.mjs';
 
 type FortuneRecord = { collection: string; number: number; drawnAt: string };
 type Phase = 'idle' | 'shaking' | 'drawn' | 'revealed';
+type Status = Phase | 'selected' | 'error';
 
 const root = document.querySelector<HTMLElement>('[data-fortune]');
 if (root) {
@@ -15,18 +18,52 @@ if (root) {
   const status = get<HTMLElement>('[data-fortune-status]');
   const choices = [...root.querySelectorAll<HTMLButtonElement>('[data-collection-choice]')];
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const dates = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const english = () => getLanguage() === 'en';
+  const localized = (zh: string, en: string) => english() ? en : zh;
+  const collectionName = (id: string) => localized(collections.find(item => item.id === id)!.name, id === 'guanyin' ? 'Guanyin lots' : 'Che Kung lots');
+  const signNumber = (number: number) => localized(chineseNumber(number), String(number));
+  const signLabel = (number: number) => localized(`第${chineseNumber(number)}签`, `Lot ${number}`);
+  const formatDate = (date: string) => new Intl.DateTimeFormat(english() ? 'en-US' : 'zh-CN', { timeZone: 'Asia/Shanghai', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(date));
   let selected = 'guanyin';
   let phase: Phase = 'idle';
+  let statusKind: Status = 'idle';
+  let storageFailed = false;
   let history: FortuneRecord[] = [];
   let current: FortuneRecord | null = null;
   let pending: FortuneRecord | null = null;
   let timer: ReturnType<typeof setTimeout> | undefined;
 
+  // These texts are rendered from locale-specific content. The generic UI
+  // translator must not retain or replace a previous draw's text nodes.
+  root.querySelectorAll('[data-result-kind], [data-result-number], [data-result-date], [data-stick-number], [data-result-grade], [data-result-poem], [data-result-interpretation], [data-tube-name], [data-tube-count], [data-history-list], [data-fortune-status], [data-paper-hint], [data-storage-note]').forEach(element => element.setAttribute('data-i18n-ignore', ''));
+
   function storageUnavailable() {
+    storageFailed = true;
     const note = get<HTMLElement>('[data-storage-note]');
-    note.textContent = '当前浏览器无法保存求签记录；仍可抽签和阅读签文，刷新后记录可能丢失。';
+    note.textContent = localized('当前浏览器无法保存求签记录；仍可抽签和阅读签文，刷新后记录可能丢失。', 'This browser cannot save your lot history. You can still draw and read lots, but records may be lost after a refresh.');
     note.hidden = false;
+  }
+
+  function renderStatus(next: Status = statusKind) {
+    statusKind = next;
+    const messages = {
+      idle: localized('在心里想一件事，轻轻求一支签。', 'Hold a question in your heart, then gently draw a lot.'),
+      shaking: localized('竹签轻响，稍候片刻。', 'The bamboo slips are stirring. Give them a moment.'),
+      drawn: localized('一支签已落定，展开看看。', 'Your lot has settled. Unfold it when you are ready.'),
+      selected: localized(`这支${collections.find(item => item.id === selected)!.name}，留给此刻的你。`, `A ${selected === 'guanyin' ? 'Guanyin' : 'Che Kung'} lot for this moment.`),
+      revealed: current ? localized(`${collections.find(item => item.id === current!.collection)!.name}，第${chineseNumber(current.number)}签。签诗与签意已展开。`, `${collectionName(current.collection)}, lot ${current.number}. The poem and reflection are open.`) : '',
+      error: localized('当前浏览器无法抽签，请使用较新的浏览器，或通过页底链接查阅签文。', 'This browser cannot draw a lot. Try a newer browser, or read the source texts through the links below.'),
+    };
+    status.textContent = messages[next];
+    get('[data-paper-hint]').textContent = phase === 'drawn'
+      ? localized('竹签已出，点击「展开签纸」读签诗与签意。', 'Your slip is ready. Select “Unfold the fortune” to read its poem and reflection.')
+      : localized('选一只签筒，让一支竹签回应此刻的心事。', 'Choose a collection and let a bamboo slip offer a moment of reflection.');
+  }
+
+  function renderCollection() {
+    const collection = collections.find(item => item.id === selected)!;
+    get('[data-tube-name]').textContent = collectionName(selected);
+    get('[data-tube-count]').textContent = localized(`${chineseNumber(collection.count)}支竹签`, `${collection.count} bamboo slips`);
   }
 
   try { history = restoreHistory(localStorage.getItem(fortuneStorageKey) || ''); }
@@ -52,14 +89,14 @@ if (root) {
   }
 
   function renderRecord(record: FortuneRecord) {
-    const collection = collections.find(item => item.id === record.collection)!;
-    const reading = fortuneReading(record.collection, record.number);
-    get('[data-result-kind]').textContent = collection.name;
+    const original = fortuneReading(record.collection, record.number);
+    const reading = english() ? englishReadings[record.collection as keyof typeof englishReadings][record.number - 1] : original;
+    get('[data-result-kind]').textContent = collectionName(record.collection);
     const number = get<HTMLElement>('[data-result-number]');
-    number.textContent = chineseNumber(record.number);
+    number.textContent = signNumber(record.number);
     number.dataset.number = String(record.number);
-    get('[data-result-date]').textContent = `${dates.format(new Date(record.drawnAt))} · 北京时间`;
-    get<SVGTextElement>('[data-stick-number]').textContent = `第${chineseNumber(record.number)}签`;
+    get('[data-result-date]').textContent = `${formatDate(record.drawnAt)} · ${localized('北京时间', 'Beijing time')}`;
+    get<SVGTextElement>('[data-stick-number]').textContent = signLabel(record.number);
     get('[data-result-grade]').textContent = reading.grade;
     get('[data-result-poem]').replaceChildren(...reading.poem.map(line => {
       const paragraph = document.createElement('p');
@@ -67,14 +104,13 @@ if (root) {
       return paragraph;
     }));
     get('[data-result-interpretation]').textContent = reading.interpretation;
-    get<HTMLAnchorElement>('[data-source-link]').href = reading.sourceUrl;
+    get<HTMLAnchorElement>('[data-source-link]').href = original.sourceUrl;
   }
 
   function reset() {
     current = null;
     setPhase('idle');
-    status.textContent = '在心里想一件事，轻轻求一支签。';
-    get('[data-paper-hint]').textContent = '选一只签筒，让一支竹签回应此刻的心事。';
+    renderStatus('idle');
   }
 
   function chooseCollection(id: string, record?: FortuneRecord) {
@@ -84,13 +120,12 @@ if (root) {
     selected = id;
     root!.dataset.collection = id;
     choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.collectionChoice === id)));
-    get('[data-tube-name]').textContent = collection.name;
-    get('[data-tube-count]').textContent = `${chineseNumber(collection.count)}支竹签`;
+    renderCollection();
     current = record || history.find(item => item.collection === id) || null;
     if (current) {
       renderRecord(current);
       setPhase('revealed');
-      status.textContent = `这支${collection.name}，留给此刻的你。`;
+      renderStatus('selected');
     } else reset();
   }
 
@@ -100,14 +135,13 @@ if (root) {
     const list = get('[data-history-list]');
     list.replaceChildren();
     history.forEach(record => {
-      const collection = collections.find(item => item.id === record.collection)!;
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'f-history-item';
       const title = document.createElement('span');
-      title.textContent = `${collection.name} · 第${chineseNumber(record.number)}签`;
+      title.textContent = `${collectionName(record.collection)} · ${signLabel(record.number)}`;
       const date = document.createElement('small');
-      date.textContent = dates.format(new Date(record.drawnAt));
+      date.textContent = formatDate(record.drawnAt);
       button.append(title, date);
       button.addEventListener('click', () => {
         if (phase === 'shaking') return;
@@ -132,8 +166,7 @@ if (root) {
     renderRecord(current);
     renderHistory();
     setPhase('drawn');
-    status.textContent = '一支签已落定，展开看看。';
-    get('[data-paper-hint]').textContent = '竹签已出，点击「展开签纸」读签诗与签意。';
+    renderStatus('drawn');
     revealButton.focus({ preventScroll: true });
   }
 
@@ -142,11 +175,11 @@ if (root) {
     if (phase !== 'idle') return;
     try { pending = drawFortune(selected); }
     catch {
-      status.textContent = '当前浏览器无法抽签，请使用较新的浏览器，或通过页底链接查阅签文。';
+      renderStatus('error');
       return;
     }
     setPhase('shaking');
-    status.textContent = '竹签轻响，稍候片刻。';
+    renderStatus('shaking');
     if (motionOff()) finishDraw();
     else timer = setTimeout(finishDraw, 2200);
   });
@@ -154,8 +187,7 @@ if (root) {
   revealButton.addEventListener('click', () => {
     if (phase !== 'drawn' || !current) return;
     setPhase('revealed');
-    const name = collections.find(item => item.id === current!.collection)!.name;
-    status.textContent = `${name}，第${chineseNumber(current.number)}签。签诗与签意已展开。`;
+    renderStatus('revealed');
     paper.focus({ preventScroll: true });
     if (matchMedia('(max-width: 600px)').matches) paper.scrollIntoView({ behavior: motionOff() ? 'instant' : 'smooth', block: 'nearest' });
   });
@@ -163,6 +195,13 @@ if (root) {
   const motionChanged = () => { if (motionOff()) finishDraw(); };
   reducedMotion.addEventListener('change', motionChanged);
   new MutationObserver(motionChanged).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
+  window.addEventListener('universe:language', () => {
+    renderCollection();
+    if (current) renderRecord(current);
+    renderHistory();
+    renderStatus();
+    if (storageFailed) storageUnavailable();
+  });
   renderHistory();
   chooseCollection(history[0]?.collection || selected);
   root.dataset.ready = 'true';

@@ -1,6 +1,6 @@
 import { withBase } from '../lib/paths.mjs';
 
-interface SearchPage { url: string; meta: { title?: string; type?: string }; excerpt: string }
+interface SearchPage { url: string; meta: { title?: string; type?: string; description?: string }; excerpt: string }
 interface SearchModule {
   options: (options: { baseUrl: string }) => Promise<void>;
   search: (query: string) => Promise<{ results: { data: () => Promise<SearchPage> }[] }>;
@@ -39,6 +39,10 @@ async function search(query: string, id: number) {
       const link = document.createElement('a'); link.href = page.url; link.className = 'u-search-result';
       const title = document.createElement('strong'); title.textContent = page.meta.title || '未命名记录';
       const snippet = document.createElement('p'); snippet.textContent = new DOMParser().parseFromString(page.excerpt, 'text/html').body.textContent;
+      if (page.url.includes('/posts/')) {
+        title.dataset.i18nSkip = ''; snippet.dataset.i18nSkip = '';
+        title.lang = snippet.lang = 'zh-CN';
+      } else if (page.meta.description) snippet.textContent = page.meta.description;
       const type = document.createElement('span'); type.className = 'u-search-result-type'; type.textContent = page.meta.type || '文章';
       link.append(title, snippet, type); results.append(link);
     }

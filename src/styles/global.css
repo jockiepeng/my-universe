@@ -568,6 +568,19 @@ html:is([data-entry="pending"],[data-entry="open"]) .universe[data-home] .u-scen
 :root { --u-header-height:84px; }
 .u-header-shell .u-header { display:flex; flex-wrap:nowrap; width:calc(100% - 48px); max-width:1480px; gap:16px; min-height:83px; padding:0; }
 .u-header-controls { display:contents; }
+html[data-i18n-pending] body { visibility:hidden; }
+.u-language-toggle { order:5; flex:none; min-width:40px; min-height:36px; padding:6px 8px; border:1px solid var(--u-line); border-radius:6px; color:var(--u-text); background:var(--u-paper); font:inherit; font-size:12px; line-height:1.4; font-weight:600; cursor:pointer; }
+.u-language-toggle:hover { border-color:var(--u-link); color:var(--u-link); }
+.u-language-toggle:focus-visible { outline:2px solid var(--u-link); outline-offset:3px; }
+html[lang="en"] .u-hero h1 { overflow-wrap:normal; font-size:clamp(30px,3.5vw,48px); }
+html[lang="en"] .u-header-shell .u-header { gap:12px; }
+@media (max-width:580px) {
+  .u-header-shell .u-visitor-info { flex:1; max-width:none; }
+  .u-header-shell .u-visitor-info [data-site-views] > span:first-child { display:none; }
+  .u-header-shell .u-language-toggle { min-width:36px; padding-inline:6px; }
+  html[lang="en"] .u-header-shell .u-header { gap:8px; }
+  html[lang="en"] .u-header-controls .u-nav { gap:12px; flex-wrap:wrap; }
+}
 .u-header-menu-toggle { display:none; }
 .u-header-shell .u-nav { gap:18px; margin-left:0; }
 .u-header-shell .u-calendar-control { margin-left:auto; }

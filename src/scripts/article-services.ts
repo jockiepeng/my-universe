@@ -1,4 +1,5 @@
 import { canCountView } from '../lib/services.mjs';
+import { getLanguage } from '../lib/i18n.mjs';
 
 const productionOrigin = document.body.dataset.productionOrigin || '';
 const production = canCountView(import.meta.env.PROD, location.origin, productionOrigin);
@@ -24,7 +25,7 @@ if (comments) {
       'data-emit-metadata': '0',
       'data-input-position': 'top',
       'data-theme': theme(),
-      'data-lang': 'zh-CN',
+      'data-lang': getLanguage() === 'en' ? 'en' : 'zh-CN',
       'data-loading': 'lazy',
       crossorigin: 'anonymous',
       async: '',
@@ -41,6 +42,9 @@ if (comments) {
   } else loadComments();
   window.addEventListener('universe:appearance', () => {
     comments.querySelector<HTMLIFrameElement>('iframe.giscus-frame')?.contentWindow?.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+  });
+  window.addEventListener('universe:language', () => {
+    comments.querySelector<HTMLIFrameElement>('iframe.giscus-frame')?.contentWindow?.postMessage({ giscus: { setConfig: { lang: getLanguage() === 'en' ? 'en' : 'zh-CN' } } }, 'https://giscus.app');
   });
   window.addEventListener('message', event => {
     const frame = comments.querySelector<HTMLIFrameElement>('iframe.giscus-frame');

@@ -7,11 +7,11 @@ const { post } = Astro.props;
 const pictures = post.data.images;
 ---
 <div class="u-photo-post">
-  <section class="u-photo-carousel" data-photo-carousel aria-label={`${post.data.title}的图片`} data-pagefind-ignore>
+  <section class="u-photo-carousel" data-photo-carousel aria-label={`${post.data.title}的图片`} data-i18n-en-aria-label={`Photos for ${post.data.title}`} data-pagefind-ignore>
     <div class="u-photo-track" data-photo-track tabindex="0" role="group" aria-roledescription="轮播图" aria-label={`共 ${pictures.length} 张图片，可左右滑动查看`}>
       {pictures.map((picture, index) => <div class="u-photo-slide" role="group" aria-roledescription="图片" aria-label={`第 ${index + 1} 张，共 ${pictures.length} 张`}>
-        <a href={picture.src.src} target="_blank" rel="noopener noreferrer" aria-label={`查看原图 ${index + 1}：${picture.alt}`}>
-          <Image src={picture.src} alt={picture.alt} width={960} widths={[320, 640, 960]} sizes="(max-width: 760px) 90vw, 680px" loading={index === 0 ? 'eager' : 'lazy'} />
+        <a href={picture.src.src} target="_blank" rel="noopener noreferrer" aria-label={`查看原图 ${index + 1}：${picture.alt}`} data-i18n-en-aria-label={`View original photo ${index + 1}: ${picture.alt}`}>
+          <Image data-i18n-skip src={picture.src} alt={picture.alt} width={960} widths={[320, 640, 960]} sizes="(max-width: 760px) 90vw, 680px" loading={index === 0 ? 'eager' : 'lazy'} />
         </a>
       </div>)}
     </div>
@@ -24,7 +24,7 @@ const pictures = post.data.images;
       </div>
     </div>}
   </section>
-  <div class="u-photo-text">{post.body?.trim()}</div>
+  <div class="u-photo-text" data-i18n-skip lang="zh-CN">{post.body?.trim()}</div>
 </div>
 
 <style>

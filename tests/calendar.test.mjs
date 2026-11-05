@@ -2,6 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getZonedClock, getMonthCalendar, shiftMonth } from '../src/lib/calendar.mjs';
 
+test('English clock retains the same Beijing date and time at midnight', () => {
+  const now = new Date('2026-11-02T16:00:00Z');
+  const english = getZonedClock(now, 'en');
+  const chinese = getZonedClock(now);
+  assert.equal(english.dateKey, chinese.dateKey);
+  assert.equal(english.time, '00:00:00');
+  assert.equal(english.weekday, 'Tuesday');
+  assert.equal(english.dateLabel, 'Nov 3');
+});
+
 test('month navigation crosses years and supports multiple jumps', () => {
   assert.deepEqual(shiftMonth(2026, 12, 1), { year: 2027, month: 1 });
   assert.deepEqual(shiftMonth(2027, 1, -1), { year: 2026, month: 12 });

@@ -1,24 +1,31 @@
 import quotes from '../data/daily-quotes.json';
 import { getDailyQuote } from '../lib/daily-quote.mjs';
+import { getLanguage } from '../lib/i18n.mjs';
+import { englishQuotePool } from '../i18n/readings.mjs';
 
 const section = document.querySelector<HTMLElement>('[data-daily-quote]');
 if (section) {
+  const englishQuotes = englishQuotePool(quotes);
   let lastDate = '';
+  let lastLanguage = '';
   let timer: ReturnType<typeof setTimeout>;
+  section.querySelectorAll('[data-quote-text], [data-quote-author], [data-quote-work]').forEach(element => element.setAttribute('data-i18n-ignore', ''));
   function update() {
     clearTimeout(timer);
-    const result = getDailyQuote(quotes);
-    if (lastDate !== result.dateKey) {
+    const language = getLanguage();
+    const result = getDailyQuote(language === 'en' ? englishQuotes : quotes);
+    if (lastDate !== result.dateKey || lastLanguage !== language) {
       const quote = result.quote;
       const get = <T extends HTMLElement = HTMLElement>(selector: string) => section!.querySelector<T>(selector)!;
-      const hasTranslation = Boolean(quote?.original && !(quote.originalLanguage || 'zh').startsWith('zh') && quote.original !== quote.text);
-      get('[data-quote-text]').textContent = hasTranslation ? `${quote.original}（${quote.text}）` : quote?.text || '留一点空白，等待下一段话。';
+      const hasTranslation = language !== 'en' && Boolean(quote?.original && !(quote.originalLanguage || 'zh').startsWith('zh') && quote.original !== quote.text);
+      get('[data-quote-text]').textContent = hasTranslation ? `${quote.original}（${quote.text}）` : quote?.text || (language === 'en' ? 'Leave a little room for the next thought.' : '留一点空白，等待下一段话。');
       get('[data-quote-author]').textContent = quote?.author || '';
       get('[data-quote-work]').textContent = quote?.source || '';
       get('[data-quote-attribution]').hidden = !quote;
       section!.dataset.quoteDay = result.dateKey;
       section!.dataset.quoteId = result.quote?.id || '';
       lastDate = result.dateKey;
+      lastLanguage = language;
     }
     // The next Shanghai midnight is 16:00 UTC. One timer, no per-second work.
     const now = new Date();
@@ -27,6 +34,7 @@ if (section) {
   }
   document.addEventListener('visibilitychange', update);
   window.addEventListener('pageshow', update);
+  window.addEventListener('universe:language', update);
   window.addEventListener('pagehide', () => clearTimeout(timer));
   update();
 }

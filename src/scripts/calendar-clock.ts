@@ -1,5 +1,8 @@
 import { getZonedClock, getMonthCalendar, shiftMonth } from '../lib/calendar.mjs';
 import { countdownTargets, getCountdown } from '../lib/countdown.mjs';
+import { getLanguage } from '../lib/i18n.mjs';
+
+const snapshotNow = () => getZonedClock(new Date(), getLanguage());
 
 const widget = document.querySelector<HTMLElement>('.u-calendar-widget');
 if (widget) {
@@ -43,7 +46,7 @@ if (widget) {
 
   function renderCalendar(snapshot: ReturnType<typeof getZonedClock>) {
     if (!viewed) viewed = { year: snapshot.year, month: snapshot.month };
-    const label = String(viewed.year) + ' 年 ' + viewed.month + ' 月';
+    const label = getLanguage() === 'en' ? new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(viewed.year, viewed.month - 1, 1))) : String(viewed.year) + ' 年 ' + viewed.month + ' 月';
     month.textContent = label;
     jump.value = String(viewed.year) + '-' + String(viewed.month).padStart(2, '0');
     previous.disabled = viewed.year <= 1900 && viewed.month === 1;
@@ -70,7 +73,7 @@ if (widget) {
     }
   }
   function navigate(offset: number) {
-    const snapshot = getZonedClock();
+    const snapshot = snapshotNow();
     const current = viewed || snapshot;
     viewed = shiftMonth(current.year, current.month, offset);
     followToday = false; renderCalendar(snapshot);
@@ -80,16 +83,16 @@ if (widget) {
   jump.addEventListener('change', () => {
     const [year, month] = jump.value.split('-').map(Number);
     if (!Number.isInteger(year) || year < 1900 || year > 2100 || !Number.isInteger(month) || month < 1 || month > 12) return;
-    viewed = { year, month }; followToday = false; renderCalendar(getZonedClock());
+    viewed = { year, month }; followToday = false; renderCalendar(snapshotNow());
   });
   widget.querySelector('[data-calendar-current]')!.addEventListener('click', () => {
-    const snapshot = getZonedClock();
+    const snapshot = snapshotNow();
     viewed = { year: snapshot.year, month: snapshot.month }; followToday = true; renderCalendar(snapshot);
   });
 
   function update() {
     const now = new Date();
-    const snapshot = getZonedClock(now);
+    const snapshot = getZonedClock(now, getLanguage());
     clock.textContent = snapshot.time;
     clock.dateTime = `${snapshot.dateKey}T${snapshot.time}+08:00`;
     compactTime.textContent = snapshot.time.slice(0, 5);
@@ -119,6 +122,7 @@ if (widget) {
     if (!document.hidden) timer = setInterval(update, 1000);
   }
   document.addEventListener('visibilitychange', start);
+  document.addEventListener('universe:language', () => { lastDate = ''; update(); });
   window.addEventListener('pageshow', start);
   window.addEventListener('pagehide', () => { if (timer !== undefined) clearInterval(timer); });
   start();

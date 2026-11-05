@@ -24,6 +24,7 @@
     "test:life": "node scripts/life-grid-browser-smoke.mjs",
     "test:life-replay": "node scripts/life-replay-browser-smoke.mjs",
     "test:fortune": "node scripts/fortune-browser-smoke.mjs",
+    "test:i18n": "node scripts/i18n-browser-smoke.mjs",
     "verify": "npm test && npm run check && npm run build && node scripts/check-build.mjs"
   },
   "devDependencies": {
