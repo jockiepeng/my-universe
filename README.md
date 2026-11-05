@@ -121,7 +121,7 @@ npm run dev
 
 - 使用 `pathname` 映射和严格匹配：同一文章路径对应同一条 Discussion。首次打开没有评论时不会立即新建讨论，读者第一次实际评论时由 giscus 创建。
 - 评论者通过 GitHub 登录，评论、回复与表情由 GitHub／giscus 管理。仓库管理者可在 Discussions 中管理内容。
-- 文章默认开启评论；贴图默认关闭，也可用 frontmatter 的 `comments: true/false` 单独覆盖。缺少仓库或分类 ID 时显示“评论暂未开放”。
+- 文章和贴图默认开启评论，也可用 frontmatter 的 `comments: true/false` 单独覆盖。缺少仓库或分类 ID 时显示“评论暂未开放”。
 - 评论跟随深浅色切换；加载失败时保留前往 Discussions 的入口。更改文章路径或评论仓库后需处理原讨论映射，Markdown 迁移不会自动搬运旧评论。
 
 下面的配置值在 **构建时** 写入页面，属于公开标识，不是令牌；修改 Actions Variables 后需要重新运行构建部署。

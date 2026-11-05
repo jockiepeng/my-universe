@@ -21,7 +21,7 @@ const index = posts.findIndex(entry => entry.id === post.id);
 const newer = posts[index - 1];
 const older = posts[index + 1];
 const toc = (rendered?.headings ?? []).filter(heading => heading.depth === 2 || heading.depth === 3);
-const comments = post.data.comments ?? post.data.kind === 'post';
+const comments = post.data.comments ?? true;
 ---
 <BaseLayout title={post.data.title} description={post.data.summary || summarize(post.body, 150)} article noIndex={post.data.draft} image={post.data.cover?.src || post.data.images[0]?.src.src}>
   <a class="u-back" href={href('/')}><Icon name="left" size={14} />返回首页</a>
