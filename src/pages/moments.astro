@@ -55,7 +55,25 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
         <nav class="moments-pagination" aria-label="动态分页" data-moments-pagination hidden><button type="button" data-previous>上一页</button><span data-page-label></span><button type="button" data-next>下一页</button></nav>
         <noscript><p>启用 JavaScript 后可搜索动态和浏览其他页面。</p></noscript>
       </section>
-      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态和回复会同步更新，发表后请稍候。</p><p>动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。</p></aside>
+      <aside class="moments-note">
+        <span class="moments-orbit" aria-hidden="true">✦</span>
+        <p>动态和回复会同步更新，发表后请稍候。</p>
+        <p>动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。</p>
+        <details class="moments-explainer" data-pagefind-ignore>
+          <summary>动态是如何运作的</summary>
+          <div class="moments-explainer-body">
+            <h2>发表与讨论</h2>
+            <p>giscus 把发表的内容保存到 GitHub Discussion。打开讨论区时，giscus 自行获取评论；登录 GitHub 后可以发表或回复。</p>
+            <h2>动态列表</h2>
+            <p>GitHub Actions 从同一条讨论中分页读取评论和回复，将站长的顶级评论生成快照，再构建并部署动态页面。访客的独立评论仍在讨论区中，不会成为动态卡片。</p>
+            <p>列表首次显示前 20 条；搜索正文和回复、按北京时间筛选发布日期或翻页时，浏览器按需加载快照生成的搜索索引和分页数据。</p>
+            {snapshot.updatedAt ? <p>此页面的快照生成于 <time datetime={snapshot.updatedAt}>{date.format(new Date(snapshot.updatedAt))}</time>（北京时间）。</p> : <p>此页面尚无已同步的快照时间。</p>}
+            <h2>为什么有时显示较慢</h2>
+            <p>giscus 和动态列表读取的路径不同：前者从 GitHub 获取评论，后者依赖同步、构建和部署后的快照。因此新评论可能先出现在讨论区，稍后才显示在列表中。</p>
+            <p>曾观察到最新动态已进入构建产物，但线上暂时仍返回较旧的页面；之后页面恢复显示。发布传播或缓存可能造成延迟，具体原因尚未确认，不能保证固定等待时间。</p>
+          </div>
+        </details>
+      </aside>
     </div>
 
   </div>

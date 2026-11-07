@@ -1,5 +1,17 @@
 // Source messages stay in Chinese so the static site remains readable without JS.
 export const messages = {
+  '动态是如何运作的': 'How moments work',
+  '发表与讨论': 'Posting and discussion',
+  'giscus 把发表的内容保存到 GitHub Discussion。打开讨论区时，giscus 自行获取评论；登录 GitHub 后可以发表或回复。': 'giscus saves posts in a GitHub Discussion and loads comments when you open it. Sign in to GitHub to post or reply.',
+  '动态列表': 'The moments feed',
+  'GitHub Actions 从同一条讨论中分页读取评论和回复，将站长的顶级评论生成快照，再构建并部署动态页面。访客的独立评论仍在讨论区中，不会成为动态卡片。': 'GitHub Actions reads comments and replies from the same discussion in pages, creates a snapshot of the owner’s top-level comments, and builds and deploys the feed. Visitor top-level comments remain in the discussion and do not become cards.',
+  '列表首次显示前 20 条；搜索正文和回复、按北京时间筛选发布日期或翻页时，浏览器按需加载快照生成的搜索索引和分页数据。': 'The feed initially displays the first 20 moments. When you search posts and replies, filter publication dates in Beijing time, or turn pages, the browser loads the generated search index and page data as needed.',
+  '此页面的快照生成于': 'This page’s snapshot was generated at',
+  '（北京时间）。': '(Beijing time).',
+  '此页面尚无已同步的快照时间。': 'No synchronized snapshot time is available for this page yet.',
+  '为什么有时显示较慢': 'Why updates may take time',
+  'giscus 和动态列表读取的路径不同：前者从 GitHub 获取评论，后者依赖同步、构建和部署后的快照。因此新评论可能先出现在讨论区，稍后才显示在列表中。': 'giscus loads comments from GitHub, while the feed uses a snapshot that must be synchronized, built, and deployed. New comments may therefore appear in the discussion before the feed.',
+  '曾观察到最新动态已进入构建产物，但线上暂时仍返回较旧的页面；之后页面恢复显示。发布传播或缓存可能造成延迟，具体原因尚未确认，不能保证固定等待时间。': 'New moments were once present in the build while the live site temporarily returned an older page; the display later recovered. Deployment propagation or caching may cause delays, but the specific cause remains unconfirmed and there is no guaranteed wait time.',
   '功能': 'Tools',
   '欢迎来到': 'Welcome to', '出处：': 'Source:',
   '每一个念头，都有自己的轨道': 'Every thought has its own orbit',

@@ -21,6 +21,11 @@
 .moments-note { padding:20px 0; color:var(--u-muted); font-size:13px; line-height:1.8; }
 .moments-note p { margin:10px 0; }
 .moments-note a { color:var(--u-link); }
+.moments-explainer { margin-top:18px; border-top:1px solid var(--u-line); padding-top:14px; }
+.moments-explainer summary { cursor:pointer; color:var(--u-link); font-weight:550; }
+.moments-explainer summary:focus-visible { outline:2px solid var(--u-link); outline-offset:4px; }
+.moments-explainer-body h2 { margin:18px 0 6px; color:var(--u-text); font-size:14px; }
+.moments-explainer-body p { overflow-wrap:anywhere; }
 .moments-orbit { color:var(--u-warm); font-size:24px; }
 .moments-empty { color:var(--u-muted); padding:30px 0; }
 .moments-discussion { max-width:700px; border-top:1px solid var(--u-line); margin-top:20px; padding-top:12px; }
