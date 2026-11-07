@@ -36,3 +36,15 @@
 
 .moment-times { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:4px 12px; color:var(--u-muted); }
 .moment-times small { font-size:12px; }
+
+.moments-sort { display:flex; align-items:center; justify-content:flex-end; gap:8px; margin:0 0 14px; color:var(--u-muted); font-size:13px; }
+.moments-sort select { color:var(--u-text); background:var(--u-paper); border:1px solid var(--u-line); border-radius:8px; padding:7px 10px; font:inherit; }
+.moments-sort select:focus-visible { outline:2px solid var(--u-link); outline-offset:3px; }
+.moment-replies { margin:18px 0 10px; padding:14px 16px; background:var(--u-soft); border-radius:10px; }
+.moment-replies h3 { margin:0 0 8px; font-size:13px; color:var(--u-muted); }
+.moment-replies h3 span { font-weight:400; }
+.moment-response + .moment-response { border-top:1px solid var(--u-line); padding-top:10px; }
+.response-meta { display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; font-size:12px; }
+.response-meta time { color:var(--u-muted); }
+.moment-response .moment-body { font-size:14px; }
+.moment-response .moment-body p { margin:6px 0 12px; }

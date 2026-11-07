@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build:
-    if: ${{ github.event_name != 'discussion_comment' || (github.event.discussion.number == fromJSON(vars.MOMENTS_DISCUSSION_NUMBER || '6') && github.event.comment.user.login == (vars.MOMENTS_AUTHOR || github.repository_owner)) }}
+    if: ${{ github.event_name != 'discussion_comment' || (github.event.discussion.number == fromJSON(vars.MOMENTS_DISCUSSION_NUMBER || '6')) }}
     runs-on: ubuntu-latest
     env:
       ASTRO_TELEMETRY_DISABLED: '1'

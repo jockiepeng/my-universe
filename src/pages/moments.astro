@@ -4,7 +4,8 @@ import { giscusConfig } from '../site.config';
 import snapshot from '../data/moments.json';
 import '../styles/moments.css';
 
-interface Moment { id: string; bodyHTML: string; createdAt: string; updatedAt: string; url: string; author: { login: string; avatarUrl: string } }
+interface Reply { id: string; bodyHTML: string; createdAt: string; author: { login: string; avatarUrl: string } | null }
+interface Moment { id: string; bodyHTML: string; createdAt: string; updatedAt: string; url: string; author: { login: string; avatarUrl: string }; replies?: Reply[] }
 const moments = snapshot.moments as Moment[];
 const number = import.meta.env.PUBLIC_MOMENTS_DISCUSSION_NUMBER || '';
 const configured = Boolean(giscusConfig.repoId && giscusConfig.categoryId && /^\d+$/.test(number));
@@ -18,18 +19,22 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
       <a class="moments-compose" href="#moments-discussion">发表动态与参与讨论</a>
     </header>
     <div class="moments-layout">
-      <section class="moments-feed" aria-label="动态">
+      <section aria-label="动态">
+        <div class="moments-sort"><label for="moments-order">排序</label><select id="moments-order"><option value="newest">最新在前</option><option value="oldest">最早在前</option></select></div>
+        <div class="moments-feed">
         {moments.length === 0 && <p class="moments-empty">还没有动态，过段时间再来看看。</p>}
-        {moments.map(moment => <article class="moment-card" data-i18n-skip>
+        {moments.map(moment => <article class="moment-card" data-i18n-skip data-created={moment.createdAt}>
           <div class="moment-avatar"><img src={moment.author.avatarUrl} alt="" loading="lazy" /></div>
           <div class="moment-main">
             <header class="moment-meta"><strong>{moment.author.login}</strong><span class="moment-times"><time datetime={moment.createdAt}>{date.format(new Date(moment.createdAt))}</time>{moment.updatedAt && moment.updatedAt !== moment.createdAt && <small>编辑于 <time datetime={moment.updatedAt}>{date.format(new Date(moment.updatedAt))}</time></small>}</span></header>
             <div class="moment-body" set:html={moment.bodyHTML}></div>
+            {moment.replies && moment.replies.length > 0 && <div class="moment-replies"><h3>回复 <span>{moment.replies.length}</span></h3>{moment.replies.map(reply => <article class="moment-response"><div class="response-meta"><strong>{reply.author?.login || '已删除用户'}</strong><time datetime={reply.createdAt}>{date.format(new Date(reply.createdAt))}</time></div><div class="moment-body" set:html={reply.bodyHTML}></div></article>)}</div>}
             <a class="moment-reply" href="#moments-discussion" data-i18n-skip>在页面中回复</a><a class="moment-reply moment-original" href={moment.url} target="_blank" rel="noopener noreferrer" data-i18n-skip>查看、编辑或删除</a>
           </div>
         </article>)}
+        </div>
       </section>
-      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态会定时更新，发表后请稍候。</p><a href="#moments-discussion">发表动态与参与讨论</a></aside>
+      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态和回复会同步更新，发表后请稍候。</p><p>动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。</p><a href="#moments-discussion">发表动态与参与讨论</a></aside>
     </div>
     <details id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
       <summary>发表动态与参与讨论</summary>
@@ -43,6 +48,14 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
   </div>
   <script>
     import '../scripts/article-services';
+    const order = document.querySelector<HTMLSelectElement>('#moments-order');
+    const feed = document.querySelector<HTMLElement>('.moments-feed');
+    order?.addEventListener('change', () => {
+      if (!feed) return;
+      const cards = [...feed.querySelectorAll<HTMLElement>('.moment-card')];
+      cards.sort((a, b) => (a.dataset.created || '').localeCompare(b.dataset.created || '') * (order.value === 'oldest' ? 1 : -1));
+      feed.append(...cards);
+    });
     const discussion = document.querySelector<HTMLDetailsElement>('#moments-discussion');
     document.querySelectorAll<HTMLAnchorElement>('a[href="#moments-discussion"]').forEach(link => {
       link.addEventListener('click', event => {

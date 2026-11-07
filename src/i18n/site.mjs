@@ -60,6 +60,7 @@ export const messages = {
   '生活经验与值得记录的日常。': 'Life lessons and everyday moments worth keeping.',
   '与人相处、沟通和建立信任。': 'Connecting, communicating and building trust.',
   '运动体验、练习与从中获得的生活感悟。': 'Sports, practice and the lessons they teach us.',
+  '排序': 'Sort', '最新在前': 'Newest first', '最早在前': 'Oldest first', '动态和回复会同步更新，发表后请稍候。': 'Moments and replies update after syncing.', '动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。': 'Only the site owner\'s posts appear here. Sign in with GitHub to reply. Visitor top-level comments do not appear in the feed.',
   '动态': 'Moments', '写下此刻': 'Share a moment', '记录生活里值得留下的片刻。': 'Small moments worth remembering.', '发表动态与参与讨论': 'Share and join the conversation', '使用 GitHub 账号发表动态，或回复某条动态。': 'Sign in with GitHub to post or reply.', '动态会定时更新，发表后请稍候。': 'Moments update periodically after posting.', '动态尚未配置。': 'Moments are not configured yet.',
   '全部': 'All', '文章': 'Articles', '贴图': 'Photos', '按内容类型筛选': 'Filter by content type',
   '所有分类': 'All categories', '文章分类': 'Post categories', '分类导航': 'Category navigation',
