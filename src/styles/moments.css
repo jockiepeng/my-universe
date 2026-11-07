@@ -1,0 +1,31 @@
+﻿.moments-page { max-width:940px; margin:0 auto; padding:60px 0 90px; }
+.moments-header { display:flex; align-items:end; justify-content:space-between; gap:24px; border-bottom:1px solid var(--u-line); padding-bottom:28px; }
+.moments-header h1 { font-size:clamp(30px,4vw,42px); font-weight:550; letter-spacing:.04em; margin:0 0 10px; }
+.moments-header p, .moments-discussion > p { margin:0; color:var(--u-muted); font-size:14px; line-height:1.8; }
+.universe .moments-compose { color:var(--u-paper); background:var(--u-link); border-radius:30px; padding:11px 18px; font-size:13px; white-space:nowrap; }
+.moments-layout { display:grid; grid-template-columns:minmax(0,1fr) 190px; gap:48px; margin-top:32px; align-items:start; }
+.moments-feed { min-width:0; display:grid; gap:16px; }
+.moment-card { display:grid; grid-template-columns:42px minmax(0,1fr); gap:16px; padding:24px; border:1px solid var(--u-line); border-radius:14px; background:color-mix(in srgb,var(--u-paper) 94%,transparent); }
+.moment-avatar img { display:block; width:42px; height:42px; border-radius:50%; }
+.moment-main { min-width:0; }
+.moment-meta { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px 16px; font-size:13px; }
+.moment-meta strong { font-size:14px; }
+.moment-meta time { color:var(--u-muted); font-size:12px; }
+.moment-body { overflow-wrap:anywhere; line-height:1.85; font-size:15px; }
+.moment-body p { margin:14px 0; white-space:pre-wrap; }
+.moment-body img { max-width:100%; height:auto; border-radius:9px; }
+.moment-body pre { overflow:auto; padding:14px; background:var(--u-soft); border-radius:8px; }
+.moment-body a { color:var(--u-link); text-decoration:underline; }
+.moment-body blockquote { margin-left:0; padding-left:16px; border-left:3px solid var(--u-line); color:var(--u-muted); }
+.universe .moment-reply { color:var(--u-link); font-size:13px; display:inline-block; margin-top:5px; }
+.moments-note { padding:20px 0; color:var(--u-muted); font-size:13px; line-height:1.8; }
+.moments-note p { margin:10px 0; }
+.moments-note a { color:var(--u-link); }
+.moments-orbit { color:var(--u-warm); font-size:24px; }
+.moments-empty { color:var(--u-muted); padding:30px 0; }
+.moments-discussion { max-width:700px; border-top:1px solid var(--u-line); margin-top:64px; padding-top:32px; }
+.moments-discussion h2 { font-size:21px; font-weight:550; margin:0 0 10px; }
+.moments-discussion [data-giscus] { margin-top:20px; }
+@media(max-width:700px) { .moments-page { padding-top:36px; } .moments-header { align-items:start; flex-direction:column; } .moments-layout { display:block; margin-top:24px; } .moments-note { padding:12px 0; } .moment-card { padding:18px; gap:12px; grid-template-columns:36px minmax(0,1fr); } .moment-avatar img { width:36px; height:36px; } }
+
+.universe .moment-original { margin-left:18px; color:var(--u-muted); }

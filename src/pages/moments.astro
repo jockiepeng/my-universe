@@ -1,0 +1,45 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { giscusConfig } from '../site.config';
+import snapshot from '../data/moments.json';
+import '../styles/moments.css';
+
+interface Moment { id: string; bodyHTML: string; createdAt: string; url: string; author: { login: string; avatarUrl: string } }
+const moments = snapshot.moments as Moment[];
+const number = import.meta.env.PUBLIC_MOMENTS_DISCUSSION_NUMBER || '';
+const configured = Boolean(giscusConfig.repoId && giscusConfig.categoryId && /^\d+$/.test(number));
+const discussionUrl = `https://github.com/${giscusConfig.repo}/discussions/${number}`;
+const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+---
+<BaseLayout title="动态" description="记录生活里值得留下的片刻。">
+  <div class="moments-page">
+    <header class="moments-header">
+      <div><h1>写下此刻</h1><p>记录生活里值得留下的片刻。</p></div>
+      <a class="moments-compose" href="#moments-discussion">发表动态与参与讨论</a>
+    </header>
+    <div class="moments-layout">
+      <section class="moments-feed" aria-label="动态">
+        {moments.length === 0 && <p class="moments-empty">还没有动态，过段时间再来看看。</p>}
+        {moments.map(moment => <article class="moment-card" data-i18n-skip>
+          <div class="moment-avatar"><img src={moment.author.avatarUrl} alt="" loading="lazy" /></div>
+          <div class="moment-main">
+            <header class="moment-meta"><strong>{moment.author.login}</strong><time datetime={moment.createdAt}>{date.format(new Date(moment.createdAt))}</time></header>
+            <div class="moment-body" set:html={moment.bodyHTML}></div>
+            <a class="moment-reply" href="#moments-discussion" data-i18n-skip>在页面中回复</a><a class="moment-reply moment-original" href={moment.url} target="_blank" rel="noopener noreferrer" data-i18n-skip>查看原评论</a>
+          </div>
+        </article>)}
+      </section>
+      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态会定时更新，发表后请稍候。</p><a href="#moments-discussion">发表动态与参与讨论</a></aside>
+    </div>
+    <section id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
+      <h2>发表动态与参与讨论</h2><p>使用 GitHub 账号发表动态，或回复某条动态。</p>
+      {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number}>
+        <p data-comment-status>评论将在滚动到这里时加载，需要登录 GitHub 才能发表评论。</p><div class="giscus"></div>
+        <a class="u-comment-fallback" href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a>
+      </div> : <p>动态尚未配置。</p>}
+      <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
+    </section>
+  </div>
+  <script>import '../scripts/article-services';</script>
+</BaseLayout>
+
