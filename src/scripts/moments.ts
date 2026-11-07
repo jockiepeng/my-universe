@@ -14,6 +14,7 @@ if (section) {
   const label = nav.querySelector<HTMLElement>('[data-page-label]')!;
   const order = section.querySelector<HTMLSelectElement>('#moments-order')!;
   const base = section.dataset.momentsBase!;
+  const versionQuery = section.dataset.momentsVersion ? `?v=${encodeURIComponent(section.dataset.momentsVersion)}` : '';
   const total = Number(section.dataset.momentsTotal);
   let indexPromise: Promise<IndexItem[]> | undefined;
   const pages = new Map<number, Promise<Moment[]>>();
@@ -23,8 +24,8 @@ if (section) {
   const time = (value: string) => `<time datetime="${esc(value)}">${esc(date.format(new Date(value)))}</time>`;
   const renderCard = (m: Moment) => `<article class="moment-card" data-i18n-skip><div class="moment-avatar"><img src="${esc(m.author.avatarUrl)}" alt="" loading="lazy"></div><div class="moment-main"><header class="moment-meta"><strong>${esc(m.author.login)}</strong><span class="moment-times">${time(m.createdAt)}${m.updatedAt && m.updatedAt !== m.createdAt ? `<small>编辑于 ${time(m.updatedAt)}</small>` : ''}</span></header><div class="moment-body">${m.bodyHTML}</div>${m.replies?.length ? `<div class="moment-replies"><h3>回复 <span>${m.replies.length}</span></h3>${m.replies.map(r => `<article class="moment-response"><div class="response-meta"><strong>${esc(r.author?.login || '已删除用户')}</strong>${time(r.createdAt)}</div><div class="moment-body">${r.bodyHTML}</div></article>`).join('')}</div>` : ''}<a class="moment-reply" href="#moments-discussion">在页面中回复</a><a class="moment-reply moment-original" href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">查看、编辑或删除</a></div></article>`;
   async function json<T>(url: string): Promise<T> { const response = await fetch(url); if (!response.ok) throw new Error('fetch failed'); return response.json(); }
-  function getIndex() { return indexPromise ||= json<IndexItem[]>(`${base}index.json`).catch(error => { indexPromise = undefined; throw error; }); }
-  function getPage(n: number) { if (!pages.has(n)) pages.set(n, json<Moment[]>(`${base}${n}.json`).catch(error => { pages.delete(n); throw error; })); return pages.get(n)!; }
+  function getIndex() { return indexPromise ||= json<IndexItem[]>(`${base}index.json${versionQuery}`).catch(error => { indexPromise = undefined; throw error; }); }
+  function getPage(n: number) { if (!pages.has(n)) pages.set(n, json<Moment[]>(`${base}${n}.json${versionQuery}`).catch(error => { pages.delete(n); throw error; })); return pages.get(n)!; }
   async function update() {
     const current = ++version;
     status.textContent = '正在加载动态…';

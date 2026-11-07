@@ -31,7 +31,7 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
       <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
     </details>
     <div class="moments-layout">
-      <section aria-label="动态" data-moments-base={withBase('/moments-data/', import.meta.env.BASE_URL)} data-moments-total={moments.length}>
+      <section aria-label="动态" data-moments-base={withBase('/moments-data/', import.meta.env.BASE_URL)} data-moments-version={snapshot.updatedAt || ''} data-moments-total={moments.length}>
         <form class="moments-filters" data-moments-filters hidden>
           <label>搜索动态<input type="search" name="query" placeholder="搜索正文和回复" /></label>
           <label>开始日期<input type="date" name="from" /></label>
