@@ -4,7 +4,7 @@ import { giscusConfig } from '../site.config';
 import snapshot from '../data/moments.json';
 import '../styles/moments.css';
 
-interface Moment { id: string; bodyHTML: string; createdAt: string; url: string; author: { login: string; avatarUrl: string } }
+interface Moment { id: string; bodyHTML: string; createdAt: string; updatedAt: string; url: string; author: { login: string; avatarUrl: string } }
 const moments = snapshot.moments as Moment[];
 const number = import.meta.env.PUBLIC_MOMENTS_DISCUSSION_NUMBER || '';
 const configured = Boolean(giscusConfig.repoId && giscusConfig.categoryId && /^\d+$/.test(number));
@@ -23,9 +23,9 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
         {moments.map(moment => <article class="moment-card" data-i18n-skip>
           <div class="moment-avatar"><img src={moment.author.avatarUrl} alt="" loading="lazy" /></div>
           <div class="moment-main">
-            <header class="moment-meta"><strong>{moment.author.login}</strong><time datetime={moment.createdAt}>{date.format(new Date(moment.createdAt))}</time></header>
+            <header class="moment-meta"><strong>{moment.author.login}</strong><span class="moment-times"><time datetime={moment.createdAt}>{date.format(new Date(moment.createdAt))}</time>{moment.updatedAt && moment.updatedAt !== moment.createdAt && <small>编辑于 <time datetime={moment.updatedAt}>{date.format(new Date(moment.updatedAt))}</time></small>}</span></header>
             <div class="moment-body" set:html={moment.bodyHTML}></div>
-            <a class="moment-reply" href="#moments-discussion" data-i18n-skip>在页面中回复</a><a class="moment-reply moment-original" href={moment.url} target="_blank" rel="noopener noreferrer" data-i18n-skip>查看原评论</a>
+            <a class="moment-reply" href="#moments-discussion" data-i18n-skip>在页面中回复</a><a class="moment-reply moment-original" href={moment.url} target="_blank" rel="noopener noreferrer" data-i18n-skip>查看、编辑或删除</a>
           </div>
         </article>)}
       </section>
@@ -45,9 +45,12 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
     import '../scripts/article-services';
     const discussion = document.querySelector<HTMLDetailsElement>('#moments-discussion');
     document.querySelectorAll<HTMLAnchorElement>('a[href="#moments-discussion"]').forEach(link => {
-      link.addEventListener('click', () => { if (discussion) discussion.open = true; });
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        if (discussion) { discussion.open = true; discussion.scrollIntoView({ block: 'start' }); }
+      });
     });
-    if (location.hash === '#moments-discussion' && discussion) discussion.open = true;
+    if (location.hash === '#moments-discussion') history.replaceState(history.state, '', location.pathname + location.search);
   </script>
 </BaseLayout>
 

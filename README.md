@@ -256,3 +256,5 @@ npm run verify
 
 动态内容由 GitHub 渲染为 HTML 后生成到静态站点。任何有权编辑站长评论的人都能够影响页面内容；请仅使用可信的仓库与账号。动态不加入构建时文章 RSS。关闭 Actions 或 GitHub 不可用时，站点保留上一次部署的数据。
 如果同步日志提示无权读取 Discussion，请创建具有目标仓库 Discussions 读取权限的令牌，并将它保存到 Actions Secrets 的 `MOMENTS_TOKEN`；不要把令牌放入 Actions Variables 或页面代码。
+
+动态 Discussion 中站长新增、编辑或删除评论时，`discussion_comment` 事件也会触发构建，无需等待定时调度；其他讨论及访客评论不会触发构建。事件触发要求动态 Discussion 和本工作流位于同一仓库。五分钟定时任务保留作为兜底，但 GitHub 的调度可能延迟或跳过。
