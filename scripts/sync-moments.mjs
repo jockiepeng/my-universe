@@ -12,7 +12,7 @@ export async function fetchMoments({ token, repo, number, owner, fetcher = fetch
   const [repositoryOwner, name] = repo.split('/');
   const query = `query($owner:String!,$name:String!,$number:Int!,$cursor:String) {
     repository(owner:$owner,name:$name) { discussion(number:$number) { comments(first:100,after:$cursor) {
-      nodes { id body bodyHTML createdAt updatedAt url author { login avatarUrl } replies(first:30) { nodes { id bodyHTML createdAt url author { login avatarUrl } } pageInfo { hasNextPage endCursor } } }
+      nodes { id body bodyHTML createdAt updatedAt url author { login avatarUrl } replies(first:30) { nodes { id bodyText bodyHTML createdAt url author { login avatarUrl } } pageInfo { hasNextPage endCursor } } }
       pageInfo { hasNextPage endCursor }
     } } } }`;
   let cursor = null;
@@ -36,7 +36,7 @@ export async function fetchMoments({ token, repo, number, owner, fetcher = fetch
     while (page?.hasNextPage) {
       if (!page.endCursor || page.endCursor === previous) throw new Error('GitHub reply cursor invalid');
       previous = page.endCursor;
-      const query = `query($id:ID!,$cursor:String) { node(id:$id) { ... on DiscussionComment { replies(first:100,after:$cursor) { nodes { id bodyHTML createdAt url author { login avatarUrl } } pageInfo { hasNextPage endCursor } } } } }`;
+      const query = `query($id:ID!,$cursor:String) { node(id:$id) { ... on DiscussionComment { replies(first:100,after:$cursor) { nodes { id bodyText bodyHTML createdAt url author { login avatarUrl } } pageInfo { hasNextPage endCursor } } } } }`;
       const response = await fetcher('https://api.github.com/graphql', { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'User-Agent': 'my-universe-moments' }, body: JSON.stringify({ query, variables: { id: moment.id, cursor: previous } }) });
       if (!response.ok) throw new Error(`GitHub API HTTP ${response.status}`);
       const result = await response.json();

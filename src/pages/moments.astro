@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { giscusConfig } from '../site.config';
 import snapshot from '../data/moments.json';
 import '../styles/moments.css';
+import { MOMENTS_PAGE_SIZE } from '../lib/moments-search.mjs';
+import { withBase } from '../lib/paths.mjs';
 
 interface Reply { id: string; bodyHTML: string; createdAt: string; author: { login: string; avatarUrl: string } | null }
 interface Moment { id: string; bodyHTML: string; createdAt: string; updatedAt: string; url: string; author: { login: string; avatarUrl: string }; replies?: Reply[] }
@@ -16,10 +18,11 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
   <div class="moments-page">
     <header class="moments-header">
       <div><h1>写下此刻</h1><p>记录生活里值得留下的片刻。</p></div>
-      <a class="moments-compose" href="#moments-discussion">发表动态与参与讨论</a>
+      <a class="moments-compose" href="#moments-discussion" aria-controls="moments-discussion" aria-expanded="false">发表动态与参与讨论</a>
     </header>
     <details id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
-      <summary>发表动态与参与讨论</summary>
+      <summary aria-label="发表动态与参与讨论"></summary>
+      <button class="moments-close" type="button" data-moments-close>关闭</button>
       <p>使用 GitHub 账号发表动态，或回复某条动态。</p>
       {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number} data-compose-mode="true">
         <p data-comment-status>评论将在滚动到这里时加载，需要登录 GitHub 才能发表评论。</p><div class="giscus"></div>
@@ -28,11 +31,18 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
       <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
     </details>
     <div class="moments-layout">
-      <section aria-label="动态">
+      <section aria-label="动态" data-moments-base={withBase('/moments-data/', import.meta.env.BASE_URL)} data-moments-total={moments.length}>
+        <form class="moments-filters" data-moments-filters hidden>
+          <label>搜索动态<input type="search" name="query" placeholder="搜索正文和回复" /></label>
+          <label>开始日期<input type="date" name="from" /></label>
+          <label>结束日期<input type="date" name="to" /></label>
+          <button type="reset">清除筛选</button>
+        </form>
+        <p class="moments-status" data-moments-status role="status" aria-live="polite"></p>
         <div class="moments-sort"><label for="moments-order">排序</label><select id="moments-order"><option value="newest">最新在前</option><option value="oldest">最早在前</option></select></div>
         <div class="moments-feed">
         {moments.length === 0 && <p class="moments-empty">还没有动态，过段时间再来看看。</p>}
-        {moments.map(moment => <article class="moment-card" data-i18n-skip data-created={moment.createdAt}>
+        {moments.slice(0, MOMENTS_PAGE_SIZE).map(moment => <article class="moment-card" data-i18n-skip data-created={moment.createdAt}>
           <div class="moment-avatar"><img src={moment.author.avatarUrl} alt="" loading="lazy" /></div>
           <div class="moment-main">
             <header class="moment-meta"><strong>{moment.author.login}</strong><span class="moment-times"><time datetime={moment.createdAt}>{date.format(new Date(moment.createdAt))}</time>{moment.updatedAt && moment.updatedAt !== moment.createdAt && <small>编辑于 <time datetime={moment.updatedAt}>{date.format(new Date(moment.updatedAt))}</time></small>}</span></header>
@@ -42,32 +52,34 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
           </div>
         </article>)}
         </div>
+        <nav class="moments-pagination" aria-label="动态分页" data-moments-pagination hidden><button type="button" data-previous>上一页</button><span data-page-label></span><button type="button" data-next>下一页</button></nav>
+        <noscript><p>启用 JavaScript 后可搜索动态和浏览其他页面。</p></noscript>
       </section>
-      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态和回复会同步更新，发表后请稍候。</p><p>动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。</p><a href="#moments-discussion">发表动态与参与讨论</a></aside>
+      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态和回复会同步更新，发表后请稍候。</p><p>动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。</p></aside>
     </div>
 
   </div>
   <script>
     import '../scripts/article-services';
-    const order = document.querySelector<HTMLSelectElement>('#moments-order');
-    const feed = document.querySelector<HTMLElement>('.moments-feed');
-    order?.addEventListener('change', () => {
-      if (!feed) return;
-      const cards = [...feed.querySelectorAll<HTMLElement>('.moment-card')];
-      cards.sort((a, b) => (a.dataset.created || '').localeCompare(b.dataset.created || '') * (order.value === 'oldest' ? 1 : -1));
-      feed.append(...cards);
-    });
+    import '../scripts/moments';
     const discussion = document.querySelector<HTMLDetailsElement>('#moments-discussion');
-    document.querySelectorAll<HTMLAnchorElement>('a[href="#moments-discussion"]').forEach(link => {
-      link.addEventListener('click', event => {
+    const compose = document.querySelector<HTMLAnchorElement>('.moments-compose');
+    discussion?.addEventListener('toggle', () => compose?.setAttribute('aria-expanded', String(discussion.open)));
+    document.querySelector<HTMLButtonElement>('[data-moments-close]')?.addEventListener('click', () => {
+      if (discussion) discussion.open = false;
+      compose?.focus();
+    });
+    document.addEventListener('click', event => {
+      const link = (event.target as Element).closest<HTMLAnchorElement>('a[href="#moments-discussion"]');
+      if (link) {
         event.preventDefault();
         if (discussion) {
           const comments = discussion.querySelector<HTMLElement>('[data-giscus]');
           if (comments) { comments.dataset.composeMode = link.classList.contains('moment-reply') ? 'false' : 'true'; window.dispatchEvent(new Event('universe:giscus-mode')); }
-          discussion.open = true;
-          discussion.scrollIntoView({ block: 'start' });
+          discussion.open = link === compose ? !discussion.open : true;
+          if (discussion.open) discussion.scrollIntoView({ block: 'start' });
         }
-      });
+      }
     });
     if (location.hash === '#moments-discussion') history.replaceState(history.state, '', location.pathname + location.search);
   </script>
