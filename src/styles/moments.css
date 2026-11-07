@@ -29,3 +29,7 @@
 @media(max-width:700px) { .moments-page { padding-top:36px; } .moments-header { align-items:start; flex-direction:column; } .moments-layout { display:block; margin-top:24px; } .moments-note { padding:12px 0; } .moment-card { padding:18px; gap:12px; grid-template-columns:36px minmax(0,1fr); } .moment-avatar img { width:36px; height:36px; } }
 
 .universe .moment-original { margin-left:18px; color:var(--u-muted); }
+
+.moments-discussion summary { cursor:pointer; color:var(--u-link); font-size:18px; font-weight:550; padding:10px 0; }
+.moments-discussion summary:focus-visible { outline:2px solid var(--u-link); outline-offset:5px; }
+.moments-discussion > p { margin-top:10px; }

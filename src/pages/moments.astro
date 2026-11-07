@@ -31,15 +31,23 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
       </section>
       <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态会定时更新，发表后请稍候。</p><a href="#moments-discussion">发表动态与参与讨论</a></aside>
     </div>
-    <section id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
-      <h2>发表动态与参与讨论</h2><p>使用 GitHub 账号发表动态，或回复某条动态。</p>
+    <details id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
+      <summary>发表动态与参与讨论</summary>
+      <p>使用 GitHub 账号发表动态，或回复某条动态。</p>
       {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number}>
         <p data-comment-status>评论将在滚动到这里时加载，需要登录 GitHub 才能发表评论。</p><div class="giscus"></div>
         <a class="u-comment-fallback" href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a>
       </div> : <p>动态尚未配置。</p>}
       <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
-    </section>
+    </details>
   </div>
-  <script>import '../scripts/article-services';</script>
+  <script>
+    import '../scripts/article-services';
+    const discussion = document.querySelector<HTMLDetailsElement>('#moments-discussion');
+    document.querySelectorAll<HTMLAnchorElement>('a[href="#moments-discussion"]').forEach(link => {
+      link.addEventListener('click', () => { if (discussion) discussion.open = true; });
+    });
+    if (location.hash === '#moments-discussion' && discussion) discussion.open = true;
+  </script>
 </BaseLayout>
 

@@ -252,7 +252,7 @@ npm run verify
 1. 在公开的 giscus 仓库中启用 Discussions，并安装 giscus GitHub App；按照下方评论配置设置仓库、分类和 ID。
 2. 在该仓库的评论分类中新建一条专用 Discussion，记下 URL 最后的数字。不要将该 Discussion 用于文章评论。
 3. 默认使用 Discussion 6；若更换讨论，在仓库 Actions Variables 设置 `MOMENTS_DISCUSSION_NUMBER` 为新编号；可选设置 `MOMENTS_AUTHOR` 为站长 GitHub 用户名，默认使用仓库所有者。动态 Discussion 必须位于 `PUBLIC_GISCUS_REPO` 配置的仓库中；如果使用其他仓库，默认 `GITHUB_TOKEN` 可能无权读取，请确保其读取权限。
-4. 运行一次 Pages workflow。此后工作流每 15 分钟尝试同步并部署，GitHub 调度可能延迟；不需要手动提交动态。每次成功的快照缓存在 Actions，API 失败时恢复最近的缓存；缓存可能因 GitHub 的保留策略被清理。首次成功同步之前没有可恢复的数据。
+4. 运行一次 Pages workflow。此后工作流每 5 分钟尝试同步并部署，GitHub 调度可能延迟；不需要手动提交动态。每次成功的快照缓存在 Actions，API 失败时恢复最近的缓存；缓存可能因 GitHub 的保留策略被清理。首次成功同步之前没有可恢复的数据。
 
 动态内容由 GitHub 渲染为 HTML 后生成到静态站点。任何有权编辑站长评论的人都能够影响页面内容；请仅使用可信的仓库与账号。动态不加入构建时文章 RSS。关闭 Actions 或 GitHub 不可用时，站点保留上一次部署的数据。
 如果同步日志提示无权读取 Discussion，请创建具有目标仓库 Discussions 读取权限的令牌，并将它保存到 Actions Secrets 的 `MOMENTS_TOKEN`；不要把令牌放入 Actions Variables 或页面代码。
