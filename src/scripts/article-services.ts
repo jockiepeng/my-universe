@@ -8,7 +8,10 @@ const comments = document.querySelector<HTMLElement>('[data-giscus]');
 if (comments) {
   let loaded = false;
   const status = comments.querySelector<HTMLElement>('[data-comment-status]');
-  const theme = () => document.documentElement.dataset.theme === 'dark' || (document.documentElement.dataset.theme === 'auto' && matchMedia('(prefers-color-scheme:dark)').matches) ? 'dark' : 'light';
+  const theme = () => {
+    const mode = document.documentElement.dataset.theme === 'dark' || (document.documentElement.dataset.theme === 'auto' && matchMedia('(prefers-color-scheme:dark)').matches) ? 'dark' : 'light';
+    return comments.dataset.composeMode === 'true' ? new URL(`${import.meta.env.BASE_URL}giscus-compose-${mode}.css`, location.origin).href : mode;
+  };
   const loadComments = () => {
     if (loaded) return;
     loaded = true;
@@ -41,6 +44,9 @@ if (comments) {
     const observer = new IntersectionObserver(entries => { if (entries.some(entry => entry.isIntersecting)) { loadComments(); observer.disconnect(); } }, { rootMargin: '200px' });
     observer.observe(comments);
   } else loadComments();
+  window.addEventListener('universe:giscus-mode', () => {
+    comments.querySelector<HTMLIFrameElement>('iframe.giscus-frame')?.contentWindow?.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+  });
   window.addEventListener('universe:appearance', () => {
     comments.querySelector<HTMLIFrameElement>('iframe.giscus-frame')?.contentWindow?.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
   });

@@ -23,7 +23,7 @@
 .moments-note a { color:var(--u-link); }
 .moments-orbit { color:var(--u-warm); font-size:24px; }
 .moments-empty { color:var(--u-muted); padding:30px 0; }
-.moments-discussion { max-width:700px; border-top:1px solid var(--u-line); margin-top:64px; padding-top:32px; }
+.moments-discussion { max-width:700px; border-top:1px solid var(--u-line); margin-top:20px; padding-top:12px; }
 .moments-discussion h2 { font-size:21px; font-weight:550; margin:0 0 10px; }
 .moments-discussion [data-giscus] { margin-top:20px; }
 @media(max-width:700px) { .moments-page { padding-top:36px; } .moments-header { align-items:start; flex-direction:column; } .moments-layout { display:block; margin-top:24px; } .moments-note { padding:12px 0; } .moment-card { padding:18px; gap:12px; grid-template-columns:36px minmax(0,1fr); } .moment-avatar img { width:36px; height:36px; } }

@@ -18,6 +18,15 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
       <div><h1>写下此刻</h1><p>记录生活里值得留下的片刻。</p></div>
       <a class="moments-compose" href="#moments-discussion">发表动态与参与讨论</a>
     </header>
+    <details id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
+      <summary>发表动态与参与讨论</summary>
+      <p>使用 GitHub 账号发表动态，或回复某条动态。</p>
+      {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number} data-compose-mode="true">
+        <p data-comment-status>评论将在滚动到这里时加载，需要登录 GitHub 才能发表评论。</p><div class="giscus"></div>
+        <a class="u-comment-fallback" href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a>
+      </div> : <p>动态尚未配置。</p>}
+      <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
+    </details>
     <div class="moments-layout">
       <section aria-label="动态">
         <div class="moments-sort"><label for="moments-order">排序</label><select id="moments-order"><option value="newest">最新在前</option><option value="oldest">最早在前</option></select></div>
@@ -36,15 +45,7 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
       </section>
       <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>动态和回复会同步更新，发表后请稍候。</p><p>动态列表只显示站长发表的内容，欢迎登录 GitHub 回复。访客发表的独立评论不会出现在动态列表。</p><a href="#moments-discussion">发表动态与参与讨论</a></aside>
     </div>
-    <details id="moments-discussion" class="moments-discussion" data-pagefind-ignore>
-      <summary>发表动态与参与讨论</summary>
-      <p>使用 GitHub 账号发表动态，或回复某条动态。</p>
-      {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number}>
-        <p data-comment-status>评论将在滚动到这里时加载，需要登录 GitHub 才能发表评论。</p><div class="giscus"></div>
-        <a class="u-comment-fallback" href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a>
-      </div> : <p>动态尚未配置。</p>}
-      <noscript><p>启用 JavaScript 后可以加载评论。</p></noscript>
-    </details>
+
   </div>
   <script>
     import '../scripts/article-services';
@@ -60,7 +61,12 @@ const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year:
     document.querySelectorAll<HTMLAnchorElement>('a[href="#moments-discussion"]').forEach(link => {
       link.addEventListener('click', event => {
         event.preventDefault();
-        if (discussion) { discussion.open = true; discussion.scrollIntoView({ block: 'start' }); }
+        if (discussion) {
+          const comments = discussion.querySelector<HTMLElement>('[data-giscus]');
+          if (comments) { comments.dataset.composeMode = link.classList.contains('moment-reply') ? 'false' : 'true'; window.dispatchEvent(new Event('universe:giscus-mode')); }
+          discussion.open = true;
+          discussion.scrollIntoView({ block: 'start' });
+        }
       });
     });
     if (location.hash === '#moments-discussion') history.replaceState(history.state, '', location.pathname + location.search);
