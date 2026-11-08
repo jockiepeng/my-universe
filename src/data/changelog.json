@@ -1,0 +1,162 @@
+[
+  {
+    "date": "2026-11-08",
+    "type": "added",
+    "text": "新增功能更新页面，按时间记录新增、删除、优化和修复。",
+    "en": "Added a changelog to record additions, removals, improvements, and fixes over time."
+  },
+  {
+    "date": "2026-11-07",
+    "type": "improved",
+    "text": "动态支持搜索和分页，发表入口移至顶部。",
+    "en": "Added search and pagination to moments and moved the compose link to the top.",
+    "commit": "a210b37"
+  },
+  {
+    "date": "2026-11-07",
+    "type": "improved",
+    "text": "动态显示回复，支持排序，并定时同步讨论。",
+    "en": "Moments show replies, support sorting, and synchronize discussions periodically.",
+    "commit": "38f6c9d"
+  },
+  {
+    "date": "2026-11-07",
+    "type": "fixed",
+    "text": "修复动态搜索数据缓存问题。",
+    "en": "Fixed stale moments search data.",
+    "commit": "60c3290"
+  },
+  {
+    "date": "2026-11-07",
+    "type": "fixed",
+    "text": "修复讨论变化后动态未刷新的问题。",
+    "en": "Fixed moments refresh after discussion changes.",
+    "commit": "ae8512c"
+  },
+  {
+    "date": "2026-11-07",
+    "type": "added",
+    "text": "新增基于 GitHub Discussion 的动态页面。",
+    "en": "Added a moments feed backed by GitHub Discussions.",
+    "commit": "64d3672"
+  },
+  {
+    "date": "2026-11-05",
+    "type": "added",
+    "text": "新增可记住选择的中英文界面切换。",
+    "en": "Added persistent Chinese and English interface switching.",
+    "commit": "df74bd4"
+  },
+  {
+    "date": "2026-11-05",
+    "type": "fixed",
+    "text": "修复贴图文章默认未开启评论的问题。",
+    "en": "Enabled comments by default on photo posts.",
+    "commit": "3d1b1fb"
+  },
+  {
+    "date": "2026-11-05",
+    "type": "added",
+    "text": "新增寺庙求签和签诗展示。",
+    "en": "Added temple fortune draws with poems.",
+    "commit": "abb9af3"
+  },
+  {
+    "date": "2026-11-05",
+    "type": "improved",
+    "text": "调整求签流程，让操作更清晰。",
+    "en": "Clarified the fortune draw flow.",
+    "commit": "4502b6e"
+  },
+  {
+    "date": "2026-11-04",
+    "type": "added",
+    "text": "新增人生格子旅程和交互式时光回放。",
+    "en": "Added life-grid journeys and interactive time replay.",
+    "commit": "ff26b90"
+  },
+  {
+    "date": "2026-11-04",
+    "type": "improved",
+    "text": "丰富每日语录、站内搜索和贴图文章。",
+    "en": "Enriched daily quotes, site search, and photo posts.",
+    "commit": "cc38c7d"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "fixed",
+    "text": "修复固定导航换行问题。",
+    "en": "Fixed fixed-navigation wrapping.",
+    "commit": "c12b5f2"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "fixed",
+    "text": "统一页面场景颜色并修复背景闪烁。",
+    "en": "Unified page scene colors and fixed background flashes.",
+    "commit": "02e0a71"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "improved",
+    "text": "完善文章时间信息和导航元数据。",
+    "en": "Refined article timestamps and navigation metadata.",
+    "commit": "bd82ca2"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "added",
+    "text": "新增访客信息展示。",
+    "en": "Added visitor information.",
+    "commit": "a361e20"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "added",
+    "text": "新增背景音乐。",
+    "en": "Added background music.",
+    "commit": "12776b5"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "added",
+    "text": "新增层级分类导航和筛选。",
+    "en": "Added hierarchical category navigation and filters.",
+    "commit": "298944b"
+  },
+  {
+    "date": "2026-11-03",
+    "type": "added",
+    "text": "新增街机游戏。",
+    "en": "Added arcade games.",
+    "commit": "7afe8cb"
+  },
+  {
+    "date": "2026-11-02",
+    "type": "added",
+    "text": "新增星球 2048。",
+    "en": "Added Planet 2048.",
+    "commit": "15e13e0"
+  },
+  {
+    "date": "2026-11-02",
+    "type": "added",
+    "text": "新增游戏大厅和三骰游戏。",
+    "en": "Added a game lobby and a three-dice game.",
+    "commit": "3550dd3"
+  },
+  {
+    "date": "2026-11-02",
+    "type": "improved",
+    "text": "更新博客场景、日历和每日语录。",
+    "en": "Refreshed blog scenes, the calendar, and daily quotes.",
+    "commit": "de170b9"
+  },
+  {
+    "date": "2026-11-02",
+    "type": "added",
+    "text": "建立个人博客，支持 GitHub Pages 发布。",
+    "en": "Created the personal blog for GitHub Pages.",
+    "commit": "8ef4456"
+  }
+]

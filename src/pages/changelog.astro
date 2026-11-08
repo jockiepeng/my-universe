@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import entries from '../data/changelog.json';
+
+const labels: Record<string, string> = { added: '新增', removed: '删除', improved: '优化', fixed: '修复' };
+const dates = [...new Set(entries.map(entry => entry.date))];
+---
+<BaseLayout title="功能更新" description="记录这个小宇宙的变化。">
+  <div class="change-page">
+    <header class="change-header">
+      <h1>功能更新</h1>
+      <p>记录这个小宇宙的变化。</p>
+    </header>
+    <div class="change-layout">
+      <div class="change-timeline">
+        {dates.map(date => <section class="change-day">
+          <h2><time datetime={date}>{date}</time></h2>
+          <ul>{entries.filter(entry => entry.date === date).map(entry => <li>
+            <span class:list={['change-label', `change-label--${entry.type}`]}>{labels[entry.type]}</span>
+            <span class="change-text" data-i18n-en={entry.en}>{entry.text}</span>
+          </li>)}</ul>
+        </section>)}
+      </div>
+      <aside class="change-note">
+        <p>历史记录根据 Git 提交整理，日期为提交日期。</p>
+        {!entries.some(entry => entry.type === 'removed') && <p>暂无删除记录。</p>}
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .change-page { max-width:940px; margin:0 auto; padding:60px 0 90px; }
+  .change-header { border-bottom:1px solid var(--u-line); padding-bottom:28px; }
+  .change-header h1 { margin:0 0 10px; font-size:clamp(30px,4vw,42px); font-weight:550; letter-spacing:.04em; }
+  .change-header p, .change-note { color:var(--u-muted); font-size:14px; line-height:1.8; }
+  .change-header p { margin:0; }
+  .change-layout { display:grid; grid-template-columns:minmax(0,1fr) 190px; gap:48px; margin-top:34px; }
+  .change-day { display:grid; grid-template-columns:100px minmax(0,1fr); gap:20px; padding:0 0 30px; }
+  .change-day h2 { color:var(--u-muted); font-size:13px; font-weight:500; margin:4px 0 0; }
+  .change-day ul { margin:0; padding:0 0 0 22px; list-style:none; border-left:1px solid var(--u-line); }
+  .change-day li { position:relative; display:grid; grid-template-columns:auto minmax(0,1fr); gap:8px 12px; padding:0 0 22px; font-size:15px; line-height:1.7; }
+  .change-day li:last-child { padding-bottom:0; }
+  .change-day li::before { content:''; position:absolute; top:9px; left:-26px; width:7px; height:7px; border-radius:50%; background:var(--u-link); }
+  .change-label { align-self:start; padding:1px 7px; border:1px solid var(--u-line); border-radius:4px; color:var(--u-link); font-size:12px; white-space:nowrap; }
+  .change-label--fixed { color:var(--u-warm); }
+  .change-label--removed { color:var(--u-muted); }
+  .change-text { overflow-wrap:anywhere; }
+  .change-note { margin:0; }
+  .change-note p:first-child { margin-top:0; }
+  @media(max-width:700px) { .change-page { padding-top:36px; } .change-layout { display:flex; flex-direction:column; gap:0; margin-top:26px; } .change-day { grid-template-columns:1fr; gap:10px; } .change-day ul { margin-left:3px; } .change-note { order:-1; margin-bottom:24px; } }
+</style>

@@ -1,5 +1,10 @@
 // Source messages stay in Chinese so the static site remains readable without JS.
 export const messages = {
+  '更新': 'Updates', '功能更新': 'Changelog', '记录这个小宇宙的变化。': 'A record of how this little universe has changed.',
+  '新增': 'Added', '删除': 'Removed', '优化': 'Improved', '修复': 'Fixed',
+  '历史记录根据 Git 提交整理，日期为提交日期。': 'History is curated from Git commits; dates are commit dates.',
+  '暂无删除记录。': 'No removals recorded yet.', '查看提交': 'View commit',
+
   '动态是如何运作的': 'How moments work',
   '发表与讨论': 'Posting and discussion',
   'giscus 把发表的内容保存到 GitHub Discussion。打开讨论区时，giscus 自行获取评论；登录 GitHub 后可以发表或回复。': 'giscus saves posts in a GitHub Discussion and loads comments when you open it. Sign in to GitHub to post or reply.',
