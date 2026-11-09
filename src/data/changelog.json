@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-11-09",
+    "type": "fixed",
+    "text": "修复未来规划复制后未展开发表输入框的问题。",
+    "en": "Fixed the planning comment box remaining closed after copying."
+  },
+  {
+    "date": "2026-11-09",
     "type": "added",
     "text": "新增未来规划专区，通过表格记录并查看文章、博客功能等规划。",
     "en": "Added a planning table for articles, blog features, and custom categories."

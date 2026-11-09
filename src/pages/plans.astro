@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { giscusConfig } from '../site.config';
 import snapshot from '../data/plans.json';
@@ -40,7 +40,7 @@ const types = [...new Set(['文章', '博客功能', ...plans.map(plan => plan.t
         <label class="plans-content-field">内容<textarea name="content" rows="4" placeholder="写下具体想做的事"></textarea></label>
         <div class="plans-form-actions"><button type="submit">复制 Markdown</button><span data-copy-status role="status" aria-live="polite"></span></div>
       </form>
-      <details class="moments-discussion" data-pagefind-ignore><summary>打开发表输入框</summary>
+      <details class="moments-discussion" data-plan-discussion data-pagefind-ignore><summary>打开发表输入框</summary>
         <p>使用 GitHub 登录后，将复制的内容粘贴并发表。只同步站长发表的规划；更新后需要等待构建部署。</p>
         {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number} data-compose-mode="true"><p data-comment-status>登录 GitHub 后即可发表。</p><div class="giscus"></div><a href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a></div> : <p>规划 Discussion 尚未配置，请按 README 设置。</p>}
       </details>
@@ -74,11 +74,20 @@ const types = [...new Set(['文章', '博客功能', ...plans.map(plan => plan.t
       const data = new FormData(form);
       const markdown = formatPlan(Object.fromEntries(data.entries()));
       const status = form.querySelector<HTMLElement>('[data-copy-status]');
-      try { await navigator.clipboard.writeText(markdown); if (status) status.textContent = '已复制，请粘贴到下方输入框。'; }
-      catch { if (status) status.textContent = '无法自动复制，请使用下方文本手动复制。'; }
+      const discussion = document.querySelector<HTMLDetailsElement>('[data-plan-discussion]');
       let preview = form.querySelector<HTMLTextAreaElement>('[data-plan-preview]');
-      if (!preview) { preview = document.createElement('textarea'); preview.dataset.planPreview = ''; preview.readOnly = true; preview.rows = 8; preview.setAttribute('aria-label', '生成的 Markdown'); form.append(preview); }
-      preview.value = markdown;
+      try {
+        await navigator.clipboard.writeText(markdown);
+        if (preview) preview.remove();
+        if (status) status.textContent = '已复制。请在下方 GitHub 评论框粘贴并发表。';
+        if (discussion) { discussion.open = true; discussion.scrollIntoView({ block: 'start' }); }
+      } catch {
+        if (status) status.textContent = '无法自动复制，请复制下方文本，再粘贴到 GitHub 评论框。';
+        if (!preview) { preview = document.createElement('textarea'); preview.dataset.planPreview = ''; preview.readOnly = true; preview.rows = 8; preview.setAttribute('aria-label', '手动复制的 Markdown'); form.append(preview); }
+        preview.value = markdown;
+        preview.focus(); preview.select();
+        if (discussion) discussion.open = true;
+      }
     });
   </script>
 </BaseLayout>

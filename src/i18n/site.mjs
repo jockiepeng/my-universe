@@ -5,6 +5,7 @@ export const messages = {
   '历史记录根据 Git 提交整理，日期为提交日期。': 'History is curated from Git commits; dates are commit dates.',
   '暂无删除记录。': 'No removals recorded yet.', '查看提交': 'View commit',
 
+  '已复制。请在下方 GitHub 评论框粘贴并发表。': 'Copied. Paste it into the GitHub comment box below and post.', '无法自动复制，请复制下方文本，再粘贴到 GitHub 评论框。': 'Could not copy automatically. Copy the text below and paste it into the GitHub comment box.', '手动复制的 Markdown': 'Markdown to copy manually',
   '未来规划': 'Plans', '记录接下来想做的事。': 'Keep track of what comes next.', '把想做的事写下来，一步一步完成。': 'Write down what you want to do and work through it.',
   '记录新规划': 'Add a plan', '规划列表': 'Plans', '更新状态时，请打开对应的 GitHub 评论并修改状态。': 'Open the corresponding GitHub comment to update its status.',
   '搜索': 'Search', '搜索名称、内容或类型': 'Search names, details or types', '类型': 'Type', '全部类型': 'All types', '状态排序': 'Sort by status', '待开始优先': 'Not started first', '已完成优先': 'Completed first',
