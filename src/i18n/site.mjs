@@ -5,6 +5,13 @@ export const messages = {
   '历史记录根据 Git 提交整理，日期为提交日期。': 'History is curated from Git commits; dates are commit dates.',
   '暂无删除记录。': 'No removals recorded yet.', '查看提交': 'View commit',
 
+  '生活锦囊': 'Life tips', '把实用的方法和生活中的小发现收集起来。': 'Practical guides and useful discoveries for everyday life.',
+  '发表锦囊': 'Share a tip', '使用站长的 GitHub 账号发表；建议第一行写标题，后面写步骤和标签。': 'Sign in with the site owner’s GitHub account. Start with a title, then add steps and tags.',
+  '登录 GitHub 后即可发表。': 'Sign in to GitHub to post.', '生活锦囊尚未配置 Discussion。': 'The life tips discussion has not been configured.',
+  '搜索锦囊': 'Search tips', '搜索标题、内容或标签': 'Search titles, content or tags', '还没有锦囊，敬请期待。': 'No tips yet. Check back soon.',
+  '只展示站长发表的锦囊，发表后会自动同步，请稍候。': 'Only the site owner’s tips appear here. New posts appear after syncing.',
+  '第一行可以用 Markdown 标题，内容中可以添加标签，方便搜索。': 'Start with a Markdown heading and add tags to make tips easier to find.',
+  '没有找到符合条件的锦囊。': 'No tips match your search.',
   '动态是如何运作的': 'How moments work',
   '发表与讨论': 'Posting and discussion',
   'giscus 把发表的内容保存到 GitHub Discussion。打开讨论区时，giscus 自行获取评论；登录 GitHub 后可以发表或回复。': 'giscus saves posts in a GitHub Discussion and loads comments when you open it. Sign in to GitHub to post or reply.',

@@ -1,0 +1,65 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { giscusConfig } from '../site.config';
+import snapshot from '../data/life-tips.json';
+import '../styles/moments.css';
+
+const number = import.meta.env.PUBLIC_LIFE_TIPS_DISCUSSION_NUMBER || '';
+const configured = Boolean(giscusConfig.repoId && giscusConfig.categoryId && /^\d+$/.test(number));
+const discussionUrl = `https://github.com/${giscusConfig.repo}/discussions/${number}`;
+const date = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="生活锦囊" description="把实用的方法和生活中的小发现收集起来。">
+  <div class="moments-page">
+    <header class="moments-header">
+      <div><h1>生活锦囊</h1><p>把实用的方法和生活中的小发现收集起来。</p></div>
+      {configured && <a class="moments-compose" href="#tips-discussion" aria-controls="tips-discussion">发表锦囊</a>}
+    </header>
+    <details id="tips-discussion" class="moments-discussion" data-pagefind-ignore>
+      <summary>发表锦囊</summary>
+      <p>使用站长的 GitHub 账号发表；建议第一行写标题，后面写步骤和标签。</p>
+      {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number} data-compose-mode="true">
+        <p data-comment-status>登录 GitHub 后即可发表。</p><div class="giscus"></div>
+        <a class="u-comment-fallback" href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a>
+      </div> : <p>生活锦囊尚未配置 Discussion。</p>}
+    </details>
+    <div class="moments-layout">
+      <section aria-label="生活锦囊">
+        <form class="moments-filters" data-tips-search hidden><label>搜索锦囊<input type="search" placeholder="搜索标题、内容或标签" /></label></form>
+        <p data-tips-status role="status" aria-live="polite"></p>
+        <div class="moments-feed">
+          {snapshot.moments.length === 0 && <p>还没有锦囊，敬请期待。</p>}
+          {snapshot.moments.map((tip: any) => <article class="moment-card" data-tip data-i18n-skip>
+            <div class="moment-avatar"><img src={tip.author.avatarUrl} alt="" loading="lazy" /></div>
+            <div class="moment-main"><header class="moment-meta"><strong>{tip.author.login}</strong><time datetime={tip.createdAt}>{date.format(new Date(tip.createdAt))}</time></header>
+              <div class="moment-body" set:html={tip.bodyHTML}></div>
+              <a class="moment-reply moment-original" href={tip.url} target="_blank" rel="noopener noreferrer">查看、编辑或删除</a>
+            </div>
+          </article>)}
+        </div>
+      </section>
+      <aside class="moments-note"><span class="moments-orbit" aria-hidden="true">✦</span><p>只展示站长发表的锦囊，发表后会自动同步，请稍候。</p><p>第一行可以用 Markdown 标题，内容中可以添加标签，方便搜索。</p></aside>
+    </div>
+  </div>
+  <script>
+    import '../scripts/article-services';
+    import { filterTips } from '../lib/life-tips.mjs';
+    const compose = document.querySelector<HTMLAnchorElement>('.moments-compose');
+    const discussion = document.querySelector<HTMLDetailsElement>('#tips-discussion');
+    compose?.addEventListener('click', event => { event.preventDefault(); if (discussion) { discussion.open = true; discussion.scrollIntoView({ block: 'start' }); } });
+    const form = document.querySelector<HTMLFormElement>('[data-tips-search]');
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-tip]')];
+    const status = document.querySelector<HTMLElement>('[data-tips-status]');
+    if (form && status && cards.length) {
+      form.hidden = false;
+      form.addEventListener('submit', event => event.preventDefault());
+      form.addEventListener('input', () => {
+        const query = form.querySelector<HTMLInputElement>('input')?.value || '';
+        const entries = cards.map((card, id) => ({ id, body: card.querySelector('.moment-body')?.textContent || '' }));
+        const matches = new Set(filterTips(entries, query).map((entry: { id: number }) => entry.id));
+        cards.forEach((card, id) => { card.hidden = !matches.has(id); });
+        status.textContent = matches.size ? '' : '没有找到符合条件的锦囊。';
+      });
+    }
+  </script>
+</BaseLayout>

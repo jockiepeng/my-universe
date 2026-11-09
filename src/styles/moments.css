@@ -66,3 +66,5 @@
 .moments-status:empty { display:none; }
 .moments-pagination { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:22px; color:var(--u-muted); font-size:13px; }
 .moments-pagination button:disabled { opacity:.45; cursor:default; }
+
+.moment-card[hidden] { display: none; }
