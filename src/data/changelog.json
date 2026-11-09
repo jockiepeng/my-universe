@@ -2,6 +2,12 @@
   {
     "date": "2026-11-09",
     "type": "added",
+    "text": "新增未来规划专区，通过表格记录并查看文章、博客功能等规划。",
+    "en": "Added a planning table for articles, blog features, and custom categories."
+  },
+  {
+    "date": "2026-11-09",
+    "type": "added",
     "text": "新增生活锦囊专区，支持直接发表和搜索实用知识。",
     "en": "Added Life Tips for publishing and searching practical knowledge.",
     "commit": "d471bdb"

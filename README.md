@@ -266,3 +266,9 @@ npm run verify
 `/life-tips/` 使用独立 GitHub Discussion，站长在页面通过 giscus 发表顶级评论；列表仅显示站长内容。每条第一行推荐写 Markdown 标题，后面写步骤和可搜索的标签。访客评论不会进入锦囊列表。
 
 在 giscus 所用仓库创建专用 Discussion，在仓库 Actions Variables 设置 `LIFE_TIPS_DISCUSSION_NUMBER` 为其编号，不要与动态共用。站长账号沿用 `MOMENTS_AUTHOR`（默认仓库所有者），giscus 和令牌配置沿用动态。运行 Pages workflow 后生效。增删改触发同步，定时任务兜底；独立快照在同步失败时保留最近一次成功结果。同步和部署可能延迟，编辑或删除可通过锦囊的 GitHub 链接完成。
+
+## 未来规划
+
+`/plans/` 将文章、博客功能及自定义类型的规划保存在独立 GitHub Discussion。填写页面表单并复制 Markdown，粘贴到 giscus 发表；保留字段名和顺序，修改状态时使用表格中的链接到对应 GitHub 评论编辑。仅站长的有效规划进入列表，编辑或删除后通过 Actions 同步并部署，可能有延迟。搜索、类型筛选与状态排序在浏览器执行；内容与分类保存在 Discussion，不使用本地存储。Discussion 是公开的，请勿填写私密内容。
+
+在 giscus 所用仓库创建与动态、生活锦囊不同的一条 Discussion，在仓库 Actions Variables 设置 `PLANS_DISCUSSION_NUMBER` 为其编号；站长账号、giscus 和令牌配置沿用动态。将代码部署到 main 后运行 Pages workflow。同步失败时独立缓存保留最近一次成功的快照；尚未成功同步时列表为空。

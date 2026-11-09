@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build:
-    if: ${{ github.event_name != 'discussion_comment' || (github.event.discussion.number == fromJSON(vars.MOMENTS_DISCUSSION_NUMBER || '6') || (vars.LIFE_TIPS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.LIFE_TIPS_DISCUSSION_NUMBER || '0'))) }}
+    if: ${{ github.event_name != 'discussion_comment' || (github.event.discussion.number == fromJSON(vars.MOMENTS_DISCUSSION_NUMBER || '6') || (vars.LIFE_TIPS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.LIFE_TIPS_DISCUSSION_NUMBER || '0')) || (vars.PLANS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.PLANS_DISCUSSION_NUMBER || '0'))) }}
     runs-on: ubuntu-latest
     env:
       ASTRO_TELEMETRY_DISABLED: '1'
@@ -30,6 +30,7 @@ jobs:
       PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
       PUBLIC_MOMENTS_DISCUSSION_NUMBER: ${{ vars.MOMENTS_DISCUSSION_NUMBER || '6' }}
       PUBLIC_LIFE_TIPS_DISCUSSION_NUMBER: ${{ vars.LIFE_TIPS_DISCUSSION_NUMBER }}
+      PUBLIC_PLANS_DISCUSSION_NUMBER: ${{ vars.PLANS_DISCUSSION_NUMBER }}
       PUBLIC_MOMENTS_AUTHOR: ${{ vars.MOMENTS_AUTHOR || github.repository_owner }}
     steps:
       - uses: actions/checkout@v6
@@ -98,6 +99,29 @@ jobs:
         with:
           path: src/data/life-tips.json
           key: life-tips-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Restore plans snapshot
+        if: github.event_name != 'pull_request' && vars.PLANS_DISCUSSION_NUMBER != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: src/data/plans.json
+          key: plans-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: plans-
+      - name: Sync plans
+        if: github.event_name != 'pull_request' && vars.PLANS_DISCUSSION_NUMBER != ''
+        id: sync_plans
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.MOMENTS_TOKEN || secrets.GITHUB_TOKEN }}
+          MOMENTS_REPO: ${{ vars.PUBLIC_GISCUS_REPO || github.repository }}
+          PLANS_DISCUSSION_NUMBER: ${{ vars.PLANS_DISCUSSION_NUMBER }}
+          MOMENTS_AUTHOR: ${{ vars.MOMENTS_AUTHOR || github.repository_owner }}
+        run: node scripts/sync-plans.mjs
+      - name: Save plans snapshot
+        if: steps.sync_plans.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: src/data/plans.json
+          key: plans-${{ github.run_id }}-${{ github.run_attempt }}
       - run: npm ci
       - run: npm run verify
       - uses: actions/upload-pages-artifact@v4

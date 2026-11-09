@@ -1,0 +1,114 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { giscusConfig } from '../site.config';
+import snapshot from '../data/plans.json';
+import { parsePlan } from '../lib/plans.mjs';
+import '../styles/moments.css';
+
+const number = import.meta.env.PUBLIC_PLANS_DISCUSSION_NUMBER || '';
+const configured = Boolean(giscusConfig.repoId && giscusConfig.categoryId && /^\d+$/.test(number));
+const discussionUrl = `https://github.com/${giscusConfig.repo}/discussions/${number}`;
+const plans = snapshot.moments.flatMap((moment: any) => {
+  const plan = parsePlan(moment.body);
+  return plan ? [{ ...plan, url: moment.url }] : [];
+});
+const types = [...new Set(['文章', '博客功能', ...plans.map(plan => plan.type)])];
+---
+<BaseLayout title="未来规划" description="记录接下来想做的事。">
+  <div class="plans-page">
+    <header class="plans-heading"><div><h1>未来规划</h1><p>把想做的事写下来，一步一步完成。</p></div><a href="#plan-compose">记录新规划</a></header>
+    <section class="plans-list" aria-labelledby="plans-title">
+      <div class="plans-list-head"><div><h2 id="plans-title">规划列表</h2><p>更新状态时，请打开对应的 GitHub 评论并修改状态。</p></div><span>{plans.length} 条规划</span></div>
+      <form class="plans-filters" data-plans-filters>
+        <label>搜索<input type="search" name="query" placeholder="搜索名称、内容或类型" /></label>
+        <label>类型<select name="type"><option value="">全部类型</option>{types.map(type => <option value={type}>{type}</option>)}</select></label>
+        <label>状态排序<select name="order"><option value="pending">待开始优先</option><option value="complete">已完成优先</option></select></label>
+      </form>
+      <div class="plans-table-wrap"><table><thead><tr><th>类型</th><th>名称</th><th>内容</th><th>计划时间</th><th>完成状态</th><th>操作</th></tr></thead>
+        <tbody data-plans-body>{plans.map(plan => <tr data-plan data-type={plan.type} data-status={plan.status} data-search={`${plan.type} ${plan.title} ${plan.content}`}>
+          <td>{plan.type}</td><td class="plan-title">{plan.title}</td><td class="plan-content">{plan.content || '—'}</td><td>{plan.date || '待定'}</td><td><span class:list={['plan-status', {'is-done': plan.status === '已完成', 'is-progress': plan.status === '进行中'}]}>{plan.status}</span></td><td><a href={plan.url} target="_blank" rel="noopener noreferrer">变更状态</a></td>
+        </tr>)}</tbody></table></div>
+      <p class="plans-empty" data-plans-empty>{plans.length ? '' : '还没有规划，先记录一件想做的事。'}</p>
+    </section>
+    <section id="plan-compose" class="plans-compose" aria-labelledby="compose-title">
+      <div><h2 id="compose-title">记录新规划</h2><p>填写后复制 Markdown，粘贴到下方输入框并发表。自定义类型会在同步后加入类型列表。</p></div>
+      <form data-plan-form class="plans-form">
+        <label>类型<input name="type" list="plan-types" value="博客功能" required maxlength="80" /><datalist id="plan-types">{types.map(type => <option value={type} />)}</datalist></label>
+        <label>名称<input name="title" required maxlength="150" placeholder="例如：优化文章搜索" /></label>
+        <label>计划时间<input name="date" type="date" /></label>
+        <label>完成状态<select name="status"><option>待开始</option><option>进行中</option><option>已完成</option></select></label>
+        <label class="plans-content-field">内容<textarea name="content" rows="4" placeholder="写下具体想做的事"></textarea></label>
+        <div class="plans-form-actions"><button type="submit">复制 Markdown</button><span data-copy-status role="status" aria-live="polite"></span></div>
+      </form>
+      <details class="moments-discussion" data-pagefind-ignore><summary>打开发表输入框</summary>
+        <p>使用 GitHub 登录后，将复制的内容粘贴并发表。只同步站长发表的规划；更新后需要等待构建部署。</p>
+        {configured ? <div data-giscus data-repo={giscusConfig.repo} data-repo-id={giscusConfig.repoId} data-category={giscusConfig.category} data-category-id={giscusConfig.categoryId} data-mapping="number" data-term={number} data-compose-mode="true"><p data-comment-status>登录 GitHub 后即可发表。</p><div class="giscus"></div><a href={discussionUrl} target="_blank" rel="noopener noreferrer">前往 GitHub 查看讨论</a></div> : <p>规划 Discussion 尚未配置，请按 README 设置。</p>}
+      </details>
+    </section>
+  </div>
+  <script>
+    import '../scripts/article-services';
+    import { formatPlan } from '../lib/plans.mjs';
+    const filters = document.querySelector<HTMLFormElement>('[data-plans-filters]');
+    const body = document.querySelector<HTMLTableSectionElement>('[data-plans-body]');
+    const empty = document.querySelector<HTMLElement>('[data-plans-empty]');
+    const rows = [...document.querySelectorAll<HTMLTableRowElement>('[data-plan]')];
+    const rank: Record<string, number> = { '待开始': 0, '进行中': 1, '已完成': 2 };
+    function update() {
+      if (!filters || !body || !empty) return;
+      const data = new FormData(filters);
+      const term = String(data.get('query') || '').trim().toLocaleLowerCase();
+      const type = String(data.get('type') || '');
+      const reverse = data.get('order') === 'complete';
+      let visible = 0;
+      for (const row of rows) { row.hidden = !((row.dataset.search || '').toLocaleLowerCase().includes(term) && (!type || row.dataset.type === type)); if (!row.hidden) visible++; }
+      [...rows].sort((a, b) => (rank[a.dataset.status || ''] - rank[b.dataset.status || '']) * (reverse ? -1 : 1)).forEach(row => body.append(row));
+      empty.textContent = visible ? '' : (rows.length ? '没有找到符合条件的规划。' : '还没有规划，先记录一件想做的事。');
+    }
+    filters?.addEventListener('submit', event => event.preventDefault());
+    filters?.addEventListener('input', update);
+    filters?.addEventListener('change', update);
+    document.querySelector<HTMLFormElement>('[data-plan-form]')?.addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = event.currentTarget as HTMLFormElement;
+      const data = new FormData(form);
+      const markdown = formatPlan(Object.fromEntries(data.entries()));
+      const status = form.querySelector<HTMLElement>('[data-copy-status]');
+      try { await navigator.clipboard.writeText(markdown); if (status) status.textContent = '已复制，请粘贴到下方输入框。'; }
+      catch { if (status) status.textContent = '无法自动复制，请使用下方文本手动复制。'; }
+      let preview = form.querySelector<HTMLTextAreaElement>('[data-plan-preview]');
+      if (!preview) { preview = document.createElement('textarea'); preview.dataset.planPreview = ''; preview.readOnly = true; preview.rows = 8; preview.setAttribute('aria-label', '生成的 Markdown'); form.append(preview); }
+      preview.value = markdown;
+    });
+  </script>
+</BaseLayout>
+<style>
+  .plans-page { max-width: 1120px; margin: 0 auto; padding: 58px 0 90px; }
+  .plans-heading, .plans-list-head { display:flex; justify-content:space-between; gap:24px; align-items:end; }
+  .plans-heading { border-bottom:1px solid var(--u-line); padding-bottom:28px; }
+  h1 { margin:0 0 10px; font-size:clamp(30px,4vw,42px); font-weight:550; }
+  h2 { margin:0 0 8px; font-size:21px; }
+  p { color:var(--u-muted); line-height:1.7; }
+  .plans-heading p, .plans-list-head p { margin:0; }
+  .plans-heading a, button { background:var(--u-link); color:var(--u-bg); border:0; border-radius:6px; padding:10px 16px; text-decoration:none; white-space:nowrap; cursor:pointer; }
+  .plans-list { margin-top:42px; }
+  .plans-list-head span { color:var(--u-muted); font-size:13px; white-space:nowrap; }
+  .plans-filters, .plans-form { display:grid; gap:16px; margin:24px 0; }
+  .plans-filters { grid-template-columns:2fr 1fr 1fr; }
+  .plans-form { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  label { display:grid; gap:7px; font-size:13px; color:var(--u-muted); }
+  input,select,textarea { box-sizing:border-box; width:100%; padding:10px; border:1px solid var(--u-line); border-radius:6px; background:var(--u-surface, transparent); color:var(--u-text); font:inherit; }
+  .plans-table-wrap { overflow-x:auto; border-top:1px solid var(--u-line); }
+  table { width:100%; border-collapse:collapse; min-width:760px; text-align:left; }
+  th,td { padding:15px 12px; border-bottom:1px solid var(--u-line); vertical-align:top; font-size:14px; }
+  th { color:var(--u-muted); font-size:12px; font-weight:500; }
+  tr[hidden] { display:none; } .plan-title { font-weight:600; } .plan-content { white-space:pre-wrap; min-width:200px; overflow-wrap:anywhere; }
+  .plan-status { display:inline-block; padding:3px 8px; border:1px solid var(--u-line); border-radius:4px; white-space:nowrap; }
+  .is-done { color:#238363; } .is-progress { color:var(--u-link); }
+  .plans-empty { font-size:14px; } .plans-empty:empty { display:none; }
+  .plans-compose { margin-top:62px; padding-top:32px; border-top:1px solid var(--u-line); }
+  .plans-content-field, .plans-form-actions, textarea[data-plan-preview] { grid-column:1 / -1; }
+  .plans-form-actions { display:flex; gap:16px; align-items:center; font-size:13px; color:var(--u-muted); }
+  .moments-discussion { margin-top:24px; }
+  @media(max-width:700px) { .plans-page { padding-top:36px; } .plans-heading { align-items:start; flex-direction:column; } .plans-filters { grid-template-columns:1fr; } .plans-form { grid-template-columns:1fr; } }
+</style>

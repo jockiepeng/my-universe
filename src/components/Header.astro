@@ -8,7 +8,7 @@ import { scenePresets, openingPresets } from '../lib/motion.mjs';
 interface Props { home?: boolean }
 const { home = false } = Astro.props;
 const pathname = Astro.url.pathname;
-const nav = [{ path: '/', label: '首页' }, { path: '/moments/', label: '动态' }, { path: '/life-tips/', label: '生活锦囊' }, { path: '/archive/', label: '归档' }, { path: '/changelog/', label: '更新' }, { path: '/games/', label: '游戏' }, { path: '/tools/', label: '工具' }, { path: '/about/', label: '关于我' }];
+const nav = [{ path: '/', label: '首页' }, { path: '/moments/', label: '动态' }, { path: '/life-tips/', label: '生活锦囊' }, { path: '/plans/', label: '未来规划' }, { path: '/archive/', label: '归档' }, { path: '/changelog/', label: '更新' }, { path: '/games/', label: '游戏' }, { path: '/tools/', label: '工具' }, { path: '/about/', label: '关于我' }];
 ---
 <header class="u-header-shell" data-pagefind-ignore>
  <div class="u-header-container">
