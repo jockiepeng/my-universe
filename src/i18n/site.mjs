@@ -3,6 +3,7 @@ export const messages = {
   '更新': 'Updates', '功能更新': 'Changelog', '记录这个小宇宙的变化。': 'A record of how this little universe has changed.',
   '新增': 'Added', '删除': 'Removed', '优化': 'Improved', '修复': 'Fixed',
   '历史记录根据 Git 提交整理，日期为提交日期。': 'History is curated from Git commits; dates are commit dates.',
+  '查看详情': 'View details',
   '暂无删除记录。': 'No removals recorded yet.', '查看提交': 'View commit',
 
   '已复制。请在下方 GitHub 评论框粘贴并发表。': 'Copied. Paste it into the GitHub comment box below and post.', '无法自动复制，请复制下方文本，再粘贴到 GitHub 评论框。': 'Could not copy automatically. Copy the text below and paste it into the GitHub comment box.', '手动复制的 Markdown': 'Markdown to copy manually',

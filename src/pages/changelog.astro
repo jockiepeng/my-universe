@@ -17,7 +17,16 @@ const dates = [...new Set(entries.map(entry => entry.date))];
           <h2><time datetime={date}>{date}</time></h2>
           <ul>{entries.filter(entry => entry.date === date).map(entry => <li>
             <span class:list={['change-label', `change-label--${entry.type}`]}>{labels[entry.type]}</span>
-            <span class="change-text" data-i18n-en={entry.en}>{entry.text}</span>
+            <div class="change-entry">
+              <span class="change-text" data-i18n-en={entry.en}>{entry.text}</span>
+              {'details' in entry && entry.details && <details class="change-details">
+                <summary>查看详情</summary>
+                <div class="change-detail-body">{entry.details.map(section => <section>
+                  <h3 data-i18n-en={section.enTitle}>{section.title}</h3>
+                  <p data-i18n-en={section.en}>{section.text}</p>
+                </section>)}</div>
+              </details>}
+            </div>
           </li>)}</ul>
         </section>)}
       </div>
@@ -45,6 +54,18 @@ const dates = [...new Set(entries.map(entry => entry.date))];
   .change-label--fixed { color:var(--u-warm); }
   .change-label--removed { color:var(--u-muted); }
   .change-text { overflow-wrap:anywhere; }
+  .change-entry { min-width:0; }
+  .change-details { margin-top:8px; }
+  .change-details summary { display:inline-flex; align-items:center; gap:6px; color:var(--u-link); cursor:pointer; font-size:13px; list-style:none; }
+  .change-details summary::-webkit-details-marker { display:none; }
+  .change-details summary::after { content:'⌄'; font-size:16px; transition:transform .15s ease; }
+  .change-details[open] summary::after { transform:rotate(180deg); }
+  .change-details summary:focus-visible { outline:2px solid var(--u-link); outline-offset:4px; }
+  .change-detail-body { margin:12px 0 2px; padding:4px 16px; border-left:2px solid var(--u-line); }
+  .change-detail-body section { margin:12px 0; }
+  .change-detail-body h3 { margin:0 0 4px; font-size:13px; font-weight:600; }
+  .change-detail-body p { margin:0; color:var(--u-muted); font-size:14px; line-height:1.8; }
+  @media (prefers-reduced-motion:reduce) { .change-details summary::after { transition:none; } }
   .change-note { margin:0; }
   .change-note p:first-child { margin-top:0; }
   @media(max-width:700px) { .change-page { padding-top:36px; } .change-layout { display:flex; flex-direction:column; gap:0; margin-top:26px; } .change-day { grid-template-columns:1fr; gap:10px; } .change-day ul { margin-left:3px; } .change-note { order:-1; margin-bottom:24px; } }

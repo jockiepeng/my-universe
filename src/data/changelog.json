@@ -1,21 +1,48 @@
 [
   {
     "date": "2026-11-09",
+    "type": "improved",
+    "text": "功能更新支持展开查看详细说明和技术原理。",
+    "en": "Changelog entries can expand to show details and implementation notes.",
+    "details": [
+      { "title": "原来的情况", "enTitle": "Before", "text": "功能更新页面只显示简短摘要，难以了解问题背景、功能细节和技术实现。", "en": "The changelog showed short summaries only, leaving the background, feature details and implementation unclear." },
+      { "title": "处理方式", "enTitle": "Change", "text": "为有详细内容的更新增加可展开区域，按更新类型组织说明，并为后续记录制定中英文维护规则。", "en": "Entries with details now have an expandable section organized by change type, with a documented bilingual maintenance rule for future updates." },
+      { "title": "更新后的效果", "enTitle": "Result", "text": "读者可以按需展开今天的更新，查看功能、问题处理过程和技术原理；历史摘要保持原样。", "en": "Readers can expand today's entries to see feature descriptions, fixes and implementation notes; older summaries remain unchanged." },
+      { "title": "技术原理", "enTitle": "How it works", "text": "更新数据以可选的 details 数组保存双语说明，Astro 生成原生 details 和 summary 元素；展开不依赖 JavaScript，已有无详情记录仍按原样显示。", "en": "An optional details array stores bilingual sections. Astro renders native details and summary elements without requiring JavaScript; entries without details remain unchanged." }
+    ]
+  },
+  {
+    "date": "2026-11-09",
     "type": "fixed",
     "text": "修复未来规划复制后未展开发表输入框的问题。",
-    "en": "Fixed the planning comment box remaining closed after copying."
+    "en": "Fixed the planning comment box remaining closed after copying.",
+    "details": [
+      { "title": "原来的情况", "enTitle": "Before", "text": "复制规划后，页面始终显示只读的 Markdown 预览，而真正的 giscus 发表区域仍处于折叠状态，容易误以为预览框可以提交。", "en": "After copying a plan, a read-only Markdown preview appeared while the actual giscus comment area remained collapsed, making the preview look like an input box." },
+      { "title": "处理方式", "enTitle": "Change", "text": "复制成功时自动展开并定位到发表区域；只有自动复制失败时，才显示用于手动复制的文本。", "en": "Successful copying now opens and scrolls to the posting area. The manual-copy text appears only when clipboard access fails." },
+      { "title": "更新后的效果", "enTitle": "Result", "text": "复制后可直接在展开的 GitHub 评论框中粘贴并发表；复制失败时仍可手动复制。", "en": "After copying, paste into the expanded GitHub comment box and post. If copying fails, the text remains available for manual copying." },
+      { "title": "技术原理", "enTitle": "How it works", "text": "页面使用浏览器 Clipboard API 复制 Markdown，再打开 details 发表区域；giscus 是独立的跨域组件，内容仍需由用户粘贴和提交。", "en": "The page uses the Clipboard API to copy Markdown and opens the details element. Giscus runs in a cross-origin frame, so the user still pastes and submits the comment." }
+    ]
   },
   {
     "date": "2026-11-09",
     "type": "added",
     "text": "新增未来规划专区，通过表格记录并查看文章、博客功能等规划。",
-    "en": "Added a planning table for articles, blog features, and custom categories."
+    "en": "Added a planning table for articles, blog features, and custom categories.",
+    "details": [
+      { "title": "功能内容", "enTitle": "What it does", "text": "未来规划以表格记录类型、名称、内容、计划时间和完成状态，支持搜索、按类型筛选和状态排序。填写表单后复制 Markdown 到 giscus 发表；自定义类型随已发布规划进入选项列表。", "en": "Plans display type, name, details, target date and status in a searchable table, with type filters and status sorting. A form generates Markdown for posting through giscus; published custom types become filter options." },
+      { "title": "更新方式", "enTitle": "Updating plans", "text": "点击某行的“变更状态”，前往对应 GitHub 评论编辑。同步和部署完成后，表格显示最新状态。", "en": "Use Change status to edit the corresponding GitHub comment. The table updates after synchronization and deployment." },
+      { "title": "技术原理", "enTitle": "How it works", "text": "独立 Discussion 保存评论；GitHub Actions 读取站长评论并生成快照，Astro 构建时解析固定 Markdown 字段，浏览器完成筛选和排序。数据更新不需要手动提交仓库。", "en": "A dedicated Discussion stores comments. GitHub Actions snapshots the owner's comments, Astro parses fixed Markdown fields at build time, and the browser filters and sorts the table. Updating a plan does not require a manual repository commit." }
+    ]
   },
   {
     "date": "2026-11-09",
     "type": "added",
     "text": "新增生活锦囊专区，支持直接发表和搜索实用知识。",
     "en": "Added Life Tips for publishing and searching practical knowledge.",
+    "details": [
+      { "title": "功能内容", "enTitle": "What it does", "text": "生活锦囊收集软件操作和生活中的实用知识。站长登录 GitHub 后可在页面发表，读者可以搜索标题、正文和标签；编辑或删除通过对应 GitHub 评论完成。", "en": "Life Tips collects useful software instructions and everyday knowledge. The owner can post after signing in with GitHub, and readers can search titles, content and tags. Editing and deletion use the corresponding GitHub comment." },
+      { "title": "技术原理", "enTitle": "How it works", "text": "giscus 将内容保存到专用 GitHub Discussion；Actions 读取站长的顶级评论生成独立快照，构建并部署页面。搜索在浏览器中进行，同步或部署期间列表可能延迟更新。", "en": "Giscus stores content in a dedicated GitHub Discussion. Actions snapshots the owner's top-level comments and builds and deploys the page. Search runs in the browser; the list may lag while synchronization and deployment complete." }
+    ],
     "commit": "d471bdb"
   },
   {
