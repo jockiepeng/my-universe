@@ -5,7 +5,7 @@ date: 2026-11-10T15:21:26+08:00
 category: 生活
 tags: [微信表情包, ChatGPT]
 kind: photo
-draft: true
+draft: false
 images:
   - src: ./first-wechat-stickers/01.png
     alt: 微笑的云团迈上台阶，身后是三张表情草图
@@ -29,3 +29,4 @@ images:
 3. 画面的质量比较低。
 
 其实，提交之前我就发现了这些问题。但我觉得第一版可以先不追求完美：先把整个流程跑通，再迭代优化。
+
