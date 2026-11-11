@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-11-11",
+    "type": "added",
+    "text": "新增提交和推送前的代码审查门禁，检查隐私、功能更新、内容列表和回归问题。",
+    "en": "Added review gates before commits and pushes for privacy, changelog quality, content listings and regressions.",
+    "details": [
+      {
+        "title": "功能内容",
+        "enTitle": "What it does",
+        "text": "提交和推送前必须提供匹配代码快照的审查报告；存在红线、说明缺项或必要验证未通过时阻止操作。最终校验文档开头汇总审查点与重点关注事项，下方提供具体证据。",
+        "en": "Commits and pushes require a report matching the code snapshot. Red lines, incomplete changelog details or failed required checks block the operation. A final document summarizes review points and concerns before detailed evidence."
+      },
+      {
+        "title": "使用方式",
+        "enTitle": "How to use it",
+        "text": "安装依赖后自动启用 Git hooks；暂存代码，创建并填写 review 报告，运行 review:verify，通过后暂存 JSON 与 Markdown 报告再提交。完整命令与红线见仓库 Review 规范。",
+        "en": "Installing dependencies enables Git hooks. Stage code, create and complete a review report, run review:verify, then stage both JSON and Markdown reports and commit after checks pass. The repository review guide documents commands and red lines."
+      },
+      {
+        "title": "技术原理",
+        "enTitle": "How it works",
+        "text": "Node 脚本将 Git 树指纹与父提交绑定至报告，提交和推送 hooks 检查对应快照；验证阶段执行现有测试、类型检查和构建，并检查正式文章与贴图的列表入口。本地 hooks 可被绕过，不能代替远程分支保护；隐私和内容语义仍需人工审查。",
+        "en": "A Node script binds reports to Git tree fingerprints and parent commits. Commit and push hooks check those snapshots. Verification runs existing tests, type checks, builds and published content listing checks. Local hooks can be bypassed and do not replace remote branch protection; privacy and semantic correctness still require human review."
+      }
+    ]
+  },
+  {
     "date": "2026-11-09",
     "type": "improved",
     "text": "功能更新支持展开查看详细说明和技术原理。",

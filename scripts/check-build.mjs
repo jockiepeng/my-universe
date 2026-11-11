@@ -1,6 +1,7 @@
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { assertPostListed } from './lib/content-list-review.mjs';
 import { normalizeBase } from '../src/lib/paths.mjs';
 
 const base = normalizeBase(process.env.BASE_PATH ?? '/my-universe');
@@ -41,3 +42,8 @@ assert.equal(indexedPages, articleFiles.length + interactiveFiles.length, '搜�
 assert.ok(!files.some(file => file.includes(`${path.sep}draft-example${path.sep}`)), '草稿不应生成静态路由');
 assert.ok(!files.some(file => file.includes(`${path.sep}draft-note${path.sep}`)), '迁移的草稿不应生成静态路由');
 console.log(`产物检查通过：${files.length} 个文件，${links} 个站内资源/链接，${indexedPages} 条可搜索内容；无草稿泄露。`);
+const listingFiles = files.filter(file => /^(index\.html|page\/[^/]+\/index\.html)$/.test(path.relative(output, file).split(path.sep).join('/')));
+const listingHtml = await Promise.all(listingFiles.map(file => readFile(file, 'utf8')));
+const archiveHtml = await readFile(path.join(output, 'archive/index.html'), 'utf8');
+for (const file of articleFiles) assertPostListed(path.relative(output, file).split(path.sep).join('/'), base, listingHtml, archiveHtml);
+console.log(`列表检查通过：${articleFiles.length} 篇正式文章/贴图均有首页分页和归档入口。`);

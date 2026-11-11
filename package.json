@@ -25,7 +25,14 @@
     "test:life-replay": "node scripts/life-replay-browser-smoke.mjs",
     "test:fortune": "node scripts/fortune-browser-smoke.mjs",
     "test:i18n": "node scripts/i18n-browser-smoke.mjs",
-    "verify": "npm test && npm run check && npm run build && node scripts/check-build.mjs"
+    "verify": "npm test && npm run check && npm run build && node scripts/check-build.mjs",
+    "prepare": "node scripts/install-review-hooks.mjs",
+    "hooks:install": "node scripts/install-review-hooks.mjs",
+    "review:init": "node scripts/review-gate.mjs init",
+    "review:verify": "node scripts/review-gate.mjs verify",
+    "review:check": "node scripts/review-gate.mjs commit",
+    "review:render": "node scripts/review-gate.mjs render",
+    "review:amend": "node scripts/review-gate.mjs amend"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",

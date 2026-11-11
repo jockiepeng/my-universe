@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+review_node=$(git config --get review.nodePath || true)
+"${review_node:-node}" scripts/review-gate.mjs commit
