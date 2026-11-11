@@ -2,6 +2,32 @@
   {
     "date": "2026-11-11",
     "type": "added",
+    "text": "首页新增过期规划通知与未读红点，打开通知后隐藏红点。",
+    "en": "Added overdue plan notifications on the homepage with an unread dot that clears when opened.",
+    "details": [
+      {
+        "title": "功能内容",
+        "enTitle": "What it does",
+        "text": "首页提示已过计划日期且待开始或进行中的规划，显示截止日期、逾期天数和状态；没有过期项时隐藏通知。",
+        "en": "The homepage lists overdue pending or ongoing plans with deadlines, days overdue and status. Notifications hide when none are overdue."
+      },
+      {
+        "title": "使用方式",
+        "enTitle": "How to use it",
+        "text": "点击“需要关注”展开通知并标记已读，红点消失；点击计划进入规划专区。新过期项再次触发红点。",
+        "en": "Open Needs attention to read notifications and clear the dot. Follow a plan to the planning page. Newly overdue items trigger the dot again."
+      },
+      {
+        "title": "技术原理",
+        "enTitle": "Implementation and limits",
+        "text": "浏览器读取构建时的规划快照，按北京时间判断过期；localStorage 按评论地址及截止日期保存已读状态，仅限当前浏览器，清除站点数据后重置。状态变更需等待同步部署；存储不可用时仅记住本次访问的已读状态。",
+        "en": "The browser checks the build-time plan snapshot against Beijing dates. localStorage tracks read items by comment URL and deadline in the current browser; clearing site data resets it. Status changes require synchronization and deployment. Without storage, read state lasts only for this visit."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-11",
+    "type": "added",
     "text": "新增提交和推送前的代码审查门禁，检查隐私、功能更新、内容列表和回归问题。",
     "en": "Added review gates before commits and pushes for privacy, changelog quality, content listings and regressions.",
     "details": [

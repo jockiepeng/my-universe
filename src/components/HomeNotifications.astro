@@ -1,0 +1,29 @@
+---
+import snapshot from '../data/plans.json';
+import { href } from '../lib/posts';
+---
+<details class="home-notifications" data-home-notifications data-plans={JSON.stringify(snapshot.moments)} hidden data-pagefind-ignore>
+  <summary>需要关注 <span data-notification-count></span><span class="notification-dot" data-notification-dot hidden aria-label="有未读通知"></span></summary>
+  <div class="notification-panel">
+    <p>计划日期已过，以下规划仍未完成。</p>
+    <ul data-notification-list></ul>
+    <a href={href('/plans/')}>查看全部规划 →</a>
+    <p class="notification-note">北京时间每日更新判断；规划状态需等待同步部署。已读仅保存在当前浏览器。</p>
+  </div>
+</details>
+<script>
+  import '../scripts/home-notifications';
+</script>
+<style>
+  .home-notifications { margin:0 0 28px; border:1px solid var(--u-line); border-radius:8px; background:var(--u-paper); }
+  .home-notifications[hidden], .notification-dot[hidden] { display:none; }
+  summary { padding:14px 18px; cursor:pointer; font-size:15px; font-weight:600; }
+  .notification-dot { display:inline-block; width:8px; height:8px; margin-left:8px; border-radius:50%; background:#dc3535; vertical-align:middle; }
+  .notification-panel { padding:0 18px 16px; }
+  p { color:var(--u-muted); font-size:13px; line-height:1.7; }
+  ul { list-style:none; padding:0; margin:14px 0; max-height:300px; overflow:auto; }
+  .notification-panel :global(li) { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 18px; padding:12px 0; border-top:1px solid var(--u-line); }
+  .notification-panel :global(li a) { overflow-wrap:anywhere; }
+  .notification-panel :global(li span) { color:var(--u-muted); font-size:13px; }
+  .notification-note { margin-bottom:0; font-size:12px; }
+</style>

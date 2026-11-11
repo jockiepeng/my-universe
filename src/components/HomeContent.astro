@@ -1,4 +1,5 @@
 ---
+import HomeNotifications from './HomeNotifications.astro';
 import DailyQuote from './DailyQuote.astro';
 import PostList from './PostList.astro';
 import Pagination from './Pagination.astro';
@@ -28,6 +29,7 @@ const rootTopics = topicTree(allPosts);
   </aside>
   <div class="u-main-grid">
     <section aria-labelledby="recent-title">
+      {current === 1 && <HomeNotifications />}
       <DailyQuote />
       <div class="u-section-head"><div class="u-list-heading"><h2 id="recent-title">{current === 1 ? '最近记录' : '往日记录'}</h2><span class="u-result-count" data-filter-count role="status" data-enhanced>显示 {posts.length} 篇</span></div><PostFilters /></div>
       <SubcategoryFilters posts={allPosts} />
