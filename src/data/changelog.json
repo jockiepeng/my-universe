@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-11-11",
+    "type": "improved",
+    "text": "通知移至导航栏头像菜单，进入通知后才清除未读红点。",
+    "en": "Moved notifications to the navigation avatar menu; unread dots clear only when notifications are opened.",
+    "details": [
+      {
+        "title": "原来的情况",
+        "enTitle": "Before",
+        "text": "通知位于首页内容区，展开即标为已读，没有导航栏头像入口。",
+        "en": "Notifications appeared in the homepage content and were marked read on expansion, without a navigation avatar."
+      },
+      {
+        "title": "优化方式",
+        "enTitle": "Change",
+        "text": "导航栏新增固定星球头像，头像菜单提供通知入口；未读时头像和通知入口均显示红点，点击头像不清除，进入通知弹窗才标记已读。",
+        "en": "A fixed planet avatar in the navigation opens a menu with Notifications. Both show unread dots; opening the avatar does not clear them. Opening the notification dialog marks items read."
+      },
+      {
+        "title": "更新后的效果",
+        "enTitle": "Result",
+        "text": "全站页面均可查看通知，无通知时保留头像入口并显示空状态；支持手机端、键盘和 Escape 关闭。",
+        "en": "Notifications are accessible across the site. The avatar stays available with an empty state when there are no notifications; mobile, keyboard and Escape closing are supported."
+      },
+      {
+        "title": "技术原理",
+        "enTitle": "How it works",
+        "text": "Header 复用规划快照和北京时间过期判断，原生 details 展开菜单、dialog 展示通知。固定头像采用内联 SVG；localStorage 保存本浏览器已读状态。规划状态仍需等待同步部署，清除站点数据会重置已读。",
+        "en": "The header reuses the plan snapshot and Beijing deadline rules, with native details and dialog elements. The fixed avatar uses inline SVG; localStorage saves read state in this browser. Plan updates require synchronization and deployment; clearing site data resets read state."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-11",
     "type": "added",
     "text": "首页新增过期规划通知与未读红点，打开通知后隐藏红点。",
     "en": "Added overdue plan notifications on the homepage with an unread dot that clears when opened.",

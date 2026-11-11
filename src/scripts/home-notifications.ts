@@ -1,11 +1,13 @@
 import { overduePlans } from '../lib/plan-notifications.mjs';
 
-const root = document.querySelector<HTMLDetailsElement>('[data-home-notifications]');
+const root = document.querySelector<HTMLElement>('[data-home-notifications]');
 if (root) {
   const key = 'universe:plan-notifications:read:v1';
   const moments = JSON.parse(root.dataset.plans || '[]');
   const list = root.querySelector<HTMLUListElement>('[data-notification-list]')!;
-  const dot = root.querySelector<HTMLElement>('[data-notification-dot]')!;
+  const dots = root.querySelectorAll<HTMLElement>('[data-notification-dot]');
+  const menu = root.querySelector<HTMLDetailsElement>('[data-profile-menu]')!;
+  const dialog = root.querySelector<HTMLDialogElement>('[data-notification-dialog]')!;
   let read = new Set<string>();
   let ids: string[] = [];
   function loadRead() {
@@ -14,7 +16,7 @@ if (root) {
       if (Array.isArray(stored)) read = new Set(stored.filter((id): id is string => typeof id === 'string'));
     } catch { /* Keep in-memory read state when storage is unavailable. */ }
   }
-  function showUnread() { dot.hidden = !ids.some(id => !read.has(id)); }
+  function showUnread() { dots.forEach(dot => { dot.hidden = !ids.some(id => !read.has(id)); }); }
   function markRead() {
     loadRead();
     ids.forEach(id => read.add(id));
@@ -25,7 +27,8 @@ if (root) {
     if (!root) return;
     const plans: { id: string; title: string; date: string; days: number; status: string }[] = overduePlans(moments);
     ids = plans.map(plan => plan.id);
-    root.hidden = plans.length === 0;
+    root.querySelector<HTMLElement>('[data-notification-empty]')!.hidden = plans.length > 0;
+    root.querySelector<HTMLElement>('.notification-panel')!.hidden = plans.length === 0;
     root.querySelector('[data-notification-count]')!.textContent = `（${plans.length}）`;
     list.replaceChildren(...plans.map(plan => {
       const item = document.createElement('li');
@@ -38,10 +41,14 @@ if (root) {
       return item;
     }));
     loadRead();
-    if (root.open) markRead();
+    if (dialog.open) markRead();
     else showUnread();
   }
-  root.addEventListener('toggle', () => { if (root.open) markRead(); });
+  root.querySelector('[data-notification-open]')!.addEventListener('click', () => { dialog.showModal(); menu.open = false; markRead(); });
+  root.querySelector('[data-notification-close]')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => menu.querySelector('summary')!.focus());
+  document.addEventListener('click', event => { if (event.target instanceof Node && !root.contains(event.target)) menu.open = false; });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') menu.open = false; });
   window.addEventListener('storage', event => { if (event.key === key || event.key === null) { read.clear(); loadRead(); showUnread(); } });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
   window.setInterval(update, 60000);

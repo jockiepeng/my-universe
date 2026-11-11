@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "parents": [
+    "68852fbbcc2976537f7e4db846a3a04f7875c594"
+  ],
+  "snapshot": "a09557669891bc86cf74a736b11fffc353d1e04986227f1796f9ae33101e80fd",
+  "reviewer": "Codex",
+  "featureChanges": true,
+  "redLines": [],
+  "concerns": [
+    "规划状态来自构建时快照，需要等待同步部署；已读保存在当前浏览器，清除站点数据后重置。已读通知仍可查看，红点仅表示未读。",
+    "导航栏头像为固定内联 SVG，不是用户账户或登录入口；通知弹窗依赖 JavaScript 与原生 dialog 支持。",
+    "当前仓库规划快照为空，浏览器测试通过仅在本地响应注入的虚拟规划覆盖未读场景，没有将测试规划或截图发布。浏览器测试需 Chrome，非标准安装位置通过 BROWSER_PATH 指定。"
+  ],
+  "checks": {
+    "privacy": {
+      "status": "pass",
+      "evidence": "逐项审查全部 6 个文件完整差异：Header、HomeContent、HomeNotifications、通知脚本、浏览器测试和 changelog。没有文件删除、配置/依赖变化、二进制图片或其他资源新增；无 GPS/EXIF 检查对象。头像为无身份信息的内联星球 SVG，无远程头像请求；新增内容未含密钥、真实个人资料、住址或第三方隐私，测试数据为虚构计划。浏览器截图仅保存在临时目录，不暂存。本次无须以既有公开信息豁免敏感内容。自动秘密扫描作为门禁补充，不替代人工审查。"
+    },
+    "changelog": {
+      "status": "pass",
+      "evidence": "核对本次 improved 记录，包含中英文摘要、原来的情况、优化方式、更新后的效果、技术原理，每节 title/enTitle/text/en 完整。具体描述从首页内容区移到全站导航头像，点击头像保留双红点、进入通知弹窗才已读、空状态、固定 SVG、原生 details/dialog、浏览器存储及同步部署限制，与实现一致。移除的首页入口属于迁移行为，已在前后说明中覆盖，未删除通知能力。历史记录未改。"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "没有新增文章、贴图、发布资源或修改草稿/分类/标签；固定头像是组件内联 SVG，不是发布文章或图片内容。Header 全站复用，不影响文章列表数据。已执行 npm run verify：260 个产物文件、2400 个站内资源/链接、21 条可搜索内容检查通过；12 篇正式文章/贴图均有首页分页及归档入口，无草稿泄露。新快照还将经 review:verify 重跑。"
+    },
+    "bugs": {
+      "status": "pass",
+      "evidence": "审查原生 details 的头像菜单、双红点同步、仅打开 dialog 才 markRead、关闭与焦点返回、Escape/外部点击收起、空状态、localStorage 降级、复用北京时间判断及全站 Header 挂载。npm run verify 成功：168 项测试，Astro 0 errors/0 warnings，构建及资源/列表检查通过。最终代码已运行 node scripts/home-notifications-browser-smoke.mjs 成功：头像菜单打开不标读、菜单和头像红点、打开通知已读、刷新保持、新过期项再提示、390px 菜单及弹窗边界、存储禁用、空状态、Escape 关闭，以及规划页键盘 Enter 打开头像与通知。人工检查移动端弹窗截图，动态列表样式正常；移动端菜单采用固定定位防止靠边溢出。git diff --check 通过。没有发现明确未解决缺陷；上述证据不承诺没有所有 Bug。"
+    }
+  },
+  "verification": {
+    "status": "pass",
+    "command": "npm run verify",
+    "snapshot": "a09557669891bc86cf74a736b11fffc353d1e04986227f1796f9ae33101e80fd",
+    "completedAt": "2026-11-11T12:29:12.511Z"
+  }
+}
