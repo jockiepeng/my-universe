@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "parents": [
+    "782bf258a7e8a28a29ee215db9cb5ec32cdc81a2"
+  ],
+  "snapshot": "4a156e9bb3e347ff692d95e1ae3417b3f6d931c4fe9be12677f130307aced095",
+  "reviewer": "Codex 主审 + review_photo 独立只读审查",
+  "featureChanges": false,
+  "redLines": [],
+  "concerns": [
+    "文章保持 draft: true；本次仅推送仓库草稿和配图，不会在网站发布。仓库可见范围内仍可读取草稿文件。",
+    "日期按整理日 2026-11-11 配置，正文“昨天”“上个月”沿用原稿；正式发布前需确认时间表述。",
+    "浏览器预览服务不可用，未进行浏览器视觉检查；本次无界面或交互代码变化，开发预览和图片仅完成 HTTP 验证，不能据此宣称视觉效果已验证。"
+  ],
+  "checks": {
+    "privacy": {
+      "status": "pass",
+      "evidence": "人工阅读全部新增正文、摘要、alt，并与本地原稿对照，无姓名、联系方式、精确地址、凭证或可辨识第三方身份信息。独立审查者通过 view_image 检查完整配图，为球馆离别插画，无可见敏感信息；逐块解析目标 PNG 仅 IHDR/IDAT/IEND，不含 EXIF/GPS/文本元数据。用户明确要求推送本次贴图文章；原 drafts 文件保持忽略且不暂存。自动门禁另扫描常见密钥模式，不将扫描等同于绝对隐私保证。"
+    },
+    "changelog": {
+      "status": "pass",
+      "evidence": "完整差异仅新增一篇 draft:true 的 photo 内容及其引用配图，无应用代码、配置、功能或正式发布内容变更。草稿通过 published-loader 在生产构建排除，无用户可见新增/修复/优化/删除，故 featureChanges=false，不修改功能专区；后续正式发布须重新审查。"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "逐项对照原稿，正文仅收紧重复表达，未添加事件；title/slug/date/datePrecision/category/tags/kind/summary/draft/images 均补齐。生活/人际关系是 topics.mjs 有效分类，单图相对路径存在、alt 与插画一致。图片用于本篇草稿，非单独发布。开发服务 GET /my-universe/posts/only-part-of-the-way-20261111/ 返回正确标题，HTML 解析找到唯一匹配 alt 图片，其处理后 WebP 请求为 HTTP 200。本次 review:verify 已成功执行；产物检查覆盖 260 个文件、2400 个站内资源/链接和 21 条搜索内容，12 篇正式文章均有首页分页及归档入口。额外逐文件扫描 dist，未发现草稿 slug、标题、特定正文、关联路径及与原图 SHA-256 相同的文件。生产 loader 在资产生成前删除草稿记录；草稿未进入公开页面和搜索。"
+    },
+    "bugs": {
+      "status": "pass",
+      "evidence": "完整差异仅两项新增内容，无删除、配置、代码或交互变化；独立审查未发现明确缺陷。开发预览 HTML 和图片 HTTP 检查通过，git diff --cached --check 无空白错误。按既有模板及 photo schema 检查字段，正式门禁通过 review:verify 实际运行 npm run verify（单元测试、Astro 类型检查、生产构建及产物检查）。不涉及界面/交互实现变化，无需交互回归浏览器用例；浏览器预览服务不可用，未宣称完成视觉 QA，限制已记录 concerns。 实际结果：168 项测试通过、0 失败；Astro 检查 196 个文件，0 errors、0 warnings；构建和产物检查通过。"
+    }
+  },
+  "verification": {
+    "status": "pass",
+    "command": "npm run verify",
+    "snapshot": "4a156e9bb3e347ff692d95e1ae3417b3f6d931c4fe9be12677f130307aced095",
+    "completedAt": "2026-11-11T15:23:19.684Z"
+  }
+}
