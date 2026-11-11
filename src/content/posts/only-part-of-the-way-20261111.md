@@ -7,7 +7,7 @@ category: 生活/人际关系
 tags: [运动, 人际关系, 生活感悟]
 kind: photo
 summary: 才刚熟悉起来的运动搭子要去上班了，有点舍不得，也真心替她高兴。以后时间能凑上，就再一起打球。
-draft: true
+draft: false
 images:
   - src: ./only-part-of-the-way-20261111/01.png
     alt: 一名男子握着球拍站在乒乓球台旁，望向正走出球馆的女子，敞开的门外洒着暖暖的阳光

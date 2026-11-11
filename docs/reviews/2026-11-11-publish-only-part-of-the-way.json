@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "parents": [
+    "03e1fefd9b97f3365ef12673a31655112f5c04ee"
+  ],
+  "snapshot": "6262187a749ab5162d4de86bc3406a298a33272d658df3b824601066edbcb35a",
+  "reviewer": "Codex 主审 + review_photo 独立审查",
+  "featureChanges": true,
+  "redLines": [],
+  "concerns": [
+    "文章现为 draft:false，正文和插画会在 GitHub Pages 部署后公开；按用户明确要求正式发布。",
+    "正文“昨天”“上个月”沿用原稿，以文章日期 2026-11-11 为参照；未补写未经确认的具体活动日期。",
+    "本地验证不等于远程部署成功；推送后仍需等待 GitHub Actions/Pages，评论与访问统计等外部服务可能受网络影响，浏览器检查隔离了外部请求。"
+  ],
+  "checks": {
+    "privacy": {
+      "status": "pass",
+      "evidence": "审查完整差异（文章 draft:true→false、新增双语功能记录），并重新阅读即将公开的全部正文、summary、alt。用户明确纠正要求作为正式文章并推送，公开意图充分；文本不含姓名、联系方式、精确地址、凭证或可识别第三方身份信息。配图为此前 view_image 人工核查的球馆插画，无可见敏感信息，本次字节未变；重新逐块验证 PNG CRC，块仅 IHDR/IDAT/IEND，无 EXIF、GPS、文本元数据。本地 drafts 仍忽略不暂存。自动密钥扫描仅补充人工审查。"
+    },
+    "changelog": {
+      "status": "pass",
+      "evidence": "src/data/changelog.json 新增 2026-11-11 added 记录，双语摘要及 details 每节 title/enTitle/text/en 齐全；人工核对功能内容、使用方式、技术原理与正式发布、分类标签、图片处理和 Pagefind 实现一致，明确远程部署延迟。保留全部历史记录原始格式与语义；未改历史内容。"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "仅将目标贴图 draft 设为 false，正文、日期、分类、标签、相对图片路径未变。生产构建已生成详情，产物检查识别 13 篇正式内容、268 个文件、2482 个站内资源/链接、22 条搜索内容，无草稿泄露。使用本地 Edge/Playwright 对 dist 执行 .tools/check-published-photo.mjs：确认首页唯一文章入口、贴图筛选可见、归档、生活/人际关系分类、运动/人际关系/生活感悟三个标签均存在详情入口；详情 h1 及正文正确，唯一图片 decode 成功且 naturalWidth/Height>0；Pagefind 搜索“运动搭子”命中本篇。1360/375px 无横向溢出，并检查手机预览图片与标题正文。脚本和截图位于忽略的 .tools，未作为产品代码提交。"
+    },
+    "bugs": {
+      "status": "pass",
+      "evidence": "按 systematic-debugging 定位未出现在列表的原因是 draft:true；改为 false 后生产页面和浏览器入口实测通过。独立审查覆盖完整差异及双语说明，无明确缺陷。npm run verify 预检全部通过（168测试、Astro 0错误0警告、构建及产物检查）；本轮 review:verify 已在当前暂存快照重新执行全部检查并通过。浏览器首次启动受沙箱限制，已在获准后使用本机 Edge 无头浏览器完成必要检查，全部通过；外部评论和统计隔离，不对其在线可用性作保证。git diff --cached --check 无错误。"
+    }
+  },
+  "verification": {
+    "status": "pass",
+    "command": "npm run verify",
+    "snapshot": "6262187a749ab5162d4de86bc3406a298a33272d658df3b824601066edbcb35a",
+    "completedAt": "2026-11-11T16:00:49.550Z"
+  }
+}

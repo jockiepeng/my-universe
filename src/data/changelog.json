@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-11-11",
+    "type": "added",
+    "text": "发布贴图《运动搭子要去上班了，这一程有点短》，记录短暂的运动陪伴与祝福。",
+    "en": "Published a photo post about a sports partner starting work, reflecting on brief companionship and offering good wishes.",
+    "details": [
+      {
+        "title": "功能内容",
+        "enTitle": "What is new",
+        "text": "正式发布这篇生活贴图，包含球馆离别插画和原稿整理的文字，归入“生活 / 人际关系”，标签为运动、人际关系和生活感悟。",
+        "en": "Published the illustrated life post with a gym farewell image and edited original text, under Life / Relationships with Sports, Relationships and Life Reflections tags."
+      },
+      {
+        "title": "使用方式",
+        "enTitle": "How to read it",
+        "text": "可从首页文章列表、贴图筛选、归档、对应分类和标签列表进入详情，上方查看配图、下方阅读正文，也可使用站内搜索查找。",
+        "en": "Open it from the homepage list, photo filter, archive, category or tag lists, or find it through site search. The detail page shows the image above the text."
+      },
+      {
+        "title": "技术原理",
+        "enTitle": "Implementation and limits",
+        "text": "将文章 frontmatter 的 draft 设为 false，由 Astro 内容集合生成正式页面和列表入口；相对路径配图经本地图片管线处理，Pagefind 在构建后索引正文。推送后需等待 GitHub Pages 部署完成才会在远程网站显示。",
+        "en": "Setting draft to false in frontmatter lets the Astro content collection generate the public page and list entries. The local image pipeline processes its relative image, and Pagefind indexes the text after building. The live site updates after GitHub Pages deployment completes."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-11",
     "type": "improved",
     "text": "通知移至导航栏头像菜单，进入通知后才清除未读红点。",
     "en": "Moved notifications to the navigation avatar menu; unread dots clear only when notifications are opened.",
