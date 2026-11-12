@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  discussions: read
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -19,7 +20,7 @@ concurrency:
 
 jobs:
   build:
-    if: ${{ github.event_name != 'discussion_comment' || (github.event.discussion.number == fromJSON(vars.MOMENTS_DISCUSSION_NUMBER || '6') || (vars.LIFE_TIPS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.LIFE_TIPS_DISCUSSION_NUMBER || '0')) || (vars.PLANS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.PLANS_DISCUSSION_NUMBER || '0'))) }}
+    if: ${{ github.event_name != 'discussion_comment' || (github.event.discussion.number == fromJSON(vars.NEWS_DISCUSSION_NUMBER || '9') || github.event.discussion.number == fromJSON(vars.MOMENTS_DISCUSSION_NUMBER || '6') || (vars.LIFE_TIPS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.LIFE_TIPS_DISCUSSION_NUMBER || '0')) || (vars.PLANS_DISCUSSION_NUMBER != '' && github.event.discussion.number == fromJSON(vars.PLANS_DISCUSSION_NUMBER || '0'))) }}
     runs-on: ubuntu-latest
     env:
       ASTRO_TELEMETRY_DISABLED: '1'
@@ -122,6 +123,29 @@ jobs:
         with:
           path: src/data/plans.json
           key: plans-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Restore news snapshot
+        if: github.event_name != 'pull_request'
+        uses: actions/cache/restore@v4
+        with:
+          path: src/data/news.json
+          key: news-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: news-
+      - name: Sync daily news
+        if: github.event_name != 'pull_request'
+        id: sync_news
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.NEWS_TOKEN || secrets.MOMENTS_TOKEN || secrets.GITHUB_TOKEN }}
+          NEWS_REPO: ${{ github.repository }}
+          NEWS_DISCUSSION_NUMBER: ${{ vars.NEWS_DISCUSSION_NUMBER || '9' }}
+          NEWS_AUTHOR: ${{ vars.NEWS_AUTHOR || github.repository_owner }}
+        run: node scripts/sync-news.mjs
+      - name: Save news snapshot
+        if: steps.sync_news.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: src/data/news.json
+          key: news-${{ github.run_id }}-${{ github.run_attempt }}
       - run: npm ci
       - run: npm run verify
       - uses: actions/upload-pages-artifact@v4

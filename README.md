@@ -287,3 +287,17 @@ npm run verify
 ## 提交与推送前 Review
 
 `npm ci` 自动安装本地提交和推送门禁，也可运行 `npm run hooks:install`。每次提交必须具备匹配当前代码和父提交的审查报告，隐私、功能专区内容完整性、文章/贴图列表展示、Bug 与验证均通过后才可放行。完整步骤及适用边界见 [Review 规范](docs/code-review.md)，助手强制规则见 [AGENTS.md](AGENTS.md)。
+
+### 每日新闻
+
+顶部导航“每日新闻”进入 `/news/`，默认展示最近一期；历史日报链接对应 `/news/YYYY-MM-DD/`。数据来自 [Discussion #9](https://github.com/jockiepeng/my-universe/discussions/9) 的 `jockiepeng` 顶级评论，读取约定见 [每日新闻协议](docs/discussion-news-protocol.md)。新闻及摘要按原文展示，界面支持中英文；来源链接由上游提供，下游不独立核实新闻事实。
+
+Actions 在新闻评论新增、编辑、删除及现有定时任务中同步，指定作者的顶级评论均视为日报（欢迎说明放在 Discussion 主帖，不放日报评论流）；完整分页和格式校验成功才原子替换 `src/data/news.json`，并保存快照缓存；失败沿用最近有效缓存，不使用部分读取结果删除日报，并通过独立的 `news-sync.json` 状态在页面提示本次同步失败。首次没有成功快照时为空状态。推送后需等待同步、构建及部署，无法保证 08:40 立即更新。缓存缺失且同步失败时无法恢复未入库的历史数据，可在 GitHub Actions 手动重新运行。
+
+默认 `NEWS_DISCUSSION_NUMBER=9`，`NEWS_AUTHOR` 为仓库所有者。Actions 读取凭证优先级为 `NEWS_TOKEN`、现有 `MOMENTS_TOKEN`、`GITHUB_TOKEN`，workflow 已声明 `discussions: read`；若仓库策略不允许内置 Token 读取 Discussion，可在仓库 Secrets 配置只有 Discussion 读取权限的 `NEWS_TOKEN`。这与外部脚本的写入凭证独立，不要把凭证写入网页或提交。
+
+本地可在环境中提供 `GITHUB_TOKEN` 后运行 `node scripts/sync-news.mjs`。脚本还支持 `NEWS_REPO`、`NEWS_DISCUSSION_NUMBER`、`NEWS_AUTHOR`，不配置凭证时会失败并保留已有快照。不要将运行环境或凭证文件加入 Git。
+
+通知按北京时间取今天、昨天、前天，每日报一期；打开弹窗保留新闻未读，成功打开对应日报才标记该日已读。同日修订不重复提醒，规划通知保留原有打开即读行为。已读仅保存在当前浏览器；存储不可用时只记住本次页面访问。
+
+验证：`npm run verify`、`npm run test:news`、`BROWSER_PATH="浏览器路径" node scripts/home-notifications-browser-smoke.mjs`。新闻浏览器检查在临时项目生成测试日报，不改真实快照；截图保存在忽略的 `.tools/screenshots/`。未生成真实数据前，不将测试日报作为正式新闻提交。

@@ -1,8 +1,10 @@
 ---
 import snapshot from '../data/plans.json';
+import news from '../data/news.json';
+import type { NewsSnapshot } from '../lib/news-types';
 import { href } from '../lib/posts';
 ---
-<div class="profile-notifications" data-home-notifications data-plans={JSON.stringify(snapshot.moments)} data-enhanced data-pagefind-ignore>
+<div class="profile-notifications" data-home-notifications data-plans={JSON.stringify(snapshot.moments)} data-news={JSON.stringify((news as NewsSnapshot).reports.map(({id, date}) => ({id, date})))} data-news-base={href('/news/')} data-enhanced data-pagefind-ignore>
   <details class="profile-menu" data-profile-menu>
     <summary aria-label="打开头像菜单" title="通知菜单">
       <svg class="profile-avatar" viewBox="0 0 40 40" role="img" aria-label="小宇宙头像"><rect x="1" y="1" width="38" height="38" rx="12" fill="#e8edf9" /><circle cx="20" cy="20" r="9" fill="#6676b8" /><ellipse cx="20" cy="20" rx="16" ry="5" transform="rotate(-30 20 20)" fill="none" stroke="#384b8b" stroke-width="2" /><circle cx="30" cy="8" r="2" fill="#dfac55" /></svg>
@@ -13,12 +15,13 @@ import { href } from '../lib/posts';
   <dialog class="notification-dialog" data-notification-dialog aria-labelledby="notification-title">
     <header><h2 id="notification-title">通知</h2><button type="button" data-notification-close aria-label="关闭通知">×</button></header>
     <p data-notification-empty hidden>暂无需要关注的通知。</p>
-    <div class="notification-panel">
+    <div class="notification-panel" data-plan-notifications>
       <p>计划日期已过，以下规划仍未完成。</p>
       <ul data-notification-list></ul>
       <a href={href('/plans/')}>查看全部规划 →</a>
     </div>
-    <p class="notification-note">按北京时间判断；规划状态需等待同步部署。已读仅保存在当前浏览器。</p>
+    <div class="notification-panel" data-news-notifications hidden><p>近三天未读日报</p><ul data-news-notification-list></ul><a href={href('/news/')}>查看全部新闻 →</a></div>
+    <p class="notification-note">按北京时间判断；内容更新需等待同步部署。新闻在阅读后标记已读，已读仅保存在当前浏览器。</p>
   </dialog>
 </div>
 <script>

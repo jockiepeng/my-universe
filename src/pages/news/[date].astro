@@ -1,0 +1,9 @@
+---
+import NewsPage from '../../components/NewsPage.astro';
+import snapshot from '../../data/news.json';
+import type { NewsSnapshot, NewsReport } from '../../lib/news-types';
+export function getStaticPaths() { return (snapshot as NewsSnapshot).reports.map(report => ({ params: { date: report.date }, props: { report } })); }
+interface Props { report: NewsReport }
+const { report } = Astro.props;
+---
+<NewsPage report={report} />

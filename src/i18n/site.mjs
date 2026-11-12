@@ -1,5 +1,25 @@
 // Source messages stay in Chinese so the static site remains readable without JS.
 export const messages = {
+  '本次日报同步失败，正在显示上次成功同步的内容。': 'Briefing synchronization failed. Showing the last successfully synchronized edition.',
+  '日报同步暂时失败，请稍后再来或查看 GitHub 来源。': 'Briefing synchronization failed. Please check back later or view the GitHub source.',
+  '尚无已同步日报，请稍后再来。': 'No briefings have been synchronized yet. Please check back later.',
+
+  '每日新闻': 'Daily news', '读懂今天，也回望历史': 'Understand today, remember the past',
+  '每天十条值得关注的新闻，与历史上的今天。': 'Ten stories worth reading, plus this day in history.',
+  '查看日报来源 ↗': 'View briefing source ↗', '历史日报': 'Past briefings', '最新一期': 'Latest edition',
+  '按日期浏览日报': 'Browse briefings by date', '尚无历史日报。': 'No past briefings yet.',
+  '每天北京时间 08:40 推送，随后同步部署；内容不足时按实际条数展示。': 'Published at 08:40 Beijing time, then synchronized and deployed. Counts reflect available stories.',
+  '最近同步：': 'Last synchronized: ', '（北京时间）': '(Beijing time)', '尚未同步日报。': 'No briefing has been synchronized yet.',
+  '日报': 'Daily briefing', '查看原始日报 ↗': 'View original briefing ↗', '新闻价值': 'Why it matters',
+  '来源：': 'Source: ', '阅读原文 ↗': 'Read original ↗', '回望历史': 'Looking back', '历史上的今天': 'On this day',
+  '事件来源 ↗': 'Event source ↗', '本期暂无历史事件。': 'No historical events in this edition.',
+  '切换日报': 'Switch briefing', '较新一期': 'Newer edition', '较早一期': 'Older edition',
+  '日报正在路上': 'Your briefing is on its way', '还没有已同步的新闻，请稍后再来。': 'No news has been synchronized yet. Please check back later.',
+  '你也可以前往 GitHub 查看最新日报。': 'You can also check GitHub for the latest briefing.',
+  '今日新闻已更新。': 'Today’s briefing is available.', '今日新闻尚未同步，已有日报可继续阅读。': 'Today’s briefing has not been synchronized yet. Earlier editions are available.',
+  '近三天未读日报': 'Unread briefings from the last three days', '查看全部新闻 →': 'View all news →',
+  '按北京时间判断；内容更新需等待同步部署。新闻在阅读后标记已读，已读仅保存在当前浏览器。': 'Dates use Beijing time; updates require synchronization and deployment. News is marked read after opening a briefing. Read status stays in this browser.',
+
   '更新': 'Updates', '功能更新': 'Changelog', '记录这个小宇宙的变化。': 'A record of how this little universe has changed.',
   '新增': 'Added', '删除': 'Removed', '优化': 'Improved', '修复': 'Fixed',
   '历史记录根据 Git 提交整理，日期为提交日期。': 'History is curated from Git commits; dates are commit dates.',

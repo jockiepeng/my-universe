@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "parents": [
+    "84a84643a079bcbc870c36b341d5faf3de69178c"
+  ],
+  "snapshot": "989f6d8e1f7b12f6b55ca71abc699994b60315b64773a492fe9ca456e162173d",
+  "reviewer": "Codex 主审 + review_photo 独立代码/内容/封面审查",
+  "featureChanges": true,
+  "redLines": [],
+  "concerns": [
+    "每日新闻初始生产快照为空；真实数据需推送后由Actions从Discussion #9首次同步。受GitHub凭证、权限、上游Markdown格式和部署延迟影响；无有效快照时显示空状态，失败显示提示。",
+    "指定作者在新闻Discussion的所有顶级评论均按日报严格校验；欢迎说明应写主帖，非日报评论或格式误改会阻断同步并保留旧数据。",
+    "新闻已读仅限当前浏览器；存储不可用时仅保留当前页面访问状态。缓存丢失且同步失败时无法恢复未入库历史。",
+    "新博文包含电影剧情与结局讨论；封面保留C2PA来源凭证（含OpenAI/ChatGPT标识），不声明为无元数据或已验证来源签名真实性。",
+    "浏览器使用隔离的测试日报覆盖交互，外部评论/统计请求被隔离；本地测试不等于远程首次数据同步或第三方服务可用性。"
+  ],
+  "checks": {
+    "privacy": {
+      "status": "pass",
+      "evidence": "人工审查全部27个待提交文件（包含新增脚本/测试/文档/默认快照、workflow权限与凭证引用、新博文及二进制封面），无删除、密钥值、密码、精确地址或第三方私密信息。新增文章为电影人物及观后感；用户明确要求连同新增博文公开推送。主审及独立审查者均用view_image查看整张封面，雨中电影风格人物和街道，无联系方式、门牌地址或屏幕隐私。逐块校验PNG CRC：IHDR/caBX/IDAT/IEND，无eXIf及文本块；caBX为C2PA来源凭证，可读标识含OpenAI/ChatGPT、创建/转换/水印动作，检查未见GPS/EXIF字段、本机home路径、邮箱或私钥。保留来源凭证，不声称无元数据/已验签。仓库账号、Discussion链接由用户指定作为公开接入标识；workflow只引用Secret名，无值，浏览器不含Token。自动门禁常见密钥扫描另执行，不能替代人工审查。"
+    },
+    "changelog": {
+      "status": "pass",
+      "evidence": "src/data/changelog.json 新增两条2026-11-12 added记录：每日新闻功能、新发布《美丽人生》观后感。两条均有双语摘要及功能内容/使用方式/技术原理三节，每项title/enTitle/text/en完整。逐项对照新闻导航、v1.1解析、历史浏览、近三天通知、按日已读、Actions同步/缓存、失败提示与部署延迟；文章记录对应draft:false、生活分类、三个标签、封面和搜索。历史条目未更改。读取只读权限、外部数据/缓存及浏览器存储限制均有说明。"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "新增文章 title/slug/date/category/tags/kind/summary/draft/cover/coverAlt核对有效，draft:false、category=生活，标签电影/美丽人生/生活感悟，封面路径存在且alt与图一致；正文与所有资源已审查。运行 .tools/check-published-film-review.mjs 浏览器检查通过：首页唯一入口及文章筛选、归档、生活分类、三个标签、详情标题/正文、封面解码、1360/375px无横向溢出，Pagefind搜索“美丽人生”命中本篇。新闻样例仅在tests和临时构建，不作为正式内容发布；真实默认快照空，未复制私人drafts。本轮review:verify生产构建和check-build已重新核对列表、资源及草稿隔离并通过。主审查看375px文章截图，标题、封面和正文排版正常。"
+    },
+    "bugs": {
+      "status": "pass",
+      "evidence": "完整差异由主审及独立审查复核。之前发现的异常标题修订误当删除已通过严格parse修复，并以失败→通过测试确认；缺少失败/空状态问题通过独立news-sync侧文件及页面提示修复。单元测试覆盖v1.1多段文本/非法链接/日期/重复日报、API分页和失败保留、严格修订、北京时间边界、已读与损坏/拒绝存储。提交阶段运行npm run test:news通过：日期页/历史、导航高亮、安全文本、弹窗不清新闻已读、单日已读、跨标签同步、拒绝存储、英文及375px布局与空/失败状态；原home-notifications-browser-smoke检查通过：规划未读/已读/刷新/新逾期/手机/存储不可用/空状态。Workflow YAML语法及git diff --cached --check通过。本报告验证由review:verify实际执行npm run verify生成；未将外部真实凭证同步伪称本地通过。 本轮review:verify实际结果：181项测试通过、0失败；Astro检查209文件，0错误0警告；构建和产物检查通过（281文件、2765站内资源/链接、23搜索内容、14篇正式文章/贴图）。"
+    }
+  },
+  "verification": {
+    "status": "pass",
+    "command": "npm run verify",
+    "snapshot": "989f6d8e1f7b12f6b55ca71abc699994b60315b64773a492fe9ca456e162173d",
+    "completedAt": "2026-11-12T16:02:42.093Z"
+  }
+}

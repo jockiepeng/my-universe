@@ -9,7 +9,7 @@ import { scenePresets, openingPresets } from '../lib/motion.mjs';
 interface Props { home?: boolean }
 const { home = false } = Astro.props;
 const pathname = Astro.url.pathname;
-const nav = [{ path: '/', label: '首页' }, { path: '/moments/', label: '动态' }, { path: '/life-tips/', label: '生活锦囊' }, { path: '/plans/', label: '未来规划' }, { path: '/archive/', label: '归档' }, { path: '/changelog/', label: '更新' }, { path: '/games/', label: '游戏' }, { path: '/tools/', label: '工具' }, { path: '/about/', label: '关于我' }];
+const nav = [{ path: '/', label: '首页' }, { path: '/moments/', label: '动态' }, { path: '/news/', label: '每日新闻' }, { path: '/life-tips/', label: '生活锦囊' }, { path: '/plans/', label: '未来规划' }, { path: '/archive/', label: '归档' }, { path: '/changelog/', label: '更新' }, { path: '/games/', label: '游戏' }, { path: '/tools/', label: '工具' }, { path: '/about/', label: '关于我' }];
 ---
 <header class="u-header-shell" data-pagefind-ignore>
  <div class="u-header-container">
@@ -19,7 +19,7 @@ const nav = [{ path: '/', label: '首页' }, { path: '/moments/', label: '动态
   <div class="u-header-controls" id="header-controls" data-header-controls>
   <CalendarClock />
   <nav class="u-nav" aria-label="主导航">
-    {nav.map(item => <a href={href(item.path)} aria-current={pathname === href(item.path) || (['/games/', '/tools/'].includes(item.path) && pathname.startsWith(href(item.path))) ? 'page' : undefined}>{item.label}</a>)}
+    {nav.map(item => <a href={href(item.path)} aria-current={pathname === href(item.path) || (['/games/', '/tools/', '/news/'].includes(item.path) && pathname.startsWith(href(item.path))) ? 'page' : undefined}>{item.label}</a>)}
   </nav>
   <div class="u-actions" data-enhanced>
     <div class="u-scene-control">

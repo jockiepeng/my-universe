@@ -1,0 +1,7 @@
+---
+import NewsPage from '../../components/NewsPage.astro';
+import snapshot from '../../data/news.json';
+import type { NewsSnapshot } from '../../lib/news-types';
+const report = (snapshot as NewsSnapshot).reports[0];
+---
+<NewsPage report={report} />
