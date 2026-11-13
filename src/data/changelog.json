@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-11-13",
+    "type": "added",
+    "text": "发布《人生系统搭建 · 个人博客》，分享用 AI 搭建博客的思路、现有功能与使用感受。",
+    "en": "Published Building My Life System: Personal Blog, sharing the process of building a blog with AI, its features and experience using it.",
+    "details": [
+      {
+        "title": "功能内容",
+        "enTitle": "What is new",
+        "text": "新增人生系统系列文章，归入技术 / AI，配有首页、每日新闻、工具专区和游戏专区四张截图，介绍搭建动机、工具、部署、功能、提交前检查与使用限制。",
+        "en": "Added a Life System article under Technology / AI with four screenshots of the homepage, daily news, tools and games. It covers motivation, tools, deployment, features, pre-commit reviews and limitations."
+      },
+      {
+        "title": "使用方式",
+        "enTitle": "How to read it",
+        "text": "可从首页分页、归档、技术 / AI 分类、人生系统等标签或站内搜索进入文章，文末提供博客链接。",
+        "en": "Find the article through homepage pagination, the archive, Technology / AI, tags such as Life System, or site search. A blog link is included at the end."
+      },
+      {
+        "title": "技术原理",
+        "enTitle": "Implementation and limits",
+        "text": "Markdown 文章以 draft:false 纳入 Astro 内容集合，四张本地截图通过相对路径引用并参与静态构建，首页截图同时用作列表缩略图；Pagefind 在构建后生成全文索引。线上显示需等待提交、推送及 GitHub Pages 部署完成。",
+        "en": "The Markdown article uses draft:false in the Astro content collection. Four local screenshots use relative paths and participate in the static build; the homepage screenshot also serves as the list thumbnail. Pagefind generates the full-text index after building. The live article requires a commit, push and completed GitHub Pages deployment."
+      }
+    ]
+  },
+  {
     "date": "2026-11-12",
     "type": "added",
     "text": "发布《美丽人生》观后感：困境中的人生态度，分享对乐观、爱与行动的感受。",
