@@ -1,57 +1,5 @@
 [
   {
-    "date": "2026-11-13",
-    "type": "added",
-    "text": "发布《人生系统搭建 · 个人博客》，分享用 AI 搭建博客的思路、现有功能与使用感受。",
-    "en": "Published Building My Life System: Personal Blog, sharing the process of building a blog with AI, its features and experience using it.",
-    "details": [
-      {
-        "title": "功能内容",
-        "enTitle": "What is new",
-        "text": "新增人生系统系列文章，归入技术 / AI，配有首页、每日新闻、工具专区和游戏专区四张截图，介绍搭建动机、工具、部署、功能、提交前检查与使用限制。",
-        "en": "Added a Life System article under Technology / AI with four screenshots of the homepage, daily news, tools and games. It covers motivation, tools, deployment, features, pre-commit reviews and limitations."
-      },
-      {
-        "title": "使用方式",
-        "enTitle": "How to read it",
-        "text": "可从首页分页、归档、技术 / AI 分类、人生系统等标签或站内搜索进入文章，文末提供博客链接。",
-        "en": "Find the article through homepage pagination, the archive, Technology / AI, tags such as Life System, or site search. A blog link is included at the end."
-      },
-      {
-        "title": "技术原理",
-        "enTitle": "Implementation and limits",
-        "text": "Markdown 文章以 draft:false 纳入 Astro 内容集合，四张本地截图通过相对路径引用并参与静态构建，首页截图同时用作列表缩略图；Pagefind 在构建后生成全文索引。线上显示需等待提交、推送及 GitHub Pages 部署完成。",
-        "en": "The Markdown article uses draft:false in the Astro content collection. Four local screenshots use relative paths and participate in the static build; the homepage screenshot also serves as the list thumbnail. Pagefind generates the full-text index after building. The live article requires a commit, push and completed GitHub Pages deployment."
-      }
-    ]
-  },
-  {
-    "date": "2026-11-12",
-    "type": "added",
-    "text": "发布《美丽人生》观后感：困境中的人生态度，分享对乐观、爱与行动的感受。",
-    "en": "Published a reflection on Life Is Beautiful about optimism, love and taking action in difficult circumstances.",
-    "details": [
-      {
-        "title": "功能内容",
-        "enTitle": "What is new",
-        "text": "新增电影观后感文章，归入生活分类，包含电影、美丽人生和生活感悟标签，配有雨中人物封面。",
-        "en": "Added a film reflection under Life, tagged Film, Life Is Beautiful and Life Reflections, with a cover showing a man in the rain."
-      },
-      {
-        "title": "使用方式",
-        "enTitle": "How to read it",
-        "text": "可从首页文章列表、归档、生活分类及相关标签进入，也可通过站内搜索查找标题或正文。",
-        "en": "Open the article from the homepage list, archive, Life category or related tags, or search for its title and text."
-      },
-      {
-        "title": "技术原理",
-        "enTitle": "Implementation and limits",
-        "text": "文章以 draft:false 的 Markdown 纳入 Astro 内容集合，生成正式详情及列表入口；相对路径封面经本地图片管线处理，Pagefind 在构建后生成搜索索引。远程显示需等待 GitHub Pages 部署完成。",
-        "en": "The Markdown article uses draft:false in the Astro content collection to generate its public detail page and listings. The local image pipeline processes its relative cover path, and Pagefind builds the search index after the build. The live page becomes available after GitHub Pages deployment."
-      }
-    ]
-  },
-  {
     "date": "2026-11-12",
     "type": "added",
     "text": "新增每日新闻专区，从 Discussion 同步日报和历史事件，并在通知中提示近三天未读日报。",
@@ -74,32 +22,6 @@
         "enTitle": "Implementation and limits",
         "text": "Actions 分页读取 Discussion #9 中指定作者的 v1.1 Markdown，校验并生成站内快照，完整成功后更新与删除，失败保留旧快照；监听评论变更并定时同步。Astro 生成每日静态详情，浏览器按北京时间筛选今天及前两天，localStorage 保存本浏览器已读。上游08:40推送后仍需等待同步和部署，依赖GitHub权限与缓存；尚无快照时显示空状态，不含浏览器Token。",
         "en": "Actions paginates v1.1 Markdown comments by the allowed author in Discussion #9, validates a local snapshot and applies updates and deletions only on complete success. Failed syncs preserve the prior snapshot. Comment events and scheduled runs trigger sync. Astro generates dated pages; the browser uses Beijing calendar days and localStorage for per-browser read state. The 08:40 upstream push requires later synchronization and deployment, with GitHub permissions and cache availability. No snapshot shows an empty state; tokens are never sent to the browser."
-      }
-    ]
-  },
-  {
-    "date": "2026-11-11",
-    "type": "added",
-    "text": "发布贴图《运动搭子要去上班了，这一程有点短》，记录短暂的运动陪伴与祝福。",
-    "en": "Published a photo post about a sports partner starting work, reflecting on brief companionship and offering good wishes.",
-    "details": [
-      {
-        "title": "功能内容",
-        "enTitle": "What is new",
-        "text": "正式发布这篇生活贴图，包含球馆离别插画和原稿整理的文字，归入“生活 / 人际关系”，标签为运动、人际关系和生活感悟。",
-        "en": "Published the illustrated life post with a gym farewell image and edited original text, under Life / Relationships with Sports, Relationships and Life Reflections tags."
-      },
-      {
-        "title": "使用方式",
-        "enTitle": "How to read it",
-        "text": "可从首页文章列表、贴图筛选、归档、对应分类和标签列表进入详情，上方查看配图、下方阅读正文，也可使用站内搜索查找。",
-        "en": "Open it from the homepage list, photo filter, archive, category or tag lists, or find it through site search. The detail page shows the image above the text."
-      },
-      {
-        "title": "技术原理",
-        "enTitle": "Implementation and limits",
-        "text": "将文章 frontmatter 的 draft 设为 false，由 Astro 内容集合生成正式页面和列表入口；相对路径配图经本地图片管线处理，Pagefind 在构建后索引正文。推送后需等待 GitHub Pages 部署完成才会在远程网站显示。",
-        "en": "Setting draft to false in frontmatter lets the Astro content collection generate the public page and list entries. The local image pipeline processes its relative image, and Pagefind indexes the text after building. The live site updates after GitHub Pages deployment completes."
       }
     ]
   },

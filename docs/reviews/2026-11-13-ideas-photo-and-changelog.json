@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "parents": [
+    "73f70805df017d776b8dd576c8e7cf6d5a41a2a9"
+  ],
+  "snapshot": "2fa28677ac085c0c61220973bd30b2ef7f8b872acb5d748011c2139f77f72066",
+  "reviewer": "Codex 完整差异审查",
+  "featureChanges": false,
+  "redLines": [],
+  "concerns": [
+    "新贴图需等待推送后的 GitHub Actions 和 Pages 部署后才在线可见。小程序仍在等待审核是用户原稿的当时状态，不代表审核已经通过。",
+    "按用户明确要求，文章和贴图发布不再写入功能更新；移除了 3 条历史内容发布记录，保留 31 条功能记录，没有删除对应文章或旧 Git 历史。",
+    "原始文稿和原图保留在 Git 忽略的 drafts 目录；本次仅提交正式内容、配图、更新记录清理、规则文档和两份审查报告。评论与真实计数依赖外部服务，本地验证不覆盖线上登录和计数。"
+  ],
+  "checks": {
+    "privacy": {
+      "status": "pass",
+      "evidence": "完整审查 7 个待提交文件：新贴图 Markdown、一张 PNG、changelog 删除的三个对象及四份规则文档；无配置、依赖、可执行代码变化或其他文件删除。正文为用户主动提供且明确要求发布的个人开发体验，无凭证、住址或第三方私人信息。逐像素内容目视检查插画：纸飞机、蓝天、窗框、铅笔、草图和标语，无可见隐私。Sharp 检查 PNG 1086x1448，exif/xmp/iptc 均无；PNG 块仅 IHDR/caBX/IDAT/IEND，无 eXIf 或文本块，无 GPS EXIF。正式图与原图字节比较完全相同；原稿和临时截图不暂存。门禁自动扫描补充检查，不替代人工审查。"
+    },
+    "changelog": {
+      "status": "pass",
+      "evidence": "用户本轮明确要求“关于文章的输出不需要作为更新列表，将历史中关于文章的更新也去掉”，故纯内容发布与内容记录清理 featureChanges=false，不新增功能记录。只删除人生系统个人博客、美丽人生观后感、运动搭子贴图 3 条发布对象；程序比较确认剩余 31 条与原有对象完全相同、顺序不变，新增贴图不写入更新列表。AGENTS.md、README.md、src/data/AGENTS.md、docs/code-review.md 同步明确此范围，保留功能更新的双语要求及隐私/列表/构建门禁。已检查构建后的功能更新页面不含上述三条发布记录，没有将网站功能记录误删。"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "新贴图 title 当想法都能落地，什么才稀缺？，slug when-ideas-take-flight-20261113，draft:false，kind:photo，生活分类，AI/微信小程序/执行力标签。一张图通过 images 相对路径配置，补充准确 alt。源稿正文去掉标题和模板 frontmatter 后与正式正文逐字一致，标题取自正文而非模板占位。静态产物确认首页、归档、生活分类、全部三个标签、RSS 及 sitemap 有入口；Playwright 在 Pagefind 检索“当想法”命中本文，图片正常解码，详情显示纯文字和图片。无其他文章内容变化，无原始 drafts 文件泄露。"
+    },
+    "bugs": {
+      "status": "pass",
+      "evidence": "本次为内容发布和规则文档/历史列表清理，无交互代码改动。npm run verify 已通过 181 项测试、Astro 0 errors/0 warnings、构建及 300 文件/3012 资源链接检查；16 篇正式内容均有首页分页与归档入口，无草稿泄露。执行 node .tools/ideas-check.mjs（本地忽略目录测试脚本）通过标题、正文、一图解码、1360/390px 文章容器边界和 Pagefind 搜索检查。已目视检查原图与手机截图中的标题、图片和正文显示。git diff --check 通过。最终暂存快照将通过 review:verify 重新运行 verify，不使用旧报告放行。"
+    }
+  },
+  "verification": {
+    "status": "pass",
+    "command": "npm run verify",
+    "snapshot": "2fa28677ac085c0c61220973bd30b2ef7f8b872acb5d748011c2139f77f72066",
+    "completedAt": "2026-11-13T15:15:25.622Z"
+  }
+}
