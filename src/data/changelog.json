@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-11-14",
+    "type": "improved",
+    "text": "单篇贴图支持最多 10 张图片。",
+    "en": "Photo posts now support up to 10 images.",
+    "details": [
+      {
+        "title": "原来的情况",
+        "enTitle": "Before",
+        "text": "单篇贴图最多允许 9 张图片，10 张图片的内容组无法通过构建校验。",
+        "en": "Photo posts allowed at most nine images, so sets of ten failed build validation."
+      },
+      {
+        "title": "优化方式",
+        "enTitle": "Change",
+        "text": "将图片数量上限扩展到 10，保留至少一张、图片说明及不重复配置封面的要求。",
+        "en": "Raised the limit to ten while retaining the minimum of one image, descriptions and the restriction against duplicate cover configuration."
+      },
+      {
+        "title": "更新后的效果",
+        "enTitle": "Result",
+        "text": "可在一篇贴图中按顺序查看最多 10 张图片，支持滑动、按钮和键盘切换；首图仍作默认列表缩略图。",
+        "en": "View up to ten images in order using swipe, buttons or keyboard controls. The first image remains the default list thumbnail."
+      },
+      {
+        "title": "技术原理",
+        "enTitle": "How it works",
+        "text": "调整共享 photoPostIssues 校验器，测试 10 张通过、11 张拒绝，继续复用 Astro 响应式图片及轮播组件；部署后才在线生效。",
+        "en": "Updated the shared photoPostIssues validator, testing acceptance of ten and rejection of eleven images. Astro responsive images and the carousel are reused; the change becomes available after deployment."
+      }
+    ]
+  },
+  {
     "date": "2026-11-12",
     "type": "added",
     "text": "新增每日新闻专区，从 Discussion 同步日报和历史事件，并在通知中提示近三天未读日报。",

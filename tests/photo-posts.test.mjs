@@ -5,9 +5,9 @@ import { publishedLoader } from '../src/lib/published-loader.mjs';
 
 const images = count => Array.from({ length: count }, (_, i) => ({ src: { src: `/image-${i}.webp` }, alt: `照片 ${i + 1}` }));
 
-test('photo posts require one to nine images and cannot also use an article cover', () => {
-  for (const count of [1, 2, 4, 9]) assert.deepEqual(photoPostIssues({ kind: 'photo', images: images(count) }), []);
-  for (const count of [0, 10]) assert.match(photoPostIssues({ kind: 'photo', images: images(count) })[0].message, /1.*9/);
+test('photo posts require one to ten images and cannot also use an article cover', () => {
+  for (const count of [1, 2, 4, 9, 10]) assert.deepEqual(photoPostIssues({ kind: 'photo', images: images(count) }), []);
+  for (const count of [0, 11]) assert.match(photoPostIssues({ kind: 'photo', images: images(count) })[0].message, /1.*10/);
   assert.match(photoPostIssues({ kind: 'photo', images: images(1), cover: {} })[0].message, /cover/);
   assert.deepEqual(photoPostIssues({ kind: 'post', images: [], cover: {} }), []);
   assert.match(photoPostIssues({ kind: 'post', images: images(1) })[0].message, /photo/);
