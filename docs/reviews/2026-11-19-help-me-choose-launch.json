@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "parents": [
+    "5ed524c26ce2022609e58a271ddd36634a55fecb"
+  ],
+  "snapshot": "f7d5998d756f79798db56ec5921f7fad00cb6a96fe791b9f5e90ef1351675b1a",
+  "reviewer": "Codex（自动验证 + 文稿与图片人工审阅）",
+  "featureChanges": false,
+  "redLines": [],
+  "concerns": [
+    "小程序上线状态、七种功能及本机存储说明沿用用户指定的发布稿；本次未连接微信或审计小程序源码，不代表独立验证其实现。",
+    "操作指南为示意图，其中排序卡片额外标有可调整选中机会；正文未扩写该能力，并注明具体设置与规则以实际页面为准。",
+    "手机端指南按正文宽度缩放，细节需放大查看；正文完整列出七种功能和备份限制。",
+    "推送会触发现有 Pages 流程，远端部署结果与第三方阅读量、评论可用性不由本地构建保证。"
+  ],
+  "checks": {
+    "privacy": {
+      "status": "pass",
+      "evidence": "审查完整暂存差异：新增 1 篇 Markdown、2 张 PNG，无删除、配置或应用代码变化。逐行核对用户指定 drafts/文章.md，未加入凭证、住址、联系方式或第三方隐私。逐张查看原图与发布图内容：封面为手机/礼盒/骰子插画；指南为功能示意，小林/小陈/小李为示意姓名，无真实用户截图、账号或 GPS。PNG 分块检查后移除 cover 的 tEXt 及 guide 的 caBX 非必要元数据，保留 IHDR/IDAT/IEND 像素数据，无 eXIf。用户明确要求将该稿及配图公开到博客，助我选名称和开发者自述按此公开意图处理；原稿和其余 drafts 未暂存。报告未复制敏感信息。"
+    },
+    "changelog": {
+      "status": "pass",
+      "evidence": "featureChanges=false：仅发布助我选介绍文章及配图，未新增、修复、优化或删除网站功能。依 AGENTS.md 与 docs/code-review.md 不修改 src/data/changelog.json。"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "对照原稿保留全部七种功能、方案记录、备份与意见反馈说明，新增小节和图片替代文字，不编造开发经历。正式 kind=post、draft=false；技术父分类，标签为微信小程序/助我选/独立开发/随机选择；时间为北京时间含秒。使用相对本地资源，无 drafts 绝对路径进入正文。node .tools/check-new-post.mjs 使用 Microsoft Edge 对构建产物检查首页、归档、技术分类、全部四个标签的文章入口，详情标题与两张图片加载、搜索助我选返回文章、375px 无横向溢出，全部通过。已目视手机全页截图；指南细字需放大且正文提供完整功能摘要。截图位于忽略的 .tools/screenshots/help-me-choose-{desktop,mobile}.png。正式构建与草稿排除由 review:verify 中产物检查复核。"
+    },
+    "bugs": {
+      "status": "pass",
+      "evidence": "本次不修改交互或公共布局。npm run build 成功；新文章专项 Edge 浏览器检查全部通过、无 pageerror，首页/列表/搜索/详情/移动端均覆盖。首次检查脚本端口冲突，改用空闲端口；其后搜索按钮在手机菜单中不可见导致测试超时，调整为桌面视口检查搜索，未发现应用回归。git diff --cached --check 通过。后续由 npm run review:verify 实际运行 npm run verify（单元测试、Astro 检查、构建与产物检查），不以手写报告代替结果；未测试小程序本身。"
+    }
+  },
+  "verification": {
+    "status": "pass",
+    "command": "npm run verify",
+    "snapshot": "f7d5998d756f79798db56ec5921f7fad00cb6a96fe791b9f5e90ef1351675b1a",
+    "completedAt": "2026-11-19T04:08:19.647Z"
+  }
+}
